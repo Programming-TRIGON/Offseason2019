@@ -1,13 +1,11 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+
 /** This class sets what all of the robot instance components are */
 public class RobotComponents {
-    
-    /* Add your class components here, and remove comment. example: 
 
-    public static class Drivetrain {
-        public static final TalonSRX REAR_RIGHT_MOTOR = new TalonSRX(RobotMap.CAN.REAR_RIGHT_MOTOR);
-        etc.
+    public static class CargoFolder {
+        public static final DoubleSolenoid FOLDER_SOLENOID = new DoubleSolenoid(RobotMap.CAN.PCM_CAN, RobotMap.PCM.CARGO_FOLDER_SOLENOID_FORWARD, RobotMap.PCM.CARGO_FOLDER_SOLENOID_REVERSE);
     }
-    */
 }
