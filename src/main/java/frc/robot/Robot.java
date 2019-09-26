@@ -5,11 +5,11 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.RobotComponents.HatchHolder;
 
 public class Robot extends TimedRobot {
   public static OI oi;
-  // Add your Subsystem here, and remove comment. example: 
-  // public static Drivetrain drivetrain; 
+  public static HatchHolder hatchHolder; 
 
 
   private Command autonomousCommand;
@@ -17,8 +17,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
-    // Also add your Subsystem here, and remove comment. example:
-    // drivetrain = new Drivetrain(); 
+    hatchHolder = new HatchHolder(); 
 
 
     oi = new OI();
