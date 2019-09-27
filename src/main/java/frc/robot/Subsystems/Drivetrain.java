@@ -89,16 +89,24 @@ public class Drivetrain extends Subsystem {
     return this.rightEncoder.getSelectedSensorVelocity() + this.lefEncoder.getSelectedSensorVelocity();
   }
 
-    /** we calculate the acceleration of the robot as well as its velocity*/
-    @Override
-    public void periodic() {
-      double currentTime = Timer.getFPGATimestamp();
+  public double getLeftAcceleration(){
+    return this.leftAcceleration;
+  }
+
+  public double getRightAcceleration(){
+    return this.rightAcceleration;
+  }
+
+  /** we calculate the acceleration of the robot as well as its velocity*/
+  @Override
+  public void periodic() {
+    double currentTime = Timer.getFPGATimestamp();
   
-      this.leftAcceleration = getLeftVelocity() / (currentTime - prevTime);
-      this.rightAcceleration = getRightVelocity() / (currentTime - prevTime);
+    this.leftAcceleration = getLeftVelocity() / (currentTime - prevTime);
+    this.rightAcceleration = getRightVelocity() / (currentTime - prevTime);
   
-      this.prevTime = currentTime;
-    }
+    this.prevTime = currentTime;
+  }
 
   @Override
   public void initDefaultCommand() {
