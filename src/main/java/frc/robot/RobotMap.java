@@ -5,8 +5,8 @@ public class RobotMap {
     //TODO: add real values
     // Device ID's for devices connected to the CAN bus
     static class CAN {
-        public static final int LIFT_MOTER1 = 0;
-        public static final int LIFT_MOTOR2 = 1;
+        public static final int LIFT_MOTER_FRONT = 0;
+        public static final int LIFT_MOTOR_REAR = 1;
     }
 
     // Solenoid ports connected to PCM
