@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends TimedRobot {
   public static OI oi;
-  public static ; 
+  public static OI oh; 
 
   private Command autonomousCommand;
   private SendableChooser<Command> autonomousChooser = new SendableChooser<>();
