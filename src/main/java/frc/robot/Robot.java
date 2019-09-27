@@ -8,9 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends TimedRobot {
   public static OI oi;
-  // Add your Subsystem here, and remove comment. example: 
-  // public static Drivetrain drivetrain; 
-
+  public static ; 
 
   private Command autonomousCommand;
   private SendableChooser<Command> autonomousChooser = new SendableChooser<>();
