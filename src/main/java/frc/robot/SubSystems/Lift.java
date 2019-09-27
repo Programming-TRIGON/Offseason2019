@@ -11,13 +11,13 @@ import frc.robot.RobotConstants;
 public class Lift extends Subsystem {
   private SpeedControllerGroup motors;
   private Encoder encoder;
-  private DigitalInput switchTop, switchBottom;
+  private DigitalInput topSwitch, bottomSwitch;
 
   public Lift() {
     this.motors = RobotComponents.Lift.LIFT_MOTORS;
+    this.topSwitch = RobotComponents.Lift.LIFT_SWITCH_TOP;
+    this.bottomSwitch = RobotComponents.Lift.LIFT_SWITCH_BOTTOM;
     this.encoder = RobotComponents.Lift.LIFT_ENCODER;
-    this.switchTop = RobotComponents.Lift.LIFT_SWITCH_TOP;
-    this.switchBottom = RobotComponents.Lift.LIFT_SWITCH_BOTTOM;
     this.encoder.setDistancePerPulse(RobotConstants.Sensors.LIFT_ENCODER_DPP);
   }
 
@@ -25,7 +25,7 @@ public class Lift extends Subsystem {
     this.motors.set(power);
   }
 
-  public double getEncoder() {
+  public double getHeight() {
     return this.encoder.getDistance();
   }
 
@@ -34,11 +34,11 @@ public class Lift extends Subsystem {
   }
 
   public boolean getTopSwitch() {
-    return this.switchTop.get();
+    return this.topSwitch.get();
   }
 
   public boolean getBottomSwitch() {
-    return this.switchBottom.get();
+    return this.bottomSwitch.get();
   }
 
   @Override

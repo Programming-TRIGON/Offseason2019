@@ -14,6 +14,7 @@ public class RobotConstants {
     // TODO: set real values
     /** Constants for sensors on the robot */
     public static class Sensors {
+        /**distance per pulse */
         public static final double LIFT_ENCODER_DPP = 0;
     }
 }
