@@ -3,7 +3,7 @@ package frc.robot;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 
 /** This class sets what all of the robot instance components are */
 public class RobotComponents {
@@ -22,10 +22,7 @@ public class RobotComponents {
         public static final CANSparkMax RIGHT_FRONT_MOTOR = new CANSparkMax(RobotMap.CAN.DRIVETRAIN_RIGHT_FRONT_MOTOR,
                 MotorType.kBrushless);
 
-        public static final Encoder ENCODER_LEFT = new Encoder(RobotMap.DIO.DRIVETRAIN_ENCODER_LEFT_CHANNEL_A,
-                RobotMap.DIO.DRIVETRAIN_ENCODER_LEFT_CHANNEL_B);
-        public static final Encoder ENCODER_RIGHT = new Encoder(RobotMap.DIO.DRIVETRAIN_ENCODER_RIGHT_CHANNEL_A,
-                RobotMap.DIO.DRIVETRAIN_ENCODER_RIGHT_CHANNEL_B);
+        public static final ADXRS450_Gyro GYRO = new ADXRS450_Gyro();
     }
 
 }
