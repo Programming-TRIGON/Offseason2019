@@ -14,6 +14,8 @@ public class Drivetrain extends Subsystem {
   private WPI_TalonSRX rightEncoder, lefEncoder;
   private DifferentialDrive drivetrain;
   private ADXRS450_Gyro gyro;
+  private double prevTime=0, leftAcceleration=0, rightAcceleration=0;
+
 
   public Drivetrain() {
     this.leftDriveMotors = new SpeedControllerGroup(RobotComponents.Drivetrain.LEFT_FRONT_MOTOR,
@@ -86,6 +88,17 @@ public class Drivetrain extends Subsystem {
   public double getAverageVelocity(){
     return this.rightEncoder.getSelectedSensorVelocity() + this.lefEncoder.getSelectedSensorVelocity();
   }
+
+    /** we calculate the acceleration of the robot as well as its velocity*/
+    @Override
+    public void periodic() {
+      double currentTime = Timer.getFPGATimestamp();
+  
+      this.leftAcceleration = getLeftVelocity() / (currentTime - prevTime);
+      this.rightAcceleration = getRightVelocity() / (currentTime - prevTime);
+  
+      this.prevTime = currentTime;
+    }
 
   @Override
   public void initDefaultCommand() {
