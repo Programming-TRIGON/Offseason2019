@@ -11,6 +11,8 @@ public class RobotMap {
         public static final int DRIVETRAIN_RIGHT_REAR_MOTOR = 3;
         public static final int DRIVETRAIN_RIGHT_MIDDLE_MOTOR = 4;
         public static final int DRIVETRAIN_RIGHT_FRONT_MOTOR = 5;
+        public static final int PLACEHOLDER_TALON_LEFT = 6;
+        public static final int PLACEHOLDER_TALON_RIGHT = 7;
     }
 
     // Solenoid ports connected to PCM
