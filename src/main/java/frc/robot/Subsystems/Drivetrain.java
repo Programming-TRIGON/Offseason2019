@@ -37,6 +37,14 @@ public class Drivetrain extends Subsystem {
     return this.gyro.getAngle();
   }
 
+  public void resetGyro(){
+    this.gyro.reset();
+  }
+
+  public void calibrateGyro(){
+    this.gyro.calibrate();
+  }
+
   @Override
   public void initDefaultCommand() {
   }
