@@ -10,16 +10,12 @@ import frc.robot.SubSystems.Lift;
 public class Robot extends TimedRobot {
   public static OI oi;
   public static Lift lift;
-  // Add your Subsystem here, and remove comment. example:
-  // public static Drivetrain drivetrain;
 
   private Command autonomousCommand;
   private SendableChooser<Command> autonomousChooser = new SendableChooser<>();
 
   @Override
   public void robotInit() {
-    // Also add your Subsystem here, and remove comment. example:
-    // drivetrain = new Drivetrain();
 
     oi = new OI();
     lift = new Lift();
