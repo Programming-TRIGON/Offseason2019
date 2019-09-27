@@ -2,6 +2,7 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 
@@ -21,6 +22,8 @@ public class RobotComponents {
                 Lift.LIFT_MOTOR_REAR);
         public static final Encoder LIFT_ENCODER = new Encoder(RobotMap.DIO.LIFT_ENCODER_CHANNEL_A,
                 RobotMap.DIO.LIFT_ENCODER_CHANNEL_B);
+        public static final DigitalInput LIFT_SWITCH_TOP = new DigitalInput(RobotMap.DIO.LIFT_SWITCH_TOP);
+        public static final DigitalInput LIFT_SWITCH_BOTTOM = new DigitalInput(RobotMap.DIO.LIFT_SWITCH_BOTTOM);
     }
 
 }
