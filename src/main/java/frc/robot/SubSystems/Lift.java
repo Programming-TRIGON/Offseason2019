@@ -1,29 +1,29 @@
 package frc.robot.SubSystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotComponents;
 import frc.robot.RobotConstants;
 
 /** This is the subsystem of the lift */
 public class Lift extends Subsystem {
-  private SpeedControllerGroup motors;
   private DigitalInput topSwitch, bottomSwitch;
-  private WPI_TalonSRX encoder;
+  private TalonSRX frontMotor, rearMotor;
 
   public Lift() {
-    this.motors = RobotComponents.Lift.LIFT_MOTORS;
     this.topSwitch = RobotComponents.Lift.LIFT_SWITCH_TOP;
     this.bottomSwitch = RobotComponents.Lift.LIFT_SWITCH_BOTTOM;
     // TODO: find what motor has the encoder
-    this.encoder = RobotComponents.Lift.LIFT_MOTOR_FRONT;
+    this.frontMotor = RobotComponents.Lift.LIFT_MOTOR_FRONT;
+    this.rearMotor = RobotComponents.Lift.LIFT_MOTOR_REAR;
+    this.rearMotor.follow(this.frontMotor);
   }
 
   public void setMotorsPower(double power) {
-    this.motors.set(power);
+    this.frontMotor.set(ControlMode.PercentOutput, power);
   }
 
   public boolean getTopSwitch() {
@@ -35,12 +35,12 @@ public class Lift extends Subsystem {
   }
 
   public int getHeight() {
-    return this.encoder.getSelectedSensorPosition() / RobotConstants.Sensors.LIFT_ENCODER_TPD
+    return this.frontMotor.getSelectedSensorPosition() / RobotConstants.Sensors.LIFT_ENCODER_TPD
         + RobotConstants.Sensors.LIFT_ENCODER_OFFSET;
   }
 
-  public void restEncoderHeight() {
-    this.encoder.setSelectedSensorPosition(0);
+  public void resetEncoderHeight() {
+    this.frontMotor.setSelectedSensorPosition(0);
   }
 
   @Override
