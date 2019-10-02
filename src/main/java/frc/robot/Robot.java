@@ -5,24 +5,24 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.subsystems.Tilt;
-
+import frc.robot.SubSystems.Tilt;
+import frc.robot.SubSystems.Lift;
 public class Robot extends TimedRobot {
-  public static OI oi;
   public static Tilt tilt;
 
+  public static OI oi;
+  public static Lift lift;
 
   private Command autonomousCommand;
   private SendableChooser<Command> autonomousChooser = new SendableChooser<>();
 
   @Override
   public void robotInit() {
-    // Also add your Subsystem here, and remove comment. example:
-    // drivetrain = new Drivetrain(); 
-
 
     oi = new OI();
     tilt = new Tilt();
+    lift = new Lift();
+
     // autonomousChooser.setDefaultOption("Default Auto", new ExampleCommand());
     // autonomousChooser.addOption("Auto", new AutoCommand());
     SmartDashboard.putData("Auto mode", autonomousChooser);
