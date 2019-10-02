@@ -1,5 +1,5 @@
 
-package frc.robot.subsystems;
+package frc.robot.SubSystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -33,6 +33,6 @@ public class Tilt extends Subsystem {
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
+    
   }
 }
