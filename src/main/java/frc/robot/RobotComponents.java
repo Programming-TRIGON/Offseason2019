@@ -1,5 +1,9 @@
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
+import edu.wpi.first.wpilibj.Encoder;
+
 /** This class sets what all of the robot instance components are */
 public class RobotComponents {
     
@@ -10,4 +14,8 @@ public class RobotComponents {
         etc.
     }
     */
+    public static class Tilt{
+        public static final WPI_TalonSRX MOTOR = new WPI_TalonSRX(RobotMap.CAN.TILT_MOTOR); 
+        public static final Encoder ENCODER = new Encoder(RobotMap.DIO.ENCODER_A,RobotMap.DIO.ENCODER_B); 
+    } 
 }
