@@ -13,5 +13,7 @@ public class RobotConstants {
     
     /** Constants for sensors on the robot */
     public static class Sensors {
+        //TODO: find real dpp.
+        public static double TILT_DISTANCE_PER_PULSE = 1.0;
     }
 }
