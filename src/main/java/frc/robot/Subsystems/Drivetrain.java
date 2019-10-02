@@ -11,7 +11,7 @@ import frc.robot.RobotComponents;
 
 /** This is the susbsystem for the drivetrain of the robot */
 public class Drivetrain extends Subsystem {
-  private SpeedControllerGroup leftDriveMotors, rightDriveMotors;
+  private SpeedControllerGroup leftDriveGroup, rightDriveGroup;
   private WPI_TalonSRX rightEncoder, lefEncoder;
   private DifferentialDrive drivetrain;
   private ADXRS450_Gyro gyro;
@@ -19,11 +19,11 @@ public class Drivetrain extends Subsystem {
 
 
   public Drivetrain() {
-    this.leftDriveMotors = new SpeedControllerGroup(RobotComponents.Drivetrain.LEFT_FRONT_MOTOR,
+    this.leftDriveGroup = new SpeedControllerGroup(RobotComponents.Drivetrain.LEFT_FRONT_MOTOR,
         RobotComponents.Drivetrain.LEFT_MIDDLE_MOTOR, RobotComponents.Drivetrain.LEFT_REAR_MOTOR);
-    this.rightDriveMotors = new SpeedControllerGroup(RobotComponents.Drivetrain.RIGHT_FRONT_MOTOR,
+    this.rightDriveGroup = new SpeedControllerGroup(RobotComponents.Drivetrain.RIGHT_FRONT_MOTOR,
         RobotComponents.Drivetrain.RIGHT_MIDDLE_MOTOR, RobotComponents.Drivetrain.RIGHT_REAR_MOTOR);
-    this.drivetrain = new DifferentialDrive(leftDriveMotors, rightDriveMotors);
+    this.drivetrain = new DifferentialDrive(leftDriveGroup, rightDriveGroup);
     this.gyro = RobotComponents.Drivetrain.GYRO;
     this.rightEncoder = RobotComponents.Drivetrain.RIGHT_ENCODER_PLACEHOLDER;
     this.lefEncoder = RobotComponents.Drivetrain.LEFT_ENCODER_PLACEHOLDER;

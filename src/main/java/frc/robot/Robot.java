@@ -5,9 +5,11 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Subsystems.Drivetrain;
 
 public class Robot extends TimedRobot {
   public static OI oi;
+  public static Drivetrain drivetrain;
   // Add your Subsystem here, and remove comment. example: 
   // public static Drivetrain drivetrain; 
 
@@ -17,12 +19,11 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
-    // Also add your Subsystem here, and remove comment. example:
-    // drivetrain = new Drivetrain(); 
+
 
 
     oi = new OI();
-    
+    drivetrain = new Drivetrain();
     // autonomousChooser.setDefaultOption("Default Auto", new ExampleCommand());
     // autonomousChooser.addOption("Auto", new AutoCommand());
     SmartDashboard.putData("Auto mode", autonomousChooser);
