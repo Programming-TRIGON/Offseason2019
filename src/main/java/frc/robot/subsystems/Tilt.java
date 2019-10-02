@@ -4,6 +4,7 @@ package frc.robot.SubSystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotComponents;
 import frc.robot.RobotConstants;
@@ -22,12 +23,15 @@ public class Tilt extends Subsystem {
     this.talon = talon;
   }
 
-  public double getHeight() {
+  public double getAngle() {
     return encoder.get();
   }
 
   public void moveTilt(double power) {
     talon.set(ControlMode.PercentOutput, power);
+  }
+  public PIDSource getPIDSource(){
+    return encoder;
   }
 
   @Override

@@ -1,14 +1,17 @@
 package frc.robot;
 
+import com.spikes2212.utils.PIDSettings;
+
 /** This class used to store constants related to the robot */
 public class RobotConstants {
 
     /** Physical measurements of the robot */
     public static class RobotDimensions {
     }
-
+    //TODO: change PID settings values.
     /** All the robot pid values for monitoring */
     public static class RobotPIDSettings {
+        public static PIDSettings TILT_PID_SETTINGS = new PIDSettings(0, 0, 0, 0, 0);
     }
 
     // TODO: set real values
