@@ -6,12 +6,10 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 public class DriveArcade extends Command {
-  private Supplier<Double> x;
-  private Supplier<Double> y;
+  private Supplier<Double> x, y;
 
   public DriveArcade(Supplier<Double> x, Supplier<Double> y) {
     requires(Robot.drivetrain);
-
     this.x = x;
     this.y = y;
   }

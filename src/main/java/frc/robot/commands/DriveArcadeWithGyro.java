@@ -7,9 +7,8 @@ import frc.robot.GyroPIDSource;
 import frc.robot.Robot;
 
 public class DriveArcadeWithGyro extends Command {
-
-  private PIDSource gyroPIDSource; 
-  private PIDController gyroPIDController;
+  private PIDSource pidSource; 
+  private PIDController pidController;
 
   public DriveArcadeWithGyro() {
     requires(Robot.drivetrain);
@@ -17,11 +16,12 @@ public class DriveArcadeWithGyro extends Command {
 
   @Override
   protected void initialize() {
-    this.gyroPIDSource = new GyroPIDSource();
+    this.pidSource = new GyroPIDSource();
   }
 
   @Override
   protected void execute() {
+
   }
 
   @Override

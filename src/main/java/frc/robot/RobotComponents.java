@@ -29,5 +29,4 @@ public class RobotComponents {
 
         public static final ADXRS450_Gyro GYRO = new ADXRS450_Gyro();
     }
-
 }
