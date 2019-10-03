@@ -31,7 +31,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotPeriodic() {
-    System.out.println(Robot.oi.getJoystickDirection());
+    //System.out.println(Robot.oi.getJoystickDirection());
   }
 
   @Override
