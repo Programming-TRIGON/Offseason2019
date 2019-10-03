@@ -2,7 +2,7 @@ package frc.robot;
 
 /** This class defines the ports of the robot */
 public class RobotMap {
-    
+    // TODO: add real values
     // Device ID's for devices connected to the CAN bus
     static class CAN {
         public static final int DRIVETRAIN_LEFT_REAR_MOTOR = 0;
