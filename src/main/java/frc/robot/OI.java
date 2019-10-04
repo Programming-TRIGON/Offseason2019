@@ -11,11 +11,12 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class OI {
   
   public XboxController driver = new XboxController(0);
-  public Button MaxSpeedStop; 
+  public Button MaxSpeedStop, DriveStraightWithGyro; 
 
   public OI(){
 
     MaxSpeedStop = new JoystickButton(driver, 3);
+    DriveStraightWithGyro = new JoystickButton(driver, 2);
   }
 
 }
