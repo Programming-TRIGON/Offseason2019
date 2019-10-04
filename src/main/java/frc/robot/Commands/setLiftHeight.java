@@ -1,25 +1,27 @@
-package frc.robot.Commands;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Enums;
 import frc.robot.PidSettings;
 import frc.robot.Robot;
 import frc.robot.RobotConstants;
-import frc.robot.PidSources.LiftEncoderPidSource;
+import frc.robot.pidSources.LiftEncoderPidSource;
 
 public class setLiftHeight extends Command {
   private PidSettings pidSettings;
   private double setpoint, waitTime, timeOnTarget;
   private PIDController pidController;
-/**This command moves the lift to the desired setpoint */
-  public setLiftHeight(double setpoint, PidSettings pidSettings) {
+
+  /** This command moves the lift to the desired setpoint */
+  public setLiftHeight(Enums.LiftHeights setpoint, PidSettings pidSettings) {
     requires(Robot.lift);
     this.pidSettings = pidSettings;
-    this.setpoint = setpoint;
+    this.setpoint = setpoint.getHeight();
   }
 
-  public setLiftHeight(double setpoint) {
+  public setLiftHeight(Enums.LiftHeights setpoint) {
     this(setpoint, RobotConstants.RobotPIDSettings.LIFT_PID_SETTINGS);
   }
 
