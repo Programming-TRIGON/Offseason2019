@@ -1,4 +1,4 @@
-package frc.robot.Subsystems;
+package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -50,6 +50,10 @@ public class HatchHolder extends Subsystem {
   public void setSolenoidsOff() {
     this.lockerSolenoid.set(Value.kOff);
     this.ejectorSolenoid.set(Value.kOff);
+  }
+
+  private Value booleanToValue(boolean bool){
+    return bool ? Value.kForward : Value.kReverse;
   }
 
   @Override
