@@ -33,7 +33,7 @@ public class HatchHolder extends Subsystem {
    * sets the status of the rear solenoids, the ones that pushes the subsystem outwards.
    */
   public void setEjection(boolean eject) {
-    if(!lockState){
+    if(!lockState) {
       ejectionState = eject;      
       this.ejectorSolenoid.set(booleanToValue(eject));
     }
@@ -46,7 +46,7 @@ public class HatchHolder extends Subsystem {
 
   /** Convert boolean to DoubleSolenoid Value,
    *  true pushes the piston forward and false reverse the piston */
-  private Value booleanToValue(boolean forward){
+  private Value booleanToValue(boolean forward) {
     return forward ? Value.kForward : Value.kReverse;
   }
 
