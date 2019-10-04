@@ -9,6 +9,7 @@ import frc.robot.RobotComponents;
 public class HatchHolder extends Subsystem {
   private DoubleSolenoid lockerSolenoid, ejectorSolenoid;
   private Value lockState = Value.kForward, ejectionState = Value.kReverse;
+  private boolean lockStateB = true, ejectionStateB = false;
 
   public HatchHolder() {
     this.lockerSolenoid = RobotComponents.HatchHolder.LOCK_SOLENOID;
@@ -26,6 +27,13 @@ public class HatchHolder extends Subsystem {
     if (ejectionState == Value.kReverse) {
       lockState = value;
       this.lockerSolenoid.set(value);
+    }
+  }
+
+  public void setLock(boolean lock) {
+    if (ejectionStateB == false) {
+      lockStateB = lock;
+      this.lockerSolenoid.set(Value.kForward);
     }
   }
 
