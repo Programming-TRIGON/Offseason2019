@@ -9,6 +9,7 @@ public class RobotConstants {
 
     /** All the robot pid values for monitoring */
     public static class RobotPIDSettings {
+        public static final PidSettings DRIVETRAIN_TURN_PID_SETTINGS = new PidSettings(0, 0, 0, 0, 0);
     }
 
     /** Constants for sensors on the robot */
