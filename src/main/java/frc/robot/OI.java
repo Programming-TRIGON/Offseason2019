@@ -1,6 +1,8 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -9,10 +11,11 @@ import edu.wpi.first.wpilibj.XboxController;
 public class OI {
   
   public XboxController driver = new XboxController(0);
+  public Button MaxSpeedStop; 
 
   public OI(){
+
+    MaxSpeedStop = new JoystickButton(driver, 3);
   }
-  public double getJoystickDirection(){
-    return Math.atan2(this.driver.getX(), -this.driver.getY());
-  }
+
 }
