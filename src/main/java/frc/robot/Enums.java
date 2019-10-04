@@ -5,6 +5,4 @@ package frc.robot;
  * we convert human readable language to the robot language 
  */
 public class Enums {
-    public static enum PistonValue {
-    }
 }
