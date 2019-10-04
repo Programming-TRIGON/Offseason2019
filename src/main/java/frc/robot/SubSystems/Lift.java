@@ -34,8 +34,8 @@ public class Lift extends Subsystem {
     return this.bottomSwitch.get();
   }
 
-  public int getHeight() {
-    return this.frontMotor.getSelectedSensorPosition() / RobotConstants.Sensors.LIFT_ENCODER_TPD
+  public double getHeight() {
+    return this.frontMotor. getSelectedSensorPosition() / RobotConstants.Sensors.LIFT_ENCODER_TPD
         + RobotConstants.Sensors.LIFT_ENCODER_OFFSET;
   }
 

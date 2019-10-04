@@ -7,8 +7,10 @@ public class RobotConstants {
     public static class RobotDimensions {
     }
 
+    // TODO: set configure pid settings
     /** All the robot pid values for monitoring */
     public static class RobotPIDSettings {
+        public static final PidSettings LIFT_PID_SETTINGS = new PidSettings(0.1, 0.0, 0.0, 5.0, 1.0);
     }
 
     // TODO: set real values
