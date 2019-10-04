@@ -20,27 +20,32 @@ public class Lift extends Subsystem {
     this.frontMotor = RobotComponents.Lift.LIFT_MOTOR_FRONT;
     this.rearMotor = RobotComponents.Lift.LIFT_MOTOR_REAR;
     this.rearMotor.follow(this.frontMotor);
+    // TODO: set real values
+    this.frontMotor.configVoltageCompSaturation(11);
+    this.rearMotor.configVoltageCompSaturation(11);
+    // TODO: find out if i need to config both motors
+    this.frontMotor.configOpenloopRamp(0.5);
   }
 
   public void setMotorsPower(double power) {
-    this.frontMotor.set(ControlMode.PercentOutput, power);
+    frontMotor.set(ControlMode.PercentOutput, power);
   }
 
   public boolean getTopSwitch() {
-    return this.topSwitch.get();
+    return topSwitch.get();
   }
 
   public boolean getBottomSwitch() {
-    return this.bottomSwitch.get();
+    return bottomSwitch.get();
   }
 
   public double getHeight() {
-    return this.frontMotor.getSelectedSensorPosition() / RobotConstants.Sensors.LIFT_ENCODER_TPD
+    return frontMotor.getSelectedSensorPosition() / RobotConstants.Sensors.LIFT_ENCODER_TPD
         + RobotConstants.Sensors.LIFT_ENCODER_OFFSET;
   }
 
   public void resetEncoderHeight() {
-    this.frontMotor.setSelectedSensorPosition(0);
+    frontMotor.setSelectedSensorPosition(0);
   }
 
   @Override

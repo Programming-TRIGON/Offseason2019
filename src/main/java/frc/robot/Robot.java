@@ -27,9 +27,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotPeriodic() {
-    if (lift.getBottomSwitch()) {
+    if (lift.getBottomSwitch())
       lift.resetEncoderHeight();
-    }
   }
 
   @Override

@@ -16,7 +16,7 @@ public class Enums {
         }
 
         public double getHeight() {
-            return this.height;
+            return height;
         }
     }
 }
