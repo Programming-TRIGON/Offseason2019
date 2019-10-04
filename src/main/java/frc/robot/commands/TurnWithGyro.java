@@ -11,7 +11,7 @@ import frc.robot.RobotConstants;
 public class TurnWithGyro extends Command {
   PIDController pidController;
   PidSettings pidSettings;
-  double angle, timeOnTarget, timeOnTarget;
+  double angle, timeOnTarget;
 
   public TurnWithGyro(double angle, PidSettings pidSettings) {
     requires(Robot.drivetrain);
