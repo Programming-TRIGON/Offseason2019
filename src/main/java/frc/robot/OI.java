@@ -1,6 +1,6 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -8,10 +8,9 @@ import edu.wpi.first.wpilibj.Joystick;
  */
 public class OI {
   
-  public Joystick driver = new Joystick(0);
+  public XboxController driver = new XboxController(0);
 
   public OI(){
-    this.driver.getDirectionDegrees();
   }
   public double getJoystickDirection(){
     return Math.atan2(this.driver.getX(), -this.driver.getY());
