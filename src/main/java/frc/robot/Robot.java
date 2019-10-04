@@ -5,10 +5,12 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.motionprofiling.PathCreater;
 import frc.robot.subsystems.Drivetrain;
 
 public class Robot extends TimedRobot {
   public static OI oi;
+  public static PathCreater pathCreater;
   public static Drivetrain drivetrain;
   // Add your Subsystem here, and remove comment. example: 
   // public static Drivetrain drivetrain; 
@@ -21,8 +23,9 @@ public class Robot extends TimedRobot {
   public void robotInit() {
 
 
-
+    
     oi = new OI();
+    pathCreater = new PathCreater();
     drivetrain = new Drivetrain();
     // autonomousChooser.setDefaultOption("Default Auto", new ExampleCommand());
     // autonomousChooser.addOption("Auto", new AutoCommand());
