@@ -5,8 +5,8 @@ public class RobotMap {
     
     // Device ID's for devices connected to the CAN bus
     static class CAN {
-        public static final int CARGO_COLLECTOR_HOLDER_MOTOR = 2;
-        public static final int CARGO_COLLECTOR_MOTOR = 3;
+        public static final int CARGO_HOLDER_MOTOR = 0;
+        public static final int CARGO_COLLECTOR_MOTOR = 1;
     }
 
     // Solenoid ports connected to PCM
@@ -15,5 +15,6 @@ public class RobotMap {
 
     // Robot components connected to roboRIO Digital Input Output ports
     static class DIO {
+        public static final int HOLDER_SWITCH = 0;
     }
 }
