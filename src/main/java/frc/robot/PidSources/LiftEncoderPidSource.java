@@ -9,10 +9,11 @@ public class LiftEncoderPidSource implements PIDSource {
     public PIDSourceType getPIDSourceType() {
         return PIDSourceType.kDisplacement;
     }
+
     @Override
     public void setPIDSourceType(PIDSourceType pidSource) {
-        
     }
+
     @Override
     public double pidGet() {
         return Robot.lift.getHeight();
