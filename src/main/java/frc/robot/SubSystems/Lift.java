@@ -25,6 +25,8 @@ public class Lift extends Subsystem {
     this.rearMotor.configVoltageCompSaturation(11);
     // TODO: find out if i need to config both motors
     this.frontMotor.configOpenloopRamp(0.5);
+    this.frontMotor.enableVoltageCompensation(true);
+    this.rearMotor.enableVoltageCompensation(true);
   }
 
   public void setMotorsPower(double power) {
