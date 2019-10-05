@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.subsystems.Lift;
+import frc.robot.subsystems.CargoHolder;;
 
 public class Robot extends TimedRobot {
   public static OI oi;
@@ -18,7 +18,6 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     cargoholder = new CargoHolder(); 
     oi = new OI();
-    lift = new Lift();
 
     // autonomousChooser.setDefaultOption("Default Auto", new ExampleCommand());
     // autonomousChooser.addOption("Auto", new AutoCommand());

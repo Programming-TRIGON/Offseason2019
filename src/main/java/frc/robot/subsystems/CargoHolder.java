@@ -16,22 +16,12 @@ public class CargoHolder extends Subsystem {
   private DigitalInput holderSwitch;
 
   public CargoHolder() {
-    this.collectorMotor = RobotComponents.CargoCollector.COLLECTOR_MOTOR;
     this.holderMotor = RobotComponents.CargoCollector.HOLDER_MOTOR;
     this.holderSwitch = RobotComponents.CargoCollector.HOLDER_SWITCH;
   }
 
   public void setHolderMotorPower(double power) {
    this.holderMotor.set(ControlMode.PercentOutput, power); 
-  }
-
-  public void setCollectorMotorPower(double power) {
-    this.collectorMotor.set(ControlMode.PercentOutput, power); 
-  }
-
-  public void setMotorsPower(double power) {
-    this.holderMotor.set(ControlMode.PercentOutput, power); 
-    this.collectorMotor.set(ControlMode.PercentOutput, power); 
   }
 
   public boolean isCargoCollected() {
