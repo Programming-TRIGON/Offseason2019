@@ -11,6 +11,9 @@ public class RobotMap {
 
     // Solenoid ports connected to PCM
     static class PCM {
+        public static final int TILT_SOLENOID_FORWARD = 0;
+        public static final int TILT_SOLENOID_REVERSE = 1;
+
     }
 
     // Robot components connected to roboRIO Digital Input Output ports
