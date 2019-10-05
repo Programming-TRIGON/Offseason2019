@@ -11,11 +11,11 @@ import frc.robot.RobotComponents;
  * Contains the motor on the cargo folder to collect cargo,
  * and the cargo holder motor to hold cargo with the elevator.  
  */
-public class CargoCollector extends Subsystem {
-  private WPI_TalonSRX collectorMotor, holderMotor;
+public class CargoHolder extends Subsystem {
+  private WPI_TalonSRX holderMotor;
   private DigitalInput holderSwitch;
 
-  public CargoCollector() {
+  public CargoHolder() {
     this.collectorMotor = RobotComponents.CargoCollector.COLLECTOR_MOTOR;
     this.holderMotor = RobotComponents.CargoCollector.HOLDER_MOTOR;
     this.holderSwitch = RobotComponents.CargoCollector.HOLDER_SWITCH;

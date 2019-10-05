@@ -5,18 +5,17 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.subsystems.CargoCollector;
 
 public class Robot extends TimedRobot {
   public static OI oi;
-  public static CargoCollector cargoCollector;
+  public static CargoHolder cargoholder;
 
   private Command autonomousCommand;
   private SendableChooser<Command> autonomousChooser = new SendableChooser<>();
 
   @Override
   public void robotInit() {
-    cargoCollector = new CargoCollector(); 
+    cargoholder = new CargoHolder(); 
     oi = new OI();
     
     // autonomousChooser.setDefaultOption("Default Auto", new ExampleCommand());
