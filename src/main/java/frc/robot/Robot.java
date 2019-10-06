@@ -7,6 +7,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.motionprofiling.PathCreater;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.HatchHolder;
+import frc.robot.subsystems.Lift;
 
 public class Robot extends TimedRobot {
   public static OI oi;

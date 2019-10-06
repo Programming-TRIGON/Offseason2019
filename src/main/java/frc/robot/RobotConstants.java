@@ -14,7 +14,10 @@ public class RobotConstants {
 
     /** Constants for sensors on the robot */
     public static class Sensors {
-        public static final double DRIVETRAIN_ENCODERS_DISTANCE_PER_TICKS = 4096; // TODO: Set real number
+        public static final double DRIVETRAIN_ENCODERS_DISTANCE_PER_TICKS = 4096;
+
+        public static final double LIFT_ENCODER_OFFSET = 4096;
+        public static final double LIFT_ENCODER_DISTANCE_PER_TICKS = 4096; 
     }
 
     public static class MotionProfiling {
