@@ -10,16 +10,17 @@ import frc.robot.subsystems.Lift;
 public class Robot extends TimedRobot {
   public static OI oi;
   public static Lift lift;
+  public static HatchHolder hatchHolder; 
 
   private Command autonomousCommand;
   private SendableChooser<Command> autonomousChooser = new SendableChooser<>();
 
   @Override
   public void robotInit() {
-
     oi = new OI();
     lift = new Lift();
-
+    hatchHolder = new HatchHolder();
+    
     // autonomousChooser.setDefaultOption("Default Auto", new ExampleCommand());
     // autonomousChooser.addOption("Auto", new AutoCommand());
     SmartDashboard.putData("Auto mode", autonomousChooser);
