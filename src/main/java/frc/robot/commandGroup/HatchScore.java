@@ -11,8 +11,8 @@ import frc.robot.commands.HatchHolderLock;
 public class HatchScore extends CommandGroup {
 
   public HatchScore() {
-    addSequential(new HatchHolderLock(false));
     addSequential(new HatchHolderEject(true));
+    addSequential(new HatchHolderLock(false));
     addSequential(new HatchHolderEject(false));
     addSequential(new HatchHolderLock(true));
   }
