@@ -3,7 +3,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
-/** This command ejects and unejects the hatch holder */
+/** This command ejects and pulls the hatch holder */
 public class HatchHolderEject extends InstantCommand {
   private boolean eject;
 
