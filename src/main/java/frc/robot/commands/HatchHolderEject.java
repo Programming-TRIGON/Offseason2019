@@ -8,17 +8,22 @@ import frc.robot.Robot;
 public class HatchHolderEject extends Command {
   private boolean eject;
   // TODO: find real value
-  private double waitTime = 1;
+  private double waitTime;
 
-  public HatchHolderEject(boolean eject) {
+  public HatchHolderEject(boolean eject, double waitTime) {
     requires(Robot.hatchHolder);
     this.eject = eject;
+    this.waitTime = waitTime;
+  }
+
+  public HatchHolderEject(boolean eject) {
+    this(eject, 1);
   }
 
   @Override
   protected void initialize() {
     Robot.hatchHolder.setEjection(eject);
-    waitTime = +Timer.getFPGATimestamp();
+    waitTime += Timer.getFPGATimestamp();
   }
 
   @Override

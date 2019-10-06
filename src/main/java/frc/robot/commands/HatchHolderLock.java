@@ -8,18 +8,21 @@ import frc.robot.Robot;
 public class HatchHolderLock extends Command {
   private boolean lock;
   // TODO: find real value
-  private double waitTime = 1;
+  private double waitTime;
 
-  public HatchHolderLock(boolean lock) {
-    super();
+  public HatchHolderLock(boolean lock, double waitTime) {
     requires(Robot.hatchHolder);
     this.lock = lock;
+  }
+
+  public HatchHolderLock(boolean lock) {
+    this(lock, 1);
   }
 
   @Override
   protected void initialize() {
     Robot.hatchHolder.setLock(lock);
-    waitTime = +Timer.getFPGATimestamp();
+    waitTime += Timer.getFPGATimestamp();
   }
 
   @Override

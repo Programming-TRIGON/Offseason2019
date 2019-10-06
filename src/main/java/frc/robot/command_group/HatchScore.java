@@ -1,4 +1,4 @@
-package frc.robot.commandGroup;
+package frc.robot.command_group;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.commands.HatchHolderEject;
