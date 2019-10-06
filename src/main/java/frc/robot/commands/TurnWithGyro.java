@@ -22,15 +22,16 @@ public class TurnWithGyro extends Command {
   /**
    * In this constructor the robot turns in place with PidSettings you gave it.
    */
-  public TurnWithGyro(double angle, PidSettings pidSettings) {
+  public TurnWithGyro(double angle, PidSettings pidSettings, Button button) {
     requires(Robot.drivetrain);
     this.angle = angle;
     this.pidSettings = pidSettings;
+    this.button = button;
   }
 
   /** In this constructor the robot turns in place with set PidSettings. */
-  public TurnWithGyro(double angle) {
-    this(angle, RobotConstants.RobotPIDSettings.DRIVETRAIN_TURN_PID_SETTINGS);
+  public TurnWithGyro(double angle, Button button) {
+    this(angle, RobotConstants.RobotPIDSettings.DRIVETRAIN_TURN_PID_SETTINGS, button);
   }
 
   /** The robot will drive straight with the correction of the gyro. */
