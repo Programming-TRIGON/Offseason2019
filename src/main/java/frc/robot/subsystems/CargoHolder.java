@@ -2,7 +2,6 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -14,6 +13,7 @@ import frc.robot.RobotComponents;
  * and the cargo holder motor to hold cargo with the elevator.  
  */
 public class CargoHolder extends Subsystem {
+  private static final double DELTA_CURRENT = 3;
   private DoubleSolenoid tiltSolenoid;
   private WPI_TalonSRX holderMotor;
   private DigitalInput holderSwitch;
@@ -33,8 +33,11 @@ public class CargoHolder extends Subsystem {
   }
 
   public boolean isCargoCollectedStall() {
-    //TODO finish this.
-    return true;
+    //TODO calibrate
+    double actualCurrent = holderMotor.getOutputCurrent();
+    double power = 0.4;
+    double expectedCurrent = 9.375 * power - 0.6384;
+    return actualCurrent - expectedCurrent > DELTA_CURRENT;
   }
 
   public void setTilt(boolean tilt){
