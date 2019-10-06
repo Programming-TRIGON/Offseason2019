@@ -8,16 +8,18 @@ import frc.robot.Robot;
 public class HatchHolderEject extends Command {
   private boolean eject;
   // TODO: find real value
-  private double waitTime;
+  private double waitTime, DEFAULT_WAIT_TIME = 1;
 
+  public HatchHolderEject(boolean eject) {
+    requires(Robot.hatchHolder);
+    this.eject = eject;
+    this.waitTime = DEFAULT_WAIT_TIME;
+  }
+  
   public HatchHolderEject(boolean eject, double waitTime) {
     requires(Robot.hatchHolder);
     this.eject = eject;
     this.waitTime = waitTime;
-  }
-
-  public HatchHolderEject(boolean eject) {
-    this(eject, 1);
   }
 
   @Override
