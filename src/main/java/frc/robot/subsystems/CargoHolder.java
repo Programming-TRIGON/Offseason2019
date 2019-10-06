@@ -41,6 +41,10 @@ public class CargoHolder extends Subsystem {
     this.tiltSolenoid.set(tilt ? Value.kForward : Value.kReverse);
   }
 
+  public void setTiltSolenoidOff(){
+    this.tiltSolenoid.set(Value.kOff);
+  }
+
   @Override
   public void initDefaultCommand() {
   }

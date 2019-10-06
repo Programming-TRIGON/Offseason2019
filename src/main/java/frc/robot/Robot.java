@@ -9,14 +9,14 @@ import frc.robot.subsystems.CargoHolder;;
 
 public class Robot extends TimedRobot {
   public static OI oi;
-  public static CargoHolder cargoholder;
+  public static CargoHolder cargoHolder;
 
   private Command autonomousCommand;
   private SendableChooser<Command> autonomousChooser = new SendableChooser<>();
 
   @Override
   public void robotInit() {
-    cargoholder = new CargoHolder(); 
+    cargoHolder = new CargoHolder(); 
     oi = new OI();
 
     // autonomousChooser.setDefaultOption("Default Auto", new ExampleCommand());
