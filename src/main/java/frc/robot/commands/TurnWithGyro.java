@@ -61,7 +61,7 @@ public class TurnWithGyro extends Command {
 
   @Override
   protected boolean isFinished() {
-    return (Timer.getFPGATimestamp() - timeOnTarget) > pidSettings.getWaitTime(); 
+    return (Timer.getFPGATimestamp() - timeOnTarget) > pidSettings.getWaitTime() && this.button.get(); 
   }
 
   @Override
