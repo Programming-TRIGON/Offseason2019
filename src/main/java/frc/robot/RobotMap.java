@@ -2,25 +2,20 @@ package frc.robot;
 
 /** This class defines the ports of the robot */
 public class RobotMap {
-    // TODO: add real values
-    
+
     // Device ID's for devices connected to the CAN bus
     static class CAN {
-        public static final int CARGO_HOLDER_MOTOR = 0;
-        public static final int CARGO_COLLECTOR_MOTOR = 1;
+        public static final int CARGO_HOLDER_MOTOR = 6;
 
-        public static final int DRIVETRAIN_LEFT_REAR_MOTOR = 0;
-        public static final int DRIVETRAIN_LEFT_MIDDLE_MOTOR = 1;
-        public static final int DRIVETRAIN_LEFT_FRONT_MOTOR = 2;
-        public static final int DRIVETRAIN_RIGHT_REAR_MOTOR = 3;
-        public static final int DRIVETRAIN_RIGHT_MIDDLE_MOTOR = 4;
-        public static final int DRIVETRAIN_RIGHT_FRONT_MOTOR = 5;
+        public static final int DRIVETRAIN_LEFT_REAR_MOTOR = 3;
+        public static final int DRIVETRAIN_LEFT_MIDDLE_MOTOR = 4;
+        public static final int DRIVETRAIN_LEFT_FRONT_MOTOR = 5;
+        public static final int DRIVETRAIN_RIGHT_REAR_MOTOR = 7;
+        public static final int DRIVETRAIN_RIGHT_MIDDLE_MOTOR = 8;
+        public static final int DRIVETRAIN_RIGHT_FRONT_MOTOR = 9;
 
-        public static final int PLACEHOLDER_TALON_LEFT = 6;
-        public static final int PLACEHOLDER_TALON_RIGHT = 7;
-
-        public static final int LIFT_MOTOR_FRONT = 0;
-        public static final int LIFT_MOTOR_REAR = 1;
+        public static final int LIFT_MOTOR_FRONT = 1;
+        public static final int LIFT_MOTOR_REAR = 2;
     }
 
     // Solenoid ports connected to PCM
