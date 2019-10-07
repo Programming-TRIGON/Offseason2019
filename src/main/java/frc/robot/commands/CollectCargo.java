@@ -1,6 +1,8 @@
 
 package frc.robot.commands;
 
+import com.revrobotics.CANSparkMax;
+
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
@@ -15,7 +17,6 @@ public class CollectCargo extends Command {
     requires(Robot.cargoHolder);
   }
 
-  // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
     Robot.cargoHolder.setHolderMotorPower(POWER);

@@ -16,7 +16,6 @@ public class KeepCargo extends Command {
     requires(Robot.cargoHolder);
   }
 
-  // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
     if (Robot.cargoHolder.isCargoCollected()) {
@@ -42,11 +41,9 @@ public class KeepCargo extends Command {
   @Override
   protected void end() {
     // this shouldn't be called
-    Robot.cargoHolder.setHolderMotorPower(0);
+    interrupted();
   }
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
   @Override
   protected void interrupted() {
     Robot.cargoHolder.setHolderMotorPower(0);
