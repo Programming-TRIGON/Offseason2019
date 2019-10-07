@@ -7,7 +7,6 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.Relay.Direction;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Robot;
@@ -23,17 +22,25 @@ public class Drivetrain extends Subsystem {
   private ADXRS450_Gyro gyro;
   private double prevTime = 0, leftAcceleration = 0, rightAcceleration = 0, currentTime = 0;
   private double TICKS_PER_METER =  RobotConstants.Sensors.DRIVETRAIN_ENCODERS_DISTANCE_PER_TICKS; 
-  private final double RAMP_LIMIT = 0; // In sesconds, to full speed
+  private final double RAMP_LIMIT = 1; // In sesconds, to full speed
 
   public Drivetrain() {
     // Settings for each side of the robot 
     setSparksSettings(RobotComponents.Drivetrain.LEFT_FRONT_MOTOR,
       RobotComponents.Drivetrain.LEFT_MIDDLE_MOTOR, RobotComponents.Drivetrain.LEFT_REAR_MOTOR);
     setSparksSettings(RobotComponents.Drivetrain.RIGHT_FRONT_MOTOR,
-      RobotComponents.Drivetrain.RIGHT_MIDDLE_MOTOR, RobotComponents.Drivetrain.RIGHT_REAR_MOTOR);    
+      RobotComponents.Drivetrain.RIGHT_MIDDLE_MOTOR, RobotComponents.Drivetrain.RIGHT_REAR_MOTOR); 
+      
+    System.out.println(RobotComponents.Drivetrain.LEFT_FRONT_MOTOR.isFollower());
+    System.out.println(RobotComponents.Drivetrain.LEFT_MIDDLE_MOTOR.isFollower());
+    System.out.println(RobotComponents.Drivetrain.LEFT_REAR_MOTOR.isFollower());
 
-    this.drivetrain = new DifferentialDrive(RobotComponents.Drivetrain.LEFT_REAR_MOTOR,
-      RobotComponents.Drivetrain.RIGHT_REAR_MOTOR);
+    this.leftDriveGroup = new SpeedControllerGroup(RobotComponents.Drivetrain.LEFT_FRONT_MOTOR,
+      RobotComponents.Drivetrain.LEFT_MIDDLE_MOTOR, RobotComponents.Drivetrain.LEFT_REAR_MOTOR); 
+    this.rightDriveGroup = new SpeedControllerGroup(RobotComponents.Drivetrain.RIGHT_FRONT_MOTOR,
+      RobotComponents.Drivetrain.RIGHT_MIDDLE_MOTOR, RobotComponents.Drivetrain.RIGHT_REAR_MOTOR); 
+
+    this.drivetrain = new DifferentialDrive(this.leftDriveGroup, this.rightDriveGroup);
     
     this.gyro = RobotComponents.Drivetrain.GYRO;
     
@@ -134,9 +141,9 @@ public class Drivetrain extends Subsystem {
     middle.setIdleMode(IdleMode.kCoast);
     rear.setIdleMode(IdleMode.kCoast);
     
-    // Sets the front and the middle sparks to follow the rear sprak;  
+    /* Sets the front and the middle sparks to follow the rear sprak  
     front.follow(rear);
-    middle.follow(rear);
+    middle.follow(rear); */
     
     // Saves the settings for each Spark Max
     front.burnFlash();
