@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 public class RobotComponents {
     
     public static class CargoCollector {
-        public static final DoubleSolenoid TILT_SOLENOID = new DoubleSolenoid(RobotMap.PCM.TILT_SOLENOID_FORWARD, RobotMap.PCM.TILT_SOLENOID_REVERSE);
+        public static final DoubleSolenoid TILT_SOLENOID = null; //new DoubleSolenoid(RobotMap.PCM.TILT_SOLENOID_FORWARD, RobotMap.PCM.TILT_SOLENOID_REVERSE);
         public static final WPI_TalonSRX HOLDER_MOTOR = new WPI_TalonSRX(RobotMap.CAN.CARGO_HOLDER_MOTOR);
     }
      
@@ -32,8 +32,8 @@ public class RobotComponents {
     }
     
     public static class HatchHolder {
-        public static final DoubleSolenoid LOCK_SOLENOID = new DoubleSolenoid(RobotMap.PCM.HATCH_HOLDER_LOCK_SOLENOID_FORWARD, RobotMap.PCM.HATCH_HOLDER_LOCK_SOLENOID_REVERSE);
-        public static final DoubleSolenoid EJECT_SOLENOID = new DoubleSolenoid(RobotMap.PCM.HATCH_HOLDER_EJECT_SOLENOID_FORWARD, RobotMap.PCM.HATCH_HOLDER_EJECT_SOLENOID_REVERSE);        
+        public static final DoubleSolenoid LOCK_SOLENOID = null; //new DoubleSolenoid(RobotMap.PCM.HATCH_HOLDER_LOCK_SOLENOID_FORWARD, RobotMap.PCM.HATCH_HOLDER_LOCK_SOLENOID_REVERSE);
+        public static final DoubleSolenoid EJECT_SOLENOID = null; //new DoubleSolenoid(RobotMap.PCM.HATCH_HOLDER_EJECT_SOLENOID_FORWARD, RobotMap.PCM.HATCH_HOLDER_EJECT_SOLENOID_REVERSE);        
     }
     
     public static class Lift {
