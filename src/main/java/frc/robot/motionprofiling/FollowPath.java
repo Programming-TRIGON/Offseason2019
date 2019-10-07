@@ -16,7 +16,7 @@ public class FollowPath extends Command {
   private EncoderFollower right, left;
   private double leftCalculate, rightCalculate, gyroHeading, desiredHeading, angleDifference, turn, angleDiff;
   private SplitTrajectories splitTrajectories;
-  private boolean isFlipped = false;
+  private boolean isFlipped = false, isReversed = false;
 
   /** This command gets the path number and then follows it */
   public FollowPath(Path path) {
@@ -28,6 +28,11 @@ public class FollowPath extends Command {
   public FollowPath(Path path, boolean isFlipped) {
     this(path);
     this.isFlipped = isFlipped;
+  }
+
+  public FollowPath(Path path, boolean isFlipped, boolean isReversed) {
+    this(path, isFlipped);
+    this.isReversed = isReversed;
   }
 
   @Override
@@ -80,8 +85,10 @@ public class FollowPath extends Command {
     }
 
     this.turn = RobotConstants.MotionProfiling.MOTION_PROFILING_KP_TURN * (-1.0 / 80.0) * this.angleDifference;
-
-    Robot.drivetrain.tankDrive(this.leftCalculate + turn, this.rightCalculate - turn);
+    if (isReversed)
+      Robot.drivetrain.tankDrive(-(this.leftCalculate + turn), -(this.rightCalculate - turn));
+    else
+      Robot.drivetrain.tankDrive(this.leftCalculate + turn, this.rightCalculate - turn);
   }
 
   @Override
@@ -101,5 +108,9 @@ public class FollowPath extends Command {
 
   public void setFlipped(boolean isFlipped) {
     this.isFlipped = isFlipped;
+  }
+
+  public void setReversed(boolean isReversed) {
+    this.isReversed = isReversed;
   }
 }
