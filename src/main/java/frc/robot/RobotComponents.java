@@ -9,6 +9,13 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
 
 public class RobotComponents {
+    
+    public static class CargoCollector {
+        public static final DoubleSolenoid TILT_SOLENOID = new DoubleSolenoid(RobotMap.PCM.TILT_SOLENOID_FORWARD, RobotMap.PCM.TILT_SOLENOID_REVERSE);
+        public static final WPI_TalonSRX HOLDER_MOTOR = new WPI_TalonSRX(RobotMap.CAN.CARGO_HOLDER_MOTOR);
+        public static final DigitalInput HOLDER_SWITCH = new DigitalInput(RobotMap.DIO.HOLDER_SWITCH);
+    }
+     
     public static class Drivetrain {
         public static final CANSparkMax LEFT_REAR_MOTOR = new CANSparkMax(RobotMap.CAN.DRIVETRAIN_LEFT_REAR_MOTOR,
                 MotorType.kBrushless);
