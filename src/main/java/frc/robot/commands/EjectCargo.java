@@ -9,21 +9,23 @@ import frc.robot.Robot;
  */
 public class EjectCargo extends Command {
   //TODO: calibrate power.
-  private final static double POWER = -0.3;
+  private final static double EJECT_POWER = -0.3,TIMEOUT = 2;
   public EjectCargo() {
     requires(Robot.cargoHolder);
+    setTimeout(TIMEOUT);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.cargoHolder.setHolderMotorPower(POWER);
+    Robot.cargoHolder.setHolderMotorPower(EJECT_POWER);
+
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return !Robot.cargoHolder.isCargoCollectedStall();
+    return isTimedOut();
   }
 
   // Called once after isFinished returns true
@@ -38,6 +40,6 @@ public class EjectCargo extends Command {
   @Override
   protected void interrupted() {
     Robot.cargoHolder.setHolderMotorPower(0);
-    Robot.cargoHolder.setIsCargoCollected(true);
+    Robot.cargoHolder.setIsCargoCollected(false);
   }
 }
