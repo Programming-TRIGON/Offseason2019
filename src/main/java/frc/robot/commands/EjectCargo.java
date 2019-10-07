@@ -5,13 +5,12 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
- * this command collects cargo until it detects a stall.
+ * this command ejects cargo until the stall stops.
  */
-public class CollectCargo extends Command {
-  // TODO: calibrate power.
-  private final static double POWER = 0.3;
-
-  public CollectCargo() {
+public class EjectCargo extends Command {
+  //TODO: calibrate power.
+  private final static double POWER = -0.3;
+  public EjectCargo() {
     requires(Robot.cargoHolder);
   }
 
@@ -24,14 +23,14 @@ public class CollectCargo extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.cargoHolder.isCargoCollectedStall();
+    return !Robot.cargoHolder.isCargoCollectedStall();
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
     Robot.cargoHolder.setHolderMotorPower(0);
-    Robot.cargoHolder.setIsCargoCollected(true);
+    Robot.cargoHolder.setIsCargoCollected(false);
   }
 
   // Called when another command which requires one or more of the same
@@ -39,6 +38,6 @@ public class CollectCargo extends Command {
   @Override
   protected void interrupted() {
     Robot.cargoHolder.setHolderMotorPower(0);
-    Robot.cargoHolder.setIsCargoCollected(false);
+    Robot.cargoHolder.setIsCargoCollected(true);
   }
 }
