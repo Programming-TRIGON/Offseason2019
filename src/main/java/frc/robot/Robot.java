@@ -5,6 +5,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.HatchHolderEject;
+import frc.robot.commands.HatchHolderLock;
 import frc.robot.motionprofiling.PathCreater;
 import frc.robot.subsystems.CargoHolder;
 import frc.robot.subsystems.Drivetrain;
@@ -61,6 +63,9 @@ public class Robot extends TimedRobot {
     if (autonomousCommand != null) {
       autonomousCommand.start();
     }
+    // the hatch should be locked and unejected when ever it does not have a hatch
+    Scheduler.getInstance().add(new HatchHolderLock(true));
+    Scheduler.getInstance().add(new HatchHolderEject(false));
   }
 
   @Override
