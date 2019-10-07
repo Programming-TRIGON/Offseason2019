@@ -42,7 +42,7 @@ public class Lift extends Subsystem {
   }
 
   public double getHeight() {
-    return frontMotor.getSelectedSensorPosition() / RobotConstants.Sensors.LIFT_ENCODER_TPD
+    return this.frontMotor.getSelectedSensorPosition() / RobotConstants.Sensors.LIFT_ENCODER_DISTANCE_PER_TICKS
         + RobotConstants.Sensors.LIFT_ENCODER_OFFSET;
   }
 
