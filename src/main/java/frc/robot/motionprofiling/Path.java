@@ -11,7 +11,8 @@ import java.io.File;
 import java.io.IOException;
 
 public enum Path {
-    SCALE(new Waypoint[] { new Waypoint(0, 0, 0), new Waypoint(2, -3, 0) }), TEST("path.csv"),
+    ROCKET(new Waypoint[] { new Waypoint(0, 0, 0), new Waypoint(2, -3, 0) }),
+    TEST("path.csv"),
     TEST_JACI(new Waypoint[] { new Waypoint(0, 0, 0), new Waypoint(1, -1, -90) });
 
     private final Trajectory trajectory;
