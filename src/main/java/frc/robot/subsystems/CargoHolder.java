@@ -2,13 +2,11 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotComponents;
-import frc.robot.commands.keepCargo;
+import frc.robot.commands.KeepCargo;
 
 /**
  * Contains the motor on the cargo folder to collect cargo,
@@ -50,6 +48,6 @@ public class CargoHolder extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new keepCargo());
+    setDefaultCommand(new KeepCargo());
   }
 }
