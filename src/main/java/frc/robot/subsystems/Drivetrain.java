@@ -20,10 +20,16 @@ public class Drivetrain extends Subsystem {
   private ADXRS450_Gyro gyro;
   private double prevTime = 0, leftAcceleration = 0, rightAcceleration = 0, currentTime = 0;
   private double TICKS_PER_METER =  RobotConstants.Sensors.DRIVETRAIN_ENCODERS_DISTANCE_PER_TICKS; 
+  private double RAMP_LIMIT = 2;
 
   public Drivetrain() {
-    this.leftDriveGroup = new SpeedControllerGroup(RobotComponents.Drivetrain.LEFT_FRONT_MOTOR,
-        RobotComponents.Drivetrain.LEFT_MIDDLE_MOTOR, RobotComponents.Drivetrain.LEFT_REAR_MOTOR);
+    RobotComponents.Drivetrain.LEFT_FRONT_MOTOR.follow(RobotComponents.Drivetrain.LEFT_REAR_MOTOR);
+    RobotComponents.Drivetrain.LEFT_MIDDLE_MOTOR.follow(RobotComponents.Drivetrain.LEFT_REAR_MOTOR);
+    RobotComponents.Drivetrain.LEFT_FRONT_MOTOR.setOpenLoopRampRate(RAMP_LIMIT);
+    RobotComponents.Drivetrain.LEFT_REAR_MOTOR.setOpenLoopRampRate(RAMP_LIMIT);
+    RobotComponents.Drivetrain.LEFT_MIDDLE_MOTOR.setOpenLoopRampRate(RAMP_LIMIT);
+    
+    this.leftDriveGroup = new SpeedControllerGroup(RobotComponents.Drivetrain.LEFT_REAR_MOTOR);
     this.rightDriveGroup = new SpeedControllerGroup(RobotComponents.Drivetrain.RIGHT_FRONT_MOTOR,
         RobotComponents.Drivetrain.RIGHT_MIDDLE_MOTOR, RobotComponents.Drivetrain.RIGHT_REAR_MOTOR);
     this.drivetrain = new DifferentialDrive(leftDriveGroup, rightDriveGroup);
