@@ -3,10 +3,9 @@ package frc.robot.motionprofiling;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotConstants;
-import frc.robot.motionprofiling.Path;
+import frc.robot.Enums.Path;
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.followers.EncoderFollower;
-
 
 /**
  * This command uses the paths we generated on the path creater and uses it to
@@ -17,31 +16,44 @@ public class FollowPath extends Command {
   private EncoderFollower right, left;
   private double leftCalculate, rightCalculate, gyroHeading, desiredHeading, angleDifference, turn, angleDiff;
   private SplitTrajectories splitTrajectories;
+  private boolean isFlipped = false;
 
   /** This command gets the path number and then follows it */
   public FollowPath(Path path) {
     requires(Robot.drivetrain);
     this.splitTrajectories = new SplitTrajectories(path); // splits the path to two sides of the robot.
-    
+
+  }
+
+  public FollowPath(Path path, boolean isFlipped) {
+    this(path);
+    this.isFlipped = isFlipped;
   }
 
   @Override
   /** We configure the encoder and the PIDVA */
   protected void initialize() {
-    this.left = new EncoderFollower(splitTrajectories.getLeftTrajectory());
-    this.right = new EncoderFollower(splitTrajectories.getRightTrajectory());
-    this.left.configureEncoder(Robot.drivetrain.getLeftTicks(), RobotConstants.MotionProfiling.TICKS_PER_REVOLUTION_LEFT,
-        RobotConstants.MotionProfiling.WHEEL_DIAMETER);
-    this.right.configureEncoder(Robot.drivetrain.getRightTicks(), RobotConstants.MotionProfiling.TICKS_PER_REVOLUTION_RIGHT,
-        RobotConstants.MotionProfiling.WHEEL_DIAMETER);
+    if (isFlipped) {
+      this.right = new EncoderFollower(splitTrajectories.getLeftTrajectory());
+      this.left = new EncoderFollower(splitTrajectories.getRightTrajectory());
+    } else {
+      this.left = new EncoderFollower(splitTrajectories.getLeftTrajectory());
+      this.right = new EncoderFollower(splitTrajectories.getRightTrajectory());
+    }
+    this.left.configureEncoder(Robot.drivetrain.getLeftTicks(),
+        RobotConstants.MotionProfiling.TICKS_PER_REVOLUTION_LEFT, RobotConstants.MotionProfiling.WHEEL_DIAMETER);
+    this.right.configureEncoder(Robot.drivetrain.getRightTicks(),
+        RobotConstants.MotionProfiling.TICKS_PER_REVOLUTION_RIGHT, RobotConstants.MotionProfiling.WHEEL_DIAMETER);
     this.left.configurePIDVA(RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_LEFT.getKP(), 0,
-        RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_LEFT.getKD(), RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_LEFT.getKV(),
+        RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_LEFT.getKD(),
+        RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_LEFT.getKV(),
         RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_LEFT.getKA());
     this.right.configurePIDVA(RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_RIGHT.getKP(), 0,
-        RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_RIGHT.getKD(), RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_RIGHT.getKV(),
+        RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_RIGHT.getKD(),
+        RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_RIGHT.getKV(),
         RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_RIGHT.getKA());
-    this.left.configurePIDVA(0.3,0.1,0.5,0.1,0.1);   
-    this.right.configurePIDVA(0.3,0.1,0.5,0.1,0.1); 
+    this.left.configurePIDVA(0.3, 0.1, 0.5, 0.1, 0.1);
+    this.right.configurePIDVA(0.3, 0.1, 0.5, 0.1, 0.1);
     Robot.drivetrain.resetGyro();
   }
 
@@ -56,7 +68,10 @@ public class FollowPath extends Command {
     this.rightCalculate = this.right.calculate(Robot.drivetrain.getRightTicks());
 
     this.gyroHeading = Robot.drivetrain.getAngle();
-    this.desiredHeading = Pathfinder.r2d(this.left.getHeading());
+    if (isFlipped)
+      this.desiredHeading = -Pathfinder.r2d(this.left.getHeading());
+    else
+      this.desiredHeading = Pathfinder.r2d(this.left.getHeading());
     this.angleDifference = Pathfinder.boundHalfDegrees(desiredHeading - gyroHeading);
 
     this.angleDifference = this.angleDifference % 360.0;
@@ -67,7 +82,6 @@ public class FollowPath extends Command {
     this.turn = RobotConstants.MotionProfiling.MOTION_PROFILING_KP_TURN * (-1.0 / 80.0) * this.angleDifference;
 
     Robot.drivetrain.tankDrive(this.leftCalculate + turn, this.rightCalculate - turn);
-    //Robot.drivetrain.tankDrive(this.leftCalculate, this.rightCalculate);
   }
 
   @Override
@@ -83,5 +97,9 @@ public class FollowPath extends Command {
   @Override
   protected void interrupted() {
     end();
+  }
+
+  public void setFlipped(boolean isFlipped) {
+    this.isFlipped = isFlipped;
   }
 }

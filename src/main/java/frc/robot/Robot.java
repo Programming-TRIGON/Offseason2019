@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.autonomous.AutonomousCommand;
 import frc.robot.motionprofiling.PathCreater;
 import frc.robot.subsystems.CargoHolder;
 import frc.robot.subsystems.Drivetrain;
@@ -33,8 +34,8 @@ public class Robot extends TimedRobot {
     lift = new Lift();
     hatchHolder = new HatchHolder();
     
-    // autonomousChooser.setDefaultOption("Default Auto", new ExampleCommand());
-    // autonomousChooser.addOption("Auto", new AutoCommand());
+    autonomousChooser.setDefaultOption("Default left ship", null);
+    autonomousChooser.addOption("right ship", new AutonomousCommand(false));
     SmartDashboard.putData("Auto mode", autonomousChooser);
   }
 
