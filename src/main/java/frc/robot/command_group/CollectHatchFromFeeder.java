@@ -3,6 +3,7 @@ package frc.robot.command_group;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Enums.LiftHeights;
+import frc.robot.commands.HatchHolderEject;
 import frc.robot.commands.HatchHolderLock;
 import frc.robot.commands.setLiftHeight;
 /**
