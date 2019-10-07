@@ -9,8 +9,10 @@ public class RobotConstants {
         public static final double DISTANCE_FROM_MIDDLE_TO_LIMELIGHT = 5934;
     }
 
+    // TODO: set configure pid settings
     /** All the robot pid values for monitoring */
     public static class RobotPIDSettings {
+        public static final PidSettings LIFT_PID_SETTINGS = new PidSettings(0.1, 0.0, 0.0, 5.0, 1.0);
         public static final PidSettings DRIVETRAIN_TURN_PID_SETTINGS = new PidSettings(0, 0, 0, 0, 0);
         public static final PidSettings VISION_X_PID_SETTINGS = new PidSettings(0, 0, 0, 0, 0);
         public static final PidSettings VISION_Y_PID_SETTINGS = new PidSettings(0, 0, 0, 0, 0);
