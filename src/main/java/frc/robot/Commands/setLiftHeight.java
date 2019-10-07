@@ -2,34 +2,33 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Enums;
 import frc.robot.PidSettings;
 import frc.robot.Robot;
 import frc.robot.RobotConstants;
 import frc.robot.Enums.LiftHeights;
-import frc.robot.pidSources.LiftEncoderPidSource;
+import frc.robot.pidsources.LiftEncoderPidSource;
 
 public class setLiftHeight extends Command {
   private PidSettings pidSettings;
-  private double height;
+  private double liftHeight;
   private PIDController pidController;
 
   /** This command moves the lift to the desired height and stay there */
-  public setLiftHeight(LiftHeights height, PidSettings pidSettings) {
+  public setLiftHeight(LiftHeights liftHeight, PidSettings pidSettings) {
     requires(Robot.lift);
     this.pidSettings = pidSettings;
-    this.height = height.getHeight();
+    this.liftHeight = liftHeight.getHeight();
   }
 
-  public setLiftHeight(Enums.LiftHeights height) {
-    this(height, RobotConstants.RobotPIDSettings.LIFT_PID_SETTINGS);
+  public setLiftHeight(LiftHeights liftHeight) {
+    this(liftHeight, RobotConstants.RobotPIDSettings.LIFT_PID_SETTINGS);
   }
 
   @Override
   protected void initialize() {
     pidController = new PIDController(pidSettings.getKP(), pidSettings.getKI(), pidSettings.getKD(),
         new LiftEncoderPidSource(), output -> Robot.lift.setMotorsPower(output));
-    pidController.setSetpoint(height);
+    pidController.setSetpoint(liftHeight);
     pidController.setOutputRange(-1, 1);
     pidController.enable();
   }
