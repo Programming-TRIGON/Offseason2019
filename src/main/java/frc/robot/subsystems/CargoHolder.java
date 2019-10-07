@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotComponents;
+import frc.robot.commands.keepCargo;
 
 /**
  * Contains the motor on the cargo folder to collect cargo,
@@ -16,12 +17,11 @@ import frc.robot.RobotComponents;
 public class CargoHolder extends Subsystem {
   private DoubleSolenoid tiltSolenoid;
   private WPI_TalonSRX holderMotor;
-  private DigitalInput holderSwitch;
-
+  private boolean isCargoCollected;
   public CargoHolder() {
     this.tiltSolenoid = RobotComponents.CargoCollector.TILT_SOLENOID;
     this.holderMotor = RobotComponents.CargoCollector.HOLDER_MOTOR;
-    this.holderSwitch = RobotComponents.CargoCollector.HOLDER_SWITCH;
+    
   }
 
   public void setHolderMotorPower(double power) {
@@ -29,7 +29,10 @@ public class CargoHolder extends Subsystem {
   }
 
   public boolean isCargoCollected() {
-    return this.holderSwitch.get();
+    return isCargoCollected;
+  }
+  public void setIsCargoCollected(boolean isCollected){
+    isCargoCollected = isCollected;
   }
 
   public boolean isCargoCollectedStall() {
@@ -47,5 +50,6 @@ public class CargoHolder extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
+    setDefaultCommand(new keepCargo());
   }
 }
