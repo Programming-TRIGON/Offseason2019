@@ -7,8 +7,10 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import frc.robot.Robot;
 import frc.robot.RobotComponents;
 import frc.robot.RobotConstants;
+import frc.robot.commands.DriveArcade;
 
 /** This is the susbsystem for the drivetrain of the robot */
 public class Drivetrain extends Subsystem {
@@ -114,5 +116,6 @@ public class Drivetrain extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
+    setDefaultCommand(new DriveArcade(() -> Robot.oi.driver.getX(), () -> Robot.oi.driver.getY()));
   }
 }
