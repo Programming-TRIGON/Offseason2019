@@ -28,10 +28,10 @@ public class RobotComponents {
                 MotorType.kBrushless);
         public static final CANSparkMax RIGHT_FRONT_MOTOR = new CANSparkMax(RobotMap.CAN.DRIVETRAIN_RIGHT_FRONT_MOTOR,
                 MotorType.kBrushless);
-        public static final WPI_TalonSRX LEFT_ENCODER_PLACEHOLDER = new WPI_TalonSRX(
-                RobotMap.CAN.PLACEHOLDER_TALON_LEFT);
-        public static final WPI_TalonSRX RIGHT_ENCODER_PLACEHOLDER = new WPI_TalonSRX(
-                RobotMap.CAN.PLACEHOLDER_TALON_RIGHT);
+        //public static final WPI_TalonSRX LEFT_ENCODER_PLACEHOLDER = new WPI_TalonSRX(
+                //RobotMap.CAN.PLACEHOLDER_TALON_LEFT);
+        //public static final WPI_TalonSRX RIGHT_ENCODER_PLACEHOLDER = new WPI_TalonSRX(
+                //RobotMap.CAN.PLACEHOLDER_TALON_RIGHT);
 
         public static final ADXRS450_Gyro GYRO = new ADXRS450_Gyro();
     }
@@ -42,8 +42,8 @@ public class RobotComponents {
     }
     
     public static class Lift {
-        public static final TalonSRX LIFT_MOTOR_FRONT = new TalonSRX(RobotMap.CAN.LIFT_MOTOR_FRONT);
-        public static final TalonSRX LIFT_MOTOR_REAR = new TalonSRX(RobotMap.CAN.LIFT_MOTOR_REAR);
+        public static final WPI_TalonSRX LIFT_MOTOR_FRONT = new WPI_TalonSRX(RobotMap.CAN.LIFT_MOTOR_FRONT);
+        public static final WPI_TalonSRX LIFT_MOTOR_REAR = new WPI_TalonSRX(RobotMap.CAN.LIFT_MOTOR_REAR);
         public static final DigitalInput LIFT_SWITCH_TOP = new DigitalInput(RobotMap.DIO.LIFT_SWITCH_TOP);
         public static final DigitalInput LIFT_SWITCH_BOTTOM = new DigitalInput(RobotMap.DIO.LIFT_SWITCH_BOTTOM);
     }

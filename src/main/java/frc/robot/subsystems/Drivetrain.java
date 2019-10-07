@@ -7,10 +7,8 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import frc.robot.Robot;
 import frc.robot.RobotComponents;
 import frc.robot.RobotConstants;
-import frc.robot.commands.DriveArcade;
 
 /** This is the susbsystem for the drivetrain of the robot */
 public class Drivetrain extends Subsystem {
@@ -28,8 +26,8 @@ public class Drivetrain extends Subsystem {
         RobotComponents.Drivetrain.RIGHT_MIDDLE_MOTOR, RobotComponents.Drivetrain.RIGHT_REAR_MOTOR);
     this.drivetrain = new DifferentialDrive(leftDriveGroup, rightDriveGroup);
     this.gyro = RobotComponents.Drivetrain.GYRO;
-    this.rightEncoder = RobotComponents.Drivetrain.RIGHT_ENCODER_PLACEHOLDER;
-    this.lefEncoder = RobotComponents.Drivetrain.LEFT_ENCODER_PLACEHOLDER;
+    this.rightEncoder = RobotComponents.Lift.LIFT_MOTOR_REAR; // TODO set real talons
+    this.lefEncoder = RobotComponents.CargoCollector.HOLDER_MOTOR; // TODO set real talons
   }
 
   public void arcadeDrive(double x, double y) {
@@ -116,6 +114,5 @@ public class Drivetrain extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new DriveArcade(() -> Robot.oi.driver.getX(), () -> Robot.oi.driver.getY()));
   }
 }
