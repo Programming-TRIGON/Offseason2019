@@ -30,15 +30,15 @@ public class Lift extends Subsystem {
   }
 
   public void setMotorsPower(double power) {
-    frontMotor.set(ControlMode.PercentOutput, power);
+    this.frontMotor.set(ControlMode.PercentOutput, power);
   }
 
   public boolean getTopSwitch() {
-    return topSwitch.get();
+    return this.topSwitch.get();
   }
 
   public boolean getBottomSwitch() {
-    return bottomSwitch.get();
+    return this.bottomSwitch.get();
   }
 
   public double getHeight() {
@@ -47,7 +47,7 @@ public class Lift extends Subsystem {
   }
 
   public void resetEncoderHeight() {
-    frontMotor.setSelectedSensorPosition(0);
+    this.frontMotor.setSelectedSensorPosition(0);
   }
 
   @Override

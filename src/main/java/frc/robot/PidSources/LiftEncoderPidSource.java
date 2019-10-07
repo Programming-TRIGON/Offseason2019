@@ -1,4 +1,4 @@
-package frc.robot.pidSources;
+package frc.robot.pidsources;
 
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
