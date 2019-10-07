@@ -30,3 +30,4 @@ build/
 
 # Avoid ignoring Gradle wrapper jar file
 !gradle-wrapper.jar
+.gradle/5.0/fileHashes/fileHashes.bin
