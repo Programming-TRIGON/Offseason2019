@@ -44,6 +44,7 @@ public class TurnWithGyro extends Command {
 
   @Override
   protected void initialize() {
+    Robot.drivetrain.resetGyro();
     this.pidController = new PIDController(pidSettings.getKP(), pidSettings.getKI(), pidSettings.getKD(),
         RobotComponents.Drivetrain.GYRO, output -> Robot.drivetrain.arcadeDrive(output, forwardSupplier.get()));
     pidController.setContinuous(true);

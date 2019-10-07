@@ -15,7 +15,9 @@ import jaci.pathfinder.Waypoint;
 public class Enums {
     public enum Path {
         ROCKET(new Waypoint[] { new Waypoint(0, 0, 0), new Waypoint(2, -3, 0) }),
-        SHIP("path.csv"),
+        SHIP("ship.csv"),
+        PATH2("path2.csv"),
+        PATH3("path3.csv"),
         TEST_JACI(new Waypoint[] { new Waypoint(0, 0, 0), new Waypoint(1, -1, -90) });
     
         private final Trajectory trajectory;
