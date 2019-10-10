@@ -13,15 +13,17 @@ import frc.robot.triggers.XboxTrigger;
  */
 public class OI {
 
-  public XboxController operatorXbox = new XboxController(0);
-  public XboxController driverXbox = new XboxController(1);
+
   Button driverButtonY, driverButtonA, driverButtonB, driverButtonX, driverButtonLB, driverButtonRB;
   Button operatorButtonX, operatorButtonY, operatorButtonLB, operatorButtonRB, operatorButtonA, operatorButtonB, operatorStartButton, operatorButtonAxisRight, operatorButtonAxisLeft;
   POVButton operatorRightPOVButton, operatorLeftPOVButton, operatorBottomPOVButton, operatorTopPOVButton;
   XboxTrigger driverLTrigger, driverRTrigger, operatorRTrigger, operatorLTrigger;
+  public XboxController operatorXbox, driverXbox;
   public OI(){
+    
 //------------------------------DRIVER--------------------------------------
 
+    this.driverXbox = new XboxController(0);
     this.driverButtonA = new JoystickButton(driverXbox, 1);
     this.driverButtonB = new JoystickButton(driverXbox, 2);
     this.driverButtonX = new JoystickButton(driverXbox, 3);
@@ -33,6 +35,7 @@ public class OI {
 
 //------------------------------OPERATER------------------------------------
 
+    this.operatorXbox = new XboxController(1);
     this.operatorButtonA = new JoystickButton(operatorXbox, 1);
     this.operatorButtonB = new JoystickButton(operatorXbox, 2);
     this.operatorButtonX = new JoystickButton(operatorXbox, 3);
