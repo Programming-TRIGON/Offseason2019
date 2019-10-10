@@ -13,11 +13,11 @@ public class DefenceMode extends CommandGroup {
    * This command group makes sure the robot in inside the robots frame perimeter.
    */
   public DefenceMode() {
-    addSequential(new ConditionalCommand(new EjectCargo(), new HatchScore()){
+    addSequential(new ConditionalCommand(new EjectCargo(), new EjectHatch()){
     
       @Override
       protected boolean condition() {
-        return Robot.cargoHolder.isCargoCollected();
+        return Robot.cargoHolder.isCargoCollectedStall();
       }
     });
     addSequential(new SetLiftHeight(LiftHeights.floor));
