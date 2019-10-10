@@ -19,10 +19,9 @@ public class OI {
   Button operatorButtonX, operatorButtonY, operatorButtonLB, operatorButtonRB, operatorButtonA, operatorButtonB, operatorStartButton, operatorButtonAxisRight, operatorButtonAxisLeft;
   POVButton operatorRightPOVButton, operatorLeftPOVButton, operatorBottomPOVButton, operatorTopPOVButton;
   XboxTrigger driverLTrigger, driverRTrigger, operatorRTrigger, operatorLTrigger;
-
-
   public OI(){
-    // driver buttons
+//------------------------------DRIVER--------------------------------------
+
     this.driverButtonA = new JoystickButton(driverXbox, 1);
     this.driverButtonB = new JoystickButton(driverXbox, 2);
     this.driverButtonX = new JoystickButton(driverXbox, 3);
@@ -32,7 +31,8 @@ public class OI {
     this.driverLTrigger = new XboxTrigger(this.driverXbox, Hand.kLeft);
     this.driverRTrigger = new XboxTrigger(this.driverXbox, Hand.kRight);
 
-    // operator buttons
+//------------------------------OPERATER------------------------------------
+
     this.operatorButtonA = new JoystickButton(operatorXbox, 1);
     this.operatorButtonB = new JoystickButton(operatorXbox, 2);
     this.operatorButtonX = new JoystickButton(operatorXbox, 3);

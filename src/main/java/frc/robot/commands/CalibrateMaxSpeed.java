@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
@@ -13,8 +14,10 @@ public class CalibrateMaxSpeed extends Command {
   double rightForwardAcc = 0;
   double rightReverseAcc = 0;
   boolean isReversed = false;
-  public CalibrateMaxSpeed(boolean isReversed) {
+  Button button;
+  public CalibrateMaxSpeed(boolean isReversed, Button button) {
     this.isReversed = isReversed;
+    this.button = button;
   }
   @Override
   protected void initialize() {
@@ -45,7 +48,7 @@ public class CalibrateMaxSpeed extends Command {
   }
   @Override
   protected boolean isFinished() {
-    return Robot.oi.MaxSpeedStop.get();
+    return this.button.get();
   }
   @Override
   protected void end() {
