@@ -5,11 +5,17 @@ public class RobotConstants {
 
     /** Physical measurements of the robot */
     public static class RobotDimensions {
+        //TODO: set real values
+        public static final double DISTANCE_FROM_MIDDLE_TO_LIMELIGHT = 5934;
     }
 
+    // TODO: set configure pid settings
     /** All the robot pid values for monitoring */
     public static class RobotPIDSettings {
+        public static final PidSettings LIFT_PID_SETTINGS = new PidSettings(0.1, 0.0, 0.0, 5.0, 1.0);
         public static final PidSettings DRIVETRAIN_TURN_PID_SETTINGS = new PidSettings(0, 0, 0, 0, 0);
+        public static final PidSettings VISION_X_PID_SETTINGS = new PidSettings(0, 0, 0, 0, 0);
+        public static final PidSettings VISION_Y_PID_SETTINGS = new PidSettings(0, 0, 0, 0, 0);
     }
 
     /** Constants for sensors on the robot */
@@ -41,6 +47,9 @@ public class RobotConstants {
     public static final int TICKS_PER_REVOLUTION_LEFT = 360;
     }
     
+    public class Vision{
+    }
+
     public class Calibration{
         public static final double leftForwardKv = 0.2103;
         public static final double leftForwardVi = 0.3717;

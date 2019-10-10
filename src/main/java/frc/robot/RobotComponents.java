@@ -12,7 +12,6 @@ public class RobotComponents {
     public static class CargoCollector {
         public static final DoubleSolenoid TILT_SOLENOID = null; //new DoubleSolenoid(RobotMap.PCM.TILT_SOLENOID_FORWARD, RobotMap.PCM.TILT_SOLENOID_REVERSE);
         public static final WPI_TalonSRX HOLDER_MOTOR = new WPI_TalonSRX(RobotMap.CAN.CARGO_HOLDER_MOTOR);
-        public static final DigitalInput HOLDER_SWITCH = new DigitalInput(RobotMap.DIO.HOLDER_SWITCH);
     }
      
     public static class Drivetrain {

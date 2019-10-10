@@ -10,6 +10,7 @@ import frc.robot.subsystems.CargoHolder;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.HatchHolder;
 import frc.robot.subsystems.Lift;
+import frc.robot.utils.Limelight;
 
 public class Robot extends TimedRobot {
   public static OI oi;
@@ -17,7 +18,8 @@ public class Robot extends TimedRobot {
   public static CargoHolder cargoHolder;
   public static Drivetrain drivetrain;
   public static Lift lift;
-  public static HatchHolder hatchHolder; 
+  public static HatchHolder hatchHolder;
+  public static Limelight limelight;
   private Command autonomousCommand;
   private SendableChooser<Command> autonomousChooser = new SendableChooser<>();
 
@@ -26,13 +28,13 @@ public class Robot extends TimedRobot {
     // Utils:
     oi = new OI();
     pathCreater = new PathCreater();
-    
-    // Subsystems: 
-    cargoHolder = new CargoHolder(); 
+    limelight = new Limelight();
+    // Subsystems:
+    cargoHolder = new CargoHolder();
     drivetrain = new Drivetrain();
     lift = new Lift();
     hatchHolder = new HatchHolder();
-    
+
     // autonomousChooser.setDefaultOption("Default Auto", new ExampleCommand());
     // autonomousChooser.addOption("Auto", new AutoCommand());
     SmartDashboard.putData("Auto mode", autonomousChooser);
@@ -40,6 +42,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotPeriodic() {
+    if (lift.getBottomSwitch())
+      lift.resetEncoderHeight();
   }
 
   @Override
