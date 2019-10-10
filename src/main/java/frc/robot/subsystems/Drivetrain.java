@@ -115,8 +115,8 @@ public class Drivetrain extends Subsystem {
   public void periodic() {
     currentTime = Timer.getFPGATimestamp();
 
-    this.leftAcceleration = getLeftVelocity() - this.prevLeftVelocity / (currentTime - prevTime);
-    this.rightAcceleration = getRightVelocity() - this.prevRightVelocity / (currentTime - prevTime);
+    this.leftAcceleration = (getLeftVelocity() - this.prevLeftVelocity) / (currentTime - prevTime);
+    this.rightAcceleration = (getRightVelocity() - this.prevRightVelocity) / (currentTime - prevTime);
 
     this.prevTime = currentTime;
     this.prevLeftVelocity = getLeftVelocity();
