@@ -21,8 +21,9 @@ public class DefenceMode extends CommandGroup {
         return Robot.cargoHolder.isCargoCollectedStall();
       }
     });
-    addParallel(new SetLiftHeight(LiftHeights.floor));
-    addSequential(new WaitUntil(Robot.lift::isOnTarget));
+    SetLiftHeight setLiftHeight = new SetLiftHeight(LiftHeights.floor);
+    addParallel(setLiftHeight);
+    addSequential(new WaitUntil(setLiftHeight::isOnTarget));
     addSequential(Commands.setTiltCommand(true));
   }
 }

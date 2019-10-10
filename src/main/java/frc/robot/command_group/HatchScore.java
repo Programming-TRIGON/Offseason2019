@@ -14,8 +14,9 @@ import frc.robot.commands.SetLiftHeight;
 public class HatchScore extends CommandGroup {
   public HatchScore(LiftHeights liftHeight, Target target, boolean isDrivingForward) {
     addParallel(new VisionPID(target, isDrivingForward));
-    addParallel(new SetLiftHeight(liftHeight));
-    addSequential(new WaitUntil(Robot.lift::isOnTarget));
+    SetLiftHeight setLiftHeight = new SetLiftHeight(liftHeight);
+    addParallel(setLiftHeight);
+    addSequential(new WaitUntil(setLiftHeight::isOnTarget));
     addSequential(new EjectHatch());
   }
 }
