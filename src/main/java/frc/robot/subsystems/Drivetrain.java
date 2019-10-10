@@ -140,8 +140,12 @@ public class Drivetrain extends Subsystem {
     front.setIdleMode(IdleMode.kCoast);
     middle.setIdleMode(IdleMode.kCoast);
     rear.setIdleMode(IdleMode.kCoast);
-    
-    /* Sets the front and the middle sparks to follow the rear sprak  
+
+    // Current limit
+      front.setSmartCurrentLimit(30);
+      middle.setSmartCurrentLimit(30);
+      rear.setSmartCurrentLimit(30);
+    /* Sets the front and the middle sparks to follow the rear sprak
     front.follow(rear);
     middle.follow(rear); */
     
