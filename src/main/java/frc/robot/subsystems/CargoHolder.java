@@ -14,6 +14,8 @@ import frc.robot.commands.KeepCargo;
  */
 public class CargoHolder extends Subsystem {
   private static final double DELTA_CURRENT = 3;
+  private static final double CURRENT_OFFSET = -0.6384;
+  private static final double CURRENT_FACTOR = 9.375;
   private DoubleSolenoid tiltSolenoid;
   private WPI_TalonSRX holderMotor;
   private boolean isCargoCollected;
@@ -37,9 +39,13 @@ public class CargoHolder extends Subsystem {
   public boolean isCargoCollectedStall() {
     //TODO calibrate
     double actualCurrent = holderMotor.getOutputCurrent();
-    double power = 0.4;
-    double expectedCurrent = 9.375 * power - 0.6384;
+    double power = holderMotor.get();
+    double expectedCurrent = getExpectedCurrent(power);
     return actualCurrent - expectedCurrent > DELTA_CURRENT;
+  }
+
+  private double getExpectedCurrent(double power) {
+    return CURRENT_FACTOR * power + CURRENT_OFFSET;
   }
 
   public void setTilt(boolean tilt){
