@@ -7,6 +7,7 @@ import frc.robot.Enums.LiftHeights;
 import frc.robot.commands.Commands;
 import frc.robot.commands.EjectCargo;
 import frc.robot.commands.SetLiftHeight;
+import frc.robot.commands.WaitUntil;
 
 public class DefenceMode extends CommandGroup {
   /**
@@ -20,7 +21,8 @@ public class DefenceMode extends CommandGroup {
         return Robot.cargoHolder.isCargoCollectedStall();
       }
     });
-    addSequential(new SetLiftHeight(LiftHeights.floor));
+    addParallel(new SetLiftHeight(LiftHeights.floor));
+    addSequential(new WaitUntil(Robot.lift::isOnTarget));
     addSequential(Commands.setTiltCommand(true));
   }
 }
