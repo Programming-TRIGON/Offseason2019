@@ -6,8 +6,11 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 public class MoveLiftWithJoystick extends Command {
-  Supplier<Double> power;
+  private Supplier<Double> power;
 
+  /**
+   * @param power supplier for how much power should be put into the motors.
+   */
   public MoveLiftWithJoystick(Supplier<Double> power) {
     requires(Robot.lift);
     this.power = power;
@@ -19,6 +22,7 @@ public class MoveLiftWithJoystick extends Command {
 
   @Override
   protected void execute() {
+    //updates the motor according to the supplier.
     Robot.lift.setMotorsPower(this.power.get());
   }
 
