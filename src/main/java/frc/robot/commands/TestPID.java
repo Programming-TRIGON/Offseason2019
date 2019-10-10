@@ -25,11 +25,19 @@ public class TestPID extends CommandGroup {
     private Supplier<Double> KA2 = ConstantHandler.addConstantDouble("KA 2", 0);
     private Supplier<Double> KV2 = ConstantHandler.addConstantDouble("KV 2", 0);
 
+    /**
+     * @param command command to be run by testPID
+     * @param setPID function to be called when TestPID want to change the PID values.
+     */
     public TestPID(Command command, Consumer<PidSettings> setPID) {
         this.setPID = setPID;
         addSequential(command);
     }
-
+    /**
+     * @param command command to be run by testPID
+     * @param setPID function to be called when TestPID want to change the PID values.
+     * @param setPID2 the second function to be called for the second PIDController.
+     */
     public TestPID(Command command, Consumer<PidSettings> setPID, Consumer<PidSettings> setPID2) {
         this(command, setPID);
         this.setPID2 = setPID2;
@@ -37,14 +45,16 @@ public class TestPID extends CommandGroup {
 
     @Override
     protected void initialize() {
+        //setting values for the first PIDController
         PidSettings pidSettings = new PidSettings(KP.get(), KI.get(), KD.get(), TOLERANCE.get(), WAIT_TIME.get());
         pidSettings.setKA(KA.get());
         pidSettings.setKA(KV.get());
         setPID.accept(pidSettings);
         if (setPID2 != null) {
+            //the command has two PID controllers
             PidSettings pidSettings2 = new PidSettings(KP_ROTATION.get(), KI_ROTATION.get(), KD_ROTATION.get(), TOLERANCE_ROTATION.get(), WAIT_TIME_ROTATION.get());
             pidSettings.setKA(KA2.get());
-            pidSettings.setKA(KV2.get());
+            pidSettings.setKV(KV2.get());
             setPID2.accept(pidSettings2);
         }
     }
