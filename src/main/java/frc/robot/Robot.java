@@ -1,5 +1,6 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -20,11 +21,15 @@ public class Robot extends TimedRobot {
   public static Lift lift;
   public static HatchHolder hatchHolder;
   public static Limelight limelight;
+  public static Compressor compressor;
   private Command autonomousCommand;
   private SendableChooser<Command> autonomousChooser = new SendableChooser<>();
 
   @Override
   public void robotInit() {
+    //compressor:
+    compressor = new Compressor(1);
+    compressor.start();
     // Utils:
     oi = new OI();
     pathCreater = new PathCreater();
