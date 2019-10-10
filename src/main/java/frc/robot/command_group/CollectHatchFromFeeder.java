@@ -14,8 +14,9 @@ public class CollectHatchFromFeeder extends CommandGroup {
 
   public CollectHatchFromFeeder() {
     addParallel(new VisionPID(Enums.Target.Feeder,true));
-    addParallel(new setLiftHeight(LiftHeights.Feeder));
-    addSequential(new WaitUntil(Robot.lift::isOnTarget));
+    setLiftHeight lowerLiftCommand = new setLiftHeight(LiftHeights.HatchBottom);
+    addParallel(lowerLiftCommand);
+    addSequential(new WaitUntil(lowerLiftCommand::isOnTarget));
     addSequential(new HatchHolderLock(false));
     addSequential(new HatchHolderEject(true));
     addSequential(new HatchHolderLock(true));
