@@ -20,6 +20,13 @@ public class Lift extends Subsystem {
     this.frontMotor = RobotComponents.Lift.LIFT_MOTOR_FRONT;
     this.rearMotor = RobotComponents.Lift.LIFT_MOTOR_REAR;
     this.rearMotor.follow(this.frontMotor);
+    // TODO: set real values
+    this.frontMotor.configVoltageCompSaturation(11);
+    this.rearMotor.configVoltageCompSaturation(11);
+    // TODO: find out if i need to config both motors
+    this.frontMotor.configOpenloopRamp(0.5);
+    this.frontMotor.enableVoltageCompensation(true);
+    this.rearMotor.enableVoltageCompensation(true);
   }
 
   public void setMotorsPower(double power) {

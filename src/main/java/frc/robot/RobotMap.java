@@ -36,7 +36,6 @@ public class RobotMap {
 
     // Robot components connected to roboRIO Digital Input Output ports
     static class DIO {
-        public static final int HOLDER_SWITCH = 0;
 
         public static final int DRIVETRAIN_ENCODER_LEFT_CHANNEL_A = 0;
         public static final int DRIVETRAIN_ENCODER_LEFT_CHANNEL_B = 1;

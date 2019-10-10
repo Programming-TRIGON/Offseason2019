@@ -1,12 +1,12 @@
 
 package frc.robot.utils;
 
+import edu.wpi.first.wpilibj.Filesystem;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Timestamp;
-
-import edu.wpi.first.wpilibj.Filesystem;
 
 public class Logger {
     private String path;
@@ -16,6 +16,8 @@ public class Logger {
      * @param columns the columns name (ex. velocity, acceleration)
      */
     public Logger(String name, String... columns) {
+        if(!name.endsWith(".csv"))
+            name = name+".csv";
         this.path =  Filesystem.getOperatingDirectory()+"/logs/"+ getTimeStamp() + '-' + name;
         data = new StringBuilder();
         log(columns);
