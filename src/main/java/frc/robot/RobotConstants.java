@@ -5,8 +5,7 @@ public class RobotConstants {
 
     /** Physical measurements of the robot */
     public static class RobotDimensions {
-        //TODO: set real values
-        public static final double DISTANCE_FROM_MIDDLE_TO_LIMELIGHT = 5934;
+
     }
 
     // TODO: set configure pid settings

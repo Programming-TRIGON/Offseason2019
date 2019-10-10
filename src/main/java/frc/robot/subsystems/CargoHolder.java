@@ -13,13 +13,16 @@ import frc.robot.commands.KeepCargo;
  * and the cargo holder motor to hold cargo with the elevator.  
  */
 public class CargoHolder extends Subsystem {
+  private static final double DELTA_CURRENT = 3;
+  private static final double CURRENT_OFFSET = -0.6384;
+  private static final double CURRENT_FACTOR = 9.375;
   private DoubleSolenoid tiltSolenoid;
   private WPI_TalonSRX holderMotor;
   private boolean isCargoCollected;
   public CargoHolder() {
     this.tiltSolenoid = RobotComponents.CargoCollector.TILT_SOLENOID;
     this.holderMotor = RobotComponents.CargoCollector.HOLDER_MOTOR;
-    
+
   }
 
   public void setHolderMotorPower(double power) {
@@ -34,8 +37,15 @@ public class CargoHolder extends Subsystem {
   }
 
   public boolean isCargoCollectedStall() {
-    //TODO finish this.
-    return true;
+    //TODO calibrate
+    double actualCurrent = holderMotor.getOutputCurrent();
+    double power = holderMotor.get();
+    double expectedCurrent = getExpectedCurrent(power);
+    return actualCurrent - expectedCurrent > DELTA_CURRENT;
+  }
+
+  private double getExpectedCurrent(double power) {
+    return CURRENT_FACTOR * power + CURRENT_OFFSET;
   }
 
   public void setTilt(boolean tilt){
