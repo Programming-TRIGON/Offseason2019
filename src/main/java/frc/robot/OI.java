@@ -9,12 +9,14 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-  public XboxController driver;
-  public Button MaxSpeedStop, DriveStraightWithGyro;
+  
+  public XboxController driver = new XboxController(0);
+  public Button MaxSpeedStop, DriveStraightWithGyro; 
 
   public OI(){
-    this.driver = new XboxController(0);
+
     MaxSpeedStop = new JoystickButton(driver, 3);
     DriveStraightWithGyro = new JoystickButton(driver, 2);
   }
+
 }

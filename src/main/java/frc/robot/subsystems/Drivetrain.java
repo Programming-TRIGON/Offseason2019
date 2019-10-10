@@ -1,8 +1,6 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -22,30 +20,16 @@ public class Drivetrain extends Subsystem {
   private ADXRS450_Gyro gyro;
   private double prevTime = 0, leftAcceleration = 0, rightAcceleration = 0, currentTime = 0;
   private double TICKS_PER_METER =  RobotConstants.Sensors.DRIVETRAIN_ENCODERS_DISTANCE_PER_TICKS; 
-  private final double RAMP_LIMIT = 1; // In sesconds, to full speed
 
   public Drivetrain() {
-    // Settings for each side of the robot 
-    setSparksSettings(RobotComponents.Drivetrain.LEFT_FRONT_MOTOR,
-      RobotComponents.Drivetrain.LEFT_MIDDLE_MOTOR, RobotComponents.Drivetrain.LEFT_REAR_MOTOR);
-    setSparksSettings(RobotComponents.Drivetrain.RIGHT_FRONT_MOTOR,
-      RobotComponents.Drivetrain.RIGHT_MIDDLE_MOTOR, RobotComponents.Drivetrain.RIGHT_REAR_MOTOR); 
-      
-    System.out.println(RobotComponents.Drivetrain.LEFT_FRONT_MOTOR.isFollower());
-    System.out.println(RobotComponents.Drivetrain.LEFT_MIDDLE_MOTOR.isFollower());
-    System.out.println(RobotComponents.Drivetrain.LEFT_REAR_MOTOR.isFollower());
-
     this.leftDriveGroup = new SpeedControllerGroup(RobotComponents.Drivetrain.LEFT_FRONT_MOTOR,
-      RobotComponents.Drivetrain.LEFT_MIDDLE_MOTOR, RobotComponents.Drivetrain.LEFT_REAR_MOTOR); 
+        RobotComponents.Drivetrain.LEFT_MIDDLE_MOTOR, RobotComponents.Drivetrain.LEFT_REAR_MOTOR);
     this.rightDriveGroup = new SpeedControllerGroup(RobotComponents.Drivetrain.RIGHT_FRONT_MOTOR,
-      RobotComponents.Drivetrain.RIGHT_MIDDLE_MOTOR, RobotComponents.Drivetrain.RIGHT_REAR_MOTOR); 
-
-    this.drivetrain = new DifferentialDrive(this.leftDriveGroup, this.rightDriveGroup);
-    
+        RobotComponents.Drivetrain.RIGHT_MIDDLE_MOTOR, RobotComponents.Drivetrain.RIGHT_REAR_MOTOR);
+    this.drivetrain = new DifferentialDrive(leftDriveGroup, rightDriveGroup);
     this.gyro = RobotComponents.Drivetrain.GYRO;
-    
-    this.rightEncoder = RobotComponents.Lift.LIFT_MOTOR_REAR; // TODO set real talons encoder connection
-    this.lefEncoder = RobotComponents.CargoCollector.HOLDER_MOTOR; // TODO set real talons encoder connection
+    this.rightEncoder = RobotComponents.Drivetrain.RIGHT_ENCODER_PLACEHOLDER;
+    this.lefEncoder = RobotComponents.Drivetrain.LEFT_ENCODER_PLACEHOLDER;
   }
 
   public void arcadeDrive(double x, double y) {
@@ -128,31 +112,6 @@ public class Drivetrain extends Subsystem {
     this.rightAcceleration = getRightVelocity() / (currentTime - prevTime);
 
     this.prevTime = currentTime;
-  }
-
-  private void setSparksSettings(CANSparkMax front, CANSparkMax middle, CANSparkMax rear){
-    // Ramp limit to go from 0 to full power, in seconds
-    front.setOpenLoopRampRate(RAMP_LIMIT);
-    middle.setOpenLoopRampRate(RAMP_LIMIT);
-    rear.setOpenLoopRampRate(RAMP_LIMIT);
-    
-    // Motor mode (break/coast) 
-    front.setIdleMode(IdleMode.kCoast);
-    middle.setIdleMode(IdleMode.kCoast);
-    rear.setIdleMode(IdleMode.kCoast);
-
-    // Current limit
-      front.setSmartCurrentLimit(30);
-      middle.setSmartCurrentLimit(30);
-      rear.setSmartCurrentLimit(30);
-    /* Sets the front and the middle sparks to follow the rear sprak
-    front.follow(rear);
-    middle.follow(rear); */
-    
-    // Saves the settings for each Spark Max
-    front.burnFlash();
-    middle.burnFlash();
-    rear.burnFlash();
   }
 
   @Override
