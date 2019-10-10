@@ -7,7 +7,6 @@ import frc.robot.Enums.LiftHeights;
 import frc.robot.Enums.Target;
 import frc.robot.commands.EjectCargo;
 import frc.robot.commands.VisionPID;
-import frc.robot.commands.Commands;
 
 
 public class ScoreCargo extends CommandGroup {
@@ -16,7 +15,6 @@ public class ScoreCargo extends CommandGroup {
   public ScoreCargo(LiftHeights height) {
     Target target = RobotConstants.liftVisionMap.get(height);
     addParallel(new VisionPID(target, true));
-    addSequential(Commands.setTiltCommand(true));
     addSequential(new setLiftHeight(height));
     addSequential(new EjectCargo());
   }
