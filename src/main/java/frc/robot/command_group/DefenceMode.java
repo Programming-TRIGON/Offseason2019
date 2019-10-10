@@ -6,7 +6,7 @@ import frc.robot.Robot;
 import frc.robot.Enums.LiftHeights;
 import frc.robot.commands.Commands;
 import frc.robot.commands.EjectCargo;
-import frc.robot.commands.setLiftHeight;
+import frc.robot.commands.SetLiftHeight;
 
 public class DefenceMode extends CommandGroup {
   /**
@@ -20,7 +20,7 @@ public class DefenceMode extends CommandGroup {
         return Robot.cargoHolder.isCargoCollected();
       }
     });
-    addSequential(new setLiftHeight(LiftHeights.floor));
+    addSequential(new SetLiftHeight(LiftHeights.floor));
     addSequential(Commands.setTiltCommand(true));
   }
 }
