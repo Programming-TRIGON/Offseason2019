@@ -18,8 +18,9 @@ public class Drivetrain extends Subsystem {
   private WPI_TalonSRX rightEncoder, lefEncoder;
   private DifferentialDrive drivetrain;
   private ADXRS450_Gyro gyro;
-  private double prevTime = 0, leftAcceleration = 0, rightAcceleration = 0, currentTime = 0;
-  private double TICKS_PER_METER =  RobotConstants.Sensors.DRIVETRAIN_ENCODERS_DISTANCE_PER_TICKS; 
+  private double prevTime = 0, leftAcceleration = 0, rightAcceleration = 0, currentTime = 0, prevLeftVelocity = 0,
+      prevRightVelocity = 0;
+  private double TICKS_PER_METER = RobotConstants.Sensors.DRIVETRAIN_ENCODERS_DISTANCE_PER_TICKS;
 
   public Drivetrain() {
     this.leftDriveGroup = new SpeedControllerGroup(RobotComponents.Drivetrain.LEFT_FRONT_MOTOR,
@@ -74,19 +75,25 @@ public class Drivetrain extends Subsystem {
   }
 
   public double getLeftDistance() {
-    return getLeftTicks() / TICKS_PER_METER; 
+    return getLeftTicks() / TICKS_PER_METER;
   }
 
   public double getAverageDistance() {
     return (getRightDistance() + getLeftDistance()) / 2;
   }
 
-  /** We devide the output of getSelectedSensorVelocity from tick per 0.1 second to meter per second */
+  /**
+   * We devide the output of getSelectedSensorVelocity from tick per 0.1 second to
+   * meter per second
+   */
   public double getRightVelocity() {
-    return this.rightEncoder.getSelectedSensorVelocity() / (TICKS_PER_METER * 0.1);  
+    return this.rightEncoder.getSelectedSensorVelocity() / (TICKS_PER_METER * 0.1);
   }
 
-  /** We devide the output of getSelectedSensorVelocity from tick per 0.1 second to meter per second */
+  /**
+   * We devide the output of getSelectedSensorVelocity from tick per 0.1 second to
+   * meter per second
+   */
   public double getLeftVelocity() {
     return this.lefEncoder.getSelectedSensorVelocity() / (TICKS_PER_METER * 0.1);
   }
@@ -108,10 +115,12 @@ public class Drivetrain extends Subsystem {
   public void periodic() {
     currentTime = Timer.getFPGATimestamp();
 
-    this.leftAcceleration = getLeftVelocity() / (currentTime - prevTime);
-    this.rightAcceleration = getRightVelocity() / (currentTime - prevTime);
+    this.leftAcceleration = getLeftVelocity() - this.prevLeftVelocity / (currentTime - prevTime);
+    this.rightAcceleration = getRightVelocity() - this.prevRightVelocity / (currentTime - prevTime);
 
     this.prevTime = currentTime;
+    this.prevLeftVelocity = getLeftVelocity();
+    this.prevRightVelocity = getRightVelocity();
   }
 
   @Override
