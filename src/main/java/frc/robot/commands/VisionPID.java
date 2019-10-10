@@ -141,4 +141,18 @@ public class VisionPID extends Command {
     protected void interrupted() {
         end();
     }
+    /**
+     * @param pidSettings pid settings to be set by testPID for x movement
+     */
+    public void setPID(PidSettings pidSettings){
+        if(!isRunning())
+            pidControllerX.setPID(pidSettings.getKP(),pidSettings.getKI(),pidSettings.getKD());
+    }
+    /**
+     * @param pidSettings2 pid settings to be set by testPID for y movement
+     */
+    public void setPID2(PidSettings pidSettings2){
+        if(!isRunning()&&this.isDrivingForward)
+            pidControllerY.setPID(pidSettings2.getKP(),pidSettings2.getKI(),pidSettings2.getKD());
+    }
 }
