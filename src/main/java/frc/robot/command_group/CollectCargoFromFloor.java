@@ -3,7 +3,7 @@ package frc.robot.command_group;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Enums.LiftHeights;
 import frc.robot.commands.CollectCargo;
-import frc.robot.commands.SetLiftHeight;
+import frc.robot.commands.setLiftHeight;
 import frc.robot.commands.Commands;
 
 
@@ -13,8 +13,8 @@ public class CollectCargoFromFloor extends CommandGroup {
    */
   public CollectCargoFromFloor() {
     addSequential(Commands.setTiltCommand(true));
-    addSequential(new SetLiftHeight(LiftHeights.floor));
+    addSequential(new setLiftHeight(LiftHeights.floor));
     addSequential(new CollectCargo());
-    addSequential(new SetLiftHeight(LiftHeights.RocketCargoBottom));
+    addSequential(new setLiftHeight(LiftHeights.RocketCargoBottom));
   }
 }
