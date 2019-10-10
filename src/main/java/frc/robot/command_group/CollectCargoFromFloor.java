@@ -10,6 +10,7 @@ public class CollectCargoFromFloor extends CommandGroup {
    * This CG lowers the lift then collects the cargo then highers the lift to the lowest scoring height.
    */
   public CollectCargoFromFloor() {
+    addSequential(new Commands.setTiltCommand(true))
     addSequential(new setLiftHeight(LiftHeights.floor));
     addSequential(new CollectCargo());
     addSequential(new setLiftHeight(LiftHeights.RocketCargoBottom));
