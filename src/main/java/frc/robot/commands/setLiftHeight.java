@@ -9,6 +9,7 @@ import frc.robot.Enums.LiftHeights;
 import frc.robot.pidsources.LiftEncoderPidSource;
 
 public class setLiftHeight extends Command {
+  private static final double SAFETY_HEIGHT = 0.0;
   private PidSettings pidSettings;
   private double liftHeight;
   private PIDController pidController;
@@ -16,6 +17,7 @@ public class setLiftHeight extends Command {
   /** This command moves the lift to the desired height and stay there */
   public setLiftHeight(LiftHeights liftHeight, PidSettings pidSettings) {
     requires(Robot.lift);
+    requires(Robot.cargoHolder);
     this.pidSettings = pidSettings;
     this.liftHeight = liftHeight.getHeight();
   }
@@ -26,6 +28,9 @@ public class setLiftHeight extends Command {
 
   @Override
   protected void initialize() {
+    if(Robot.cargoHolder.isCargoCollectedStall() && Robot.lift.getHeight()< SAFETY_HEIGHT)
+      Robot.cargoHolder.setTilt(true);
+
     pidController = new PIDController(pidSettings.getKP(), pidSettings.getKI(), pidSettings.getKD(),
         new LiftEncoderPidSource(), output -> Robot.lift.setMotorsPower(output));
     pidController.setSetpoint(liftHeight);

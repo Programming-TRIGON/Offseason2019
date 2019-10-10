@@ -19,15 +19,15 @@ import frc.robot.utils.Limelight.CamMode;
  * A command for turning in place and driving straight with vision correction.
  */
 public class VisionPID extends Command {
-  PIDController pidControllerX, pidControllerY;
-  PidSettings pidSettingsX, pidSettingsY;
-  Button button;
-  Target target;
-  double timeOnTargetX, timeOnTargetY, yOutput, xOutput;
-  Supplier<Double> forwardSupplier = () -> 0.0;
-  boolean isDrivingForward = false;
-  boolean onTarget;
-  PIDSource visionPIDSourceX, visionPIDSourceY;
+  private PIDController pidControllerX, pidControllerY;
+  private PidSettings pidSettingsX, pidSettingsY;
+  private Button button;
+  private Target target;
+  private double timeOnTargetX, timeOnTargetY, yOutput, xOutput;
+  private Supplier<Double> forwardSupplier = () -> 0.0;
+  private boolean isDrivingForward = false;
+  private boolean onTarget;
+  private PIDSource visionPIDSourceX, visionPIDSourceY;
 
   /**
    * In this constructor the robot turns in place with PidSettings you gave it.
