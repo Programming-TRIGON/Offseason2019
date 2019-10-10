@@ -1,5 +1,10 @@
 package frc.robot;
 
+import java.util.Map;
+
+import frc.robot.Enums.LiftHeights;
+import frc.robot.Enums.Target;
+
 /** This class used to store constants related to the robot */
 public class RobotConstants {
 
@@ -56,4 +61,17 @@ public class RobotConstants {
         public static final double rightForwardKv = 0.1929;
         public static final double rightForwardVi = 0.3913;
     }
+    
+    /** This takes a lift height and corresponds it to a target for vision. */
+    public static Map<LiftHeights, Target> liftVisionMap = Map.of(
+        LiftHeights.RocketHatchTop, Target.RocketSide,
+        LiftHeights.RocketHatchMiddle, Target.RocketSide,
+        LiftHeights.RocketHatchBottom, Target.RocketSide,
+        LiftHeights.RocketCargoTop, Target.RocketMiddle,
+        LiftHeights.RocketCargoMiddle, Target.RocketMiddle,
+        LiftHeights.RocketCargoBottom, Target.RocketMiddle,
+        LiftHeights.CargoShip, Target.CargoShip,
+        LiftHeights.Feeder, Target.Feeder
+        );
+
 }
