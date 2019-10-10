@@ -15,7 +15,7 @@ import frc.robot.commands.DriveArcade;
 /** This is the susbsystem for the drivetrain of the robot */
 public class Drivetrain extends Subsystem {
   private SpeedControllerGroup leftDriveGroup, rightDriveGroup;
-  private WPI_TalonSRX rightEncoder, lefEncoder;
+  private WPI_TalonSRX rightEncoder, leftEncoder;
   private DifferentialDrive drivetrain;
   private ADXRS450_Gyro gyro;
   private double prevTime = 0, leftAcceleration = 0, rightAcceleration = 0, currentTime = 0, prevLeftVelocity = 0,
@@ -30,7 +30,7 @@ public class Drivetrain extends Subsystem {
     this.drivetrain = new DifferentialDrive(leftDriveGroup, rightDriveGroup);
     this.gyro = RobotComponents.Drivetrain.GYRO;
     this.rightEncoder = RobotComponents.Drivetrain.RIGHT_ENCODER_PLACEHOLDER;
-    this.lefEncoder = RobotComponents.Drivetrain.LEFT_ENCODER_PLACEHOLDER;
+    this.leftEncoder = RobotComponents.Drivetrain.LEFT_ENCODER_PLACEHOLDER;
   }
 
   public void arcadeDrive(double x, double y) {
@@ -58,7 +58,7 @@ public class Drivetrain extends Subsystem {
   }
 
   public int getLeftTicks() {
-    return this.lefEncoder.getSelectedSensorPosition();
+    return this.leftEncoder.getSelectedSensorPosition();
   }
 
   public int getRightTicks() {
@@ -66,7 +66,7 @@ public class Drivetrain extends Subsystem {
   }
 
   public void resetEncoders() {
-    this.lefEncoder.setSelectedSensorPosition(0);
+    this.leftEncoder.setSelectedSensorPosition(0);
     this.rightEncoder.setSelectedSensorPosition(0);
   }
 
@@ -95,11 +95,11 @@ public class Drivetrain extends Subsystem {
    * meter per second
    */
   public double getLeftVelocity() {
-    return this.lefEncoder.getSelectedSensorVelocity() / (TICKS_PER_METER * 0.1);
+    return this.leftEncoder.getSelectedSensorVelocity() / (TICKS_PER_METER * 0.1);
   }
 
   public double getAverageVelocity() {
-    return (this.rightEncoder.getSelectedSensorVelocity() + this.lefEncoder.getSelectedSensorVelocity()) / 2;
+    return (getRightVelocity() + getLeftVelocity()) / 2;
   }
 
   public double getLeftAcceleration() {
