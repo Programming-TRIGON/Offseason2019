@@ -31,6 +31,7 @@ public class DriveStraight extends Command {
 
   @Override
   protected void initialize() {
+    Robot.drivetrain.resetEncoders();
     drivePidSource = new DrivetrainPidSource();
     this.pidControllerY = new PIDController(pidSettingsY.getKP(), pidSettingsY.getKI(), pidSettingsY.getKD(),
         drivePidSource, output -> outputY = output);
@@ -41,11 +42,11 @@ public class DriveStraight extends Command {
     
     this.pidControllerX = new PIDController(pidSettingsX.getKP(), pidControllerX.getI(), pidControllerX.getD(),
         RobotComponents.Drivetrain.GYRO, output -> outputX = output);
-    pidControllerY.setOutputRange(-1, 1);
-    pidControllerY.setAbsoluteTolerance(pidSettingsY.getTolerance());
-    pidControllerY.setSetpoint(0);
+    pidControllerX.setOutputRange(-1, 1);
+    pidControllerX.setAbsoluteTolerance(pidSettingsX.getTolerance());
+    pidControllerX.setSetpoint(Robot.drivetrain.getAngle());
 
-    pidControllerX.enable();
+    pidControllerX.enable(); 
     pidControllerY.enable();
 
     
