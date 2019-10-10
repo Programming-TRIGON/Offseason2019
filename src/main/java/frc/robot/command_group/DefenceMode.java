@@ -17,7 +17,7 @@ public class DefenceMode extends CommandGroup {
     
       @Override
       protected boolean condition() {
-        return Robot.cargoHolder.isCargoCollected();
+        return Robot.cargoHolder.isCargoCollectedStall();
       }
     });
     addSequential(new setLiftHeight(LiftHeights.floor));
