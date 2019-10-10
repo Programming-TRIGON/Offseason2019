@@ -14,6 +14,7 @@ public class RobotConstants {
     public static class RobotPIDSettings {
         public static final PidSettings LIFT_PID_SETTINGS = new PidSettings(0.1, 0.0, 0.0, 5.0, 1.0);
         public static final PidSettings DRIVETRAIN_TURN_PID_SETTINGS = new PidSettings(0, 0, 0, 0, 0);
+        public static final PidSettings DRIVETRAIN_ENCODERS_PID_SETTINGS = new PidSettings(0, 0, 0, 0, 0);
         public static final PidSettings VISION_X_PID_SETTINGS = new PidSettings(0, 0, 0, 0, 0);
         public static final PidSettings VISION_Y_PID_SETTINGS = new PidSettings(0, 0, 0, 0, 0);
     }
