@@ -7,10 +7,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.CalibrateDistance;
-import frc.robot.commands.RealTestPID;
-import frc.robot.commands.TestPID;
-import frc.robot.commands.VisionPID;
+import frc.robot.commands.*;
 import frc.robot.motionprofiling.PathCreater;
 import frc.robot.subsystems.CargoHolder;
 import frc.robot.subsystems.Drivetrain;
@@ -52,14 +49,8 @@ public class Robot extends TimedRobot {
         SmartDashboard.putData("Auto mode", autonomousChooser);
         SmartDashboard.putData("CalibrateDistance", new CalibrateDistance(oi.driver::getAButton));
         dbc.addNumber("limelight distance", limelight::getDistance);
-        //SmartDashboard.putData("followTarget",new VisionPID(Enums.Target.RocketSide, new PidSettings(0.045, 0.001, 0.17, 0.5, 1.0)));
-//        SetLiftHeight liftCommand = new SetLiftHeight(Enums.LiftHeights.RocketHatchMiddle);
-//        SmartDashboard.putData("Test PID lift", new TestPID(liftCommand, liftCommand::setPID));
-        VisionPID visionCommand = new VisionPID(Enums.Target.RocketMiddle, true);
         SmartDashboard.putData("Test PID vision", new RealTestPID());
-//        FollowPath motionProfileCommand = new FollowPath(Path.TEST);
-//        SmartDashboard.putData("Test PIDVA motion profile", new TestPID(motionProfileCommand,
-//                motionProfileCommand::setPID, motionProfileCommand::setPID2));
+        SmartDashboard.putData("clearPreferences", Commands.clearPreferences());
     }
 
     @Override

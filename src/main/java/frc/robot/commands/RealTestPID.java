@@ -11,13 +11,13 @@ public class RealTestPID extends Command {
   private Supplier<Double> KP = ConstantHandler.addConstantDouble("KP", 0.01);
   private Supplier<Double> KI = ConstantHandler.addConstantDouble("KI", 0);
   private Supplier<Double> KD = ConstantHandler.addConstantDouble("KD", 0);
-  private Supplier<Double> TOLERANCE = ConstantHandler.addConstantDouble("tolerance", 1);
-  private Supplier<Double> DELTA_TOLERANCE = ConstantHandler.addConstantDouble("delta tolerance", 1);
+  private Supplier<Double> TOLERANCE = ConstantHandler.addConstantDouble("TOLERANCE", 1);
+  private Supplier<Double> DELTA_TOLERANCE = ConstantHandler.addConstantDouble("WAIT TIME", 1);
   private Supplier<Double> KP_ROTATION = ConstantHandler.addConstantDouble("KP_ROTATION", 0.01);
   private Supplier<Double> KI_ROTATION = ConstantHandler.addConstantDouble("KI_ROTATION", 0);
   private Supplier<Double> KD_ROTATION = ConstantHandler.addConstantDouble("KD_ROTATION", 0);
-  private Supplier<Double> TOLERANCE_ROTATION = ConstantHandler.addConstantDouble("tolerance_ROTATION", 1);
-  private Supplier<Double> DELTA_TOLERANCE_ROTATION = ConstantHandler.addConstantDouble("delta tolerance_ROTATION", 1);
+  private Supplier<Double> TOLERANCE_ROTATION = ConstantHandler.addConstantDouble("TOLERANCE_ROTATION", 1);
+  private Supplier<Double> DELTA_TOLERANCE_ROTATION = ConstantHandler.addConstantDouble("WAIT_TIME_ROTATION", 1);
 
   private PidSettings pidSettings;
   private PidSettings pidSettings2;
