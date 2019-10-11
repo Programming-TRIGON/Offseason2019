@@ -25,6 +25,7 @@ public class VisionPID extends Command {
     private Target target;
     private double timeOnTargetX, timeOnTargetY, yOutput, xOutput;
     private Supplier<Double> forwardSupplier = () -> 0.0;
+    private boolean isDrivingForward = false;
 
     /**
      * In this constructor the robot turns in place with PidSettings you gave it.
@@ -33,15 +34,7 @@ public class VisionPID extends Command {
         requires(Robot.drivetrain);
         this.target = target;
         this.pidSettingsX = pidSettingsX;
-        // setting PID X values
-        PIDSource visionPIDSourceX = new VisionPIDSourceX();
-
-        this.pidControllerX = new PIDController(pidSettingsX.getKP(), pidSettingsX.getKI(), pidSettingsX.getKD(),
-                visionPIDSourceX, output -> xOutput = -output);
-        pidControllerX.setOutputRange(-1, 1);
-        pidControllerX.setAbsoluteTolerance(pidSettingsX.getTolerance());
-        pidControllerX.setSetpoint(RobotConstants.Vision.ANGLE_FROM_TARGET);
-
+        this.pidSettingsY = RobotConstants.RobotPIDSettings.VISION_Y_PID_SETTINGS;
     }
 
     /**
@@ -50,8 +43,7 @@ public class VisionPID extends Command {
      */
     public VisionPID(Target target, boolean isDrivingForward) {
         this(target, RobotConstants.RobotPIDSettings.VISION_X_PID_SETTINGS);
-        if (isDrivingForward)
-            createPIDControllerY(target, RobotConstants.RobotPIDSettings.VISION_Y_PID_SETTINGS);
+        this.isDrivingForward = isDrivingForward;
     }
 
     /**
@@ -59,26 +51,21 @@ public class VisionPID extends Command {
      * PidSettings you gave it.
      */
     public VisionPID(Target target, PidSettings pidSettingsX, PidSettings pidSettingsY) {
-        this(target, pidSettingsX);
-        createPIDControllerY(target, pidSettingsY);
-    }
-
-    private void createPIDControllerY(Target target, PidSettings pidSettingsY) {
+        requires(Robot.drivetrain);
+        this.target = target;
+        this.isDrivingForward = true;
+        this.pidSettingsX = pidSettingsX;
         this.pidSettingsY = pidSettingsY;
-        PIDSource visionPIDSourceY = new VisionPIDSourceY();
-        this.pidControllerY = new PIDController(pidControllerY.getP(), pidSettingsY.getKI(), pidSettingsY.getKD(),
-                visionPIDSourceY, output -> yOutput = -output);
-        pidControllerY.setOutputRange(-1, 1);
-        pidControllerY.setAbsoluteTolerance(pidSettingsY.getTolerance());
-        pidControllerY.setSetpoint(RobotConstants.Vision.DISTANCE_FROM_TARGET);
     }
 
     /**
      * The robot will drive straight with the correction of the vision.
      */
     public VisionPID(Target target, Supplier<Double> forwardSupplier, Button button) {
-        this(target, false);
+        requires(Robot.drivetrain);
+        this.target = target;
         this.forwardSupplier = forwardSupplier;
+        this.pidSettingsX = RobotConstants.RobotPIDSettings.VISION_X_PID_SETTINGS;
         this.button = button;
     }
 
@@ -88,20 +75,33 @@ public class VisionPID extends Command {
         // setting Vision values
         Robot.limelight.setPipeline(target);
         Robot.limelight.setCamMode(CamMode.vision);
-        pidControllerX.reset();
-        pidControllerX.enable();
-        if (pidControllerY != null) {
-            pidControllerY.reset();
+
+        // setting PID X values
+        PIDSource visionPIDSourceX = new VisionPIDSourceX();
+        PIDSource visionPIDSourceY = new VisionPIDSourceY();
+        this.pidControllerX = new PIDController(pidSettingsX.getKP(), pidSettingsX.getKI(), pidSettingsX.getKD(),
+                visionPIDSourceX, output -> xOutput = -output);
+        pidControllerX.setOutputRange(-1, 1);
+        pidControllerX.setAbsoluteTolerance(pidSettingsX.getTolerance());
+        pidControllerX.setSetpoint(RobotConstants.Vision.ANGLE_FROM_TARGET);
+
+        // setting PID Y values
+        if (isDrivingForward) {
+            this.pidControllerY = new PIDController(pidSettingsY.getKP(), pidSettingsY.getKI(), pidSettingsY.getKD(),
+                    visionPIDSourceY, output -> yOutput = -output);
+            pidControllerY.setOutputRange(-1, 1);
+            pidControllerY.setAbsoluteTolerance(pidSettingsY.getTolerance());
+            pidControllerY.setSetpoint(RobotConstants.Vision.DISTANCE_FROM_TARGET);
             pidControllerY.enable();
         }
-
+        pidControllerX.enable();
     }
 
     @Override
     protected void execute() {
         // powering the motors
-        if (pidControllerY != null)
-            Robot.drivetrain.curvatureDrive(xOutput, yOutput, false);
+        if (isDrivingForward)
+            Robot.drivetrain.arcadeDrive(xOutput, yOutput);
         else
             Robot.drivetrain.curvatureDrive(xOutput, forwardSupplier.get(), false);
 
@@ -120,7 +120,7 @@ public class VisionPID extends Command {
          * vision target he will finish
          */
         boolean onTarget;
-        if (pidControllerY != null)
+        if (isDrivingForward)
             onTarget = (Timer.getFPGATimestamp() - timeOnTargetX) > pidSettingsX.getWaitTime()
                     && (Timer.getFPGATimestamp() - timeOnTargetY) > pidSettingsY.getWaitTime();
         else
@@ -141,22 +141,4 @@ public class VisionPID extends Command {
     protected void interrupted() {
         end();
     }
-
-    /**
-     * @param pidSettings pid settings to be set by testPID for x movement
-     */
-    public void setPID(PidSettings pidSettings) {
-        if (!isRunning())
-            pidControllerX.setPID(pidSettings.getKP(), pidSettings.getKI(), pidSettings.getKD());
-    }
-
-    /**
-     * @param pidSettings2 pid settings to be set by testPID for y movement
-     */
-    public void setPID2(PidSettings pidSettings2) {
-        if (!isRunning() && this.pidSettingsY != null)
-            pidControllerY.setPID(pidSettings2.getKP(), pidSettings2.getKI(), pidSettings2.getKD());
-    }
 }
-
-

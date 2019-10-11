@@ -20,6 +20,9 @@ public class VisionPIDSourceY implements PIDSource {
 
     @Override
     public double pidGet() {
-        return Robot.limelight.getDistance();
+        double distance = Robot.limelight.getDistance();
+        if (distance == -1)
+            return -130;
+        return -distance;
     }
 }
