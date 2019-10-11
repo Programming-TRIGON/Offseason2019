@@ -27,27 +27,26 @@ public class Robot extends TimedRobot {
     public static HatchHolder hatchHolder;
     public static Limelight limelight;
     public static Compressor compressor;
-    private Command autonomousCommand;
-    private SendableChooser<Command> autonomousChooser = new SendableChooser<>();
+  private Command autonomousCommand;
+  private SendableChooser<Command> autonomousChooser = new SendableChooser<>();
 
-    @Override
-    public void robotInit() {
-        //compressor:
-        compressor = new Compressor(1);
-        compressor.start();
-        // Utils:
-        oi = new OI();
-        pathCreater = new PathCreater();
-        limelight = new Limelight();
-        // Subsystems:
-        cargoHolder = new CargoHolder();
-        drivetrain = new Drivetrain();
-        lift = new Lift();
-        hatchHolder = new HatchHolder();
+  @Override
+  public void robotInit() {
+    //compressor:
+    compressor = new Compressor(1);
+    compressor.start();
+    // Utils:
+    oi = new OI();
+    pathCreater = new PathCreater();
+    limelight = new Limelight();
+    // Subsystems:
+    cargoHolder = new CargoHolder();
+    drivetrain = new Drivetrain();
+    lift = new Lift();
+    hatchHolder = new HatchHolder();
 
         // autonomousChooser.setDefaultOption("Default Auto", new ExampleCommand());
         // autonomousChooser.addOption("Auto", new AutoCommand());
-        SmartDashboard.putData("Auto mode", autonomousChooser);
         SmartDashboard.putData("Auto mode", autonomousChooser);
         SetLiftHeight liftCommand = new SetLiftHeight(Enums.LiftHeights.RocketHatchMiddle);
         SmartDashboard.putData("Test PID lift", new TestPID(liftCommand, liftCommand::setPID));
@@ -59,47 +58,47 @@ public class Robot extends TimedRobot {
                 motionProfileCommand::setPID, motionProfileCommand::setPID2));
     }
 
-    @Override
-    public void robotPeriodic() {
-        if (lift.getBottomSwitch())
-            lift.resetEncoderHeight();
-    }
+  @Override
+  public void robotPeriodic() {
+    if (lift.getBottomSwitch())
+      lift.resetEncoderHeight();
+  }
 
-    @Override
-    public void disabledInit() {
-    }
+  @Override
+  public void disabledInit() {
+  }
 
-    @Override
-    public void disabledPeriodic() {
-        Scheduler.getInstance().run();
-    }
+  @Override
+  public void disabledPeriodic() {
+    Scheduler.getInstance().run();
+  }
 
-    @Override
-    public void autonomousInit() {
-        autonomousCommand = autonomousChooser.getSelected();
-        if (autonomousCommand != null) {
-            autonomousCommand.start();
-        }
+  @Override
+  public void autonomousInit() {
+    autonomousCommand = autonomousChooser.getSelected();
+    if (autonomousCommand != null) {
+      autonomousCommand.start();
     }
+  }
 
-    @Override
-    public void autonomousPeriodic() {
-        Scheduler.getInstance().run();
-    }
+  @Override
+  public void autonomousPeriodic() {
+    Scheduler.getInstance().run();
+  }
 
-    @Override
-    public void teleopInit() {
-        if (autonomousCommand != null) {
-            autonomousCommand.cancel();
-        }
+  @Override
+  public void teleopInit() {
+    if (autonomousCommand != null) {
+      autonomousCommand.cancel();
     }
+  }
 
-    @Override
-    public void teleopPeriodic() {
-        Scheduler.getInstance().run();
-    }
+  @Override
+  public void teleopPeriodic() {
+    Scheduler.getInstance().run();
+  }
 
-    @Override
-    public void testPeriodic() {
-    }
+  @Override
+  public void testPeriodic() {
+  }
 }
