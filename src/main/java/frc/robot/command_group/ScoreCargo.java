@@ -16,9 +16,9 @@ public class ScoreCargo extends CommandGroup {
   /** Scores the cargo. */
   public ScoreCargo(LiftHeights height) {
     Target target = RobotConstants.liftVisionMap.get(height);
-    addParallel(new VisionPID(target, true));
     setLiftHeight setLiftHeight = new setLiftHeight(height);
     addParallel(setLiftHeight);
+    addSequential(new VisionPID(target, true));
     addSequential(new WaitUntil(setLiftHeight::isOnTarget));
     addSequential(new EjectCargo());
   }
