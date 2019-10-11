@@ -9,15 +9,17 @@ import frc.robot.Enums.LiftHeights;
 import frc.robot.pidsources.LiftEncoderPidSource;
 
 public class SetLiftHeight extends Command {
-  private PidSettings pidSettings;
   private double liftHeight;
   private PIDController pidController;
 
   /** This command moves the lift to the desired height and stay there */
   public SetLiftHeight(LiftHeights liftHeight, PidSettings pidSettings) {
     requires(Robot.lift);
-    this.pidSettings = pidSettings;
     this.liftHeight = liftHeight.getHeight();
+    pidController = new PIDController(pidSettings.getKP(), pidSettings.getKI(), pidSettings.getKD(),
+            new LiftEncoderPidSource(), output -> Robot.lift.setMotorsPower(output));
+    pidController.setSetpoint(this.liftHeight);
+    pidController.setOutputRange(-1, 1);
   }
 
   public SetLiftHeight(LiftHeights liftHeight) {
@@ -26,10 +28,9 @@ public class SetLiftHeight extends Command {
 
   @Override
   protected void initialize() {
-    pidController = new PIDController(pidSettings.getKP(), pidSettings.getKI(), pidSettings.getKD(),
-        new LiftEncoderPidSource(), output -> Robot.lift.setMotorsPower(output));
-    pidController.setSetpoint(liftHeight);
-    pidController.setOutputRange(-1, 1);
+    if(liftHeight > RobotConstants.RobotDimensions.SAFETY_HEIGHT)
+      Robot.cargoHolder.setTilt(true);
+    pidController.reset();
     pidController.enable();
   }
 
@@ -49,16 +50,8 @@ public class SetLiftHeight extends Command {
     Robot.lift.setMotorsPower(0);
   }
 
-    @Override
-    protected void interrupted() {
-        end();
-    }
-
-  /**
-   * @param pidSettings pid settings to be set by testPID
-   */
-    public void setPID(PidSettings pidSettings) {
-        if (!isRunning())
-            pidController.setPID(pidSettings.getKP(), pidSettings.getKI(), pidSettings.getKD());
-    }
+  @Override
+  protected void interrupted() {
+    end();
+  }
 }
