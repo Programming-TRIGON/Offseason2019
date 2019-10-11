@@ -22,7 +22,7 @@ public class VisionPIDSourceY implements PIDSource {
     public double pidGet() {
         double distance = Robot.limelight.getDistance();
         if (distance == -1)
-            return -130;
-        return -distance;
+            return 95;
+        return distance;
     }
 }

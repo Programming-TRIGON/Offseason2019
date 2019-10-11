@@ -88,7 +88,7 @@ public class VisionPID extends Command {
         // setting PID Y values
         if (isDrivingForward) {
             this.pidControllerY = new PIDController(pidSettingsY.getKP(), pidSettingsY.getKI(), pidSettingsY.getKD(),
-                    visionPIDSourceY, output -> yOutput = -output);
+                    visionPIDSourceY, output -> yOutput = output);
             pidControllerY.setOutputRange(-1, 1);
             pidControllerY.setAbsoluteTolerance(pidSettingsY.getTolerance());
             pidControllerY.setSetpoint(RobotConstants.Vision.DISTANCE_FROM_TARGET);
