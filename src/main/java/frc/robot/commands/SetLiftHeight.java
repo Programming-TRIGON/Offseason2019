@@ -8,19 +8,19 @@ import frc.robot.RobotConstants;
 import frc.robot.Enums.LiftHeights;
 import frc.robot.pidsources.LiftEncoderPidSource;
 
-public class setLiftHeight extends Command {
+public class SetLiftHeight extends Command {
   private PidSettings pidSettings;
   private double liftHeight;
   private PIDController pidController;
 
   /** This command moves the lift to the desired height and stay there */
-  public setLiftHeight(LiftHeights liftHeight, PidSettings pidSettings) {
+  public SetLiftHeight(LiftHeights liftHeight, PidSettings pidSettings) {
     requires(Robot.lift);
     this.pidSettings = pidSettings;
     this.liftHeight = liftHeight.getHeight();
   }
 
-  public setLiftHeight(LiftHeights liftHeight) {
+  public SetLiftHeight(LiftHeights liftHeight) {
     this(liftHeight, RobotConstants.RobotPIDSettings.LIFT_PID_SETTINGS);
   }
 
