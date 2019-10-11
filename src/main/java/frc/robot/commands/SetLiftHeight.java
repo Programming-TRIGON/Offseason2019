@@ -52,4 +52,7 @@ public class SetLiftHeight extends Command {
   protected void interrupted() {
     end();
   }
+  public void setPID(PidSettings pidSettings){
+    pidController.setPID(pidSettings.getKP(),pidSettings.getKI(),pidSettings.getKD());
+  }
 }
