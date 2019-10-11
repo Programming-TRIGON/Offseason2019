@@ -12,13 +12,12 @@ import frc.robot.triggers.XboxTrigger;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-
-
   Button driverButtonY, driverButtonA, driverButtonB, driverButtonX, driverButtonLB, driverButtonRB;
   Button operatorButtonX, operatorButtonY, operatorButtonLB, operatorButtonRB, operatorButtonA, operatorButtonB, operatorStartButton, operatorButtonAxisRight, operatorButtonAxisLeft;
   POVButton operatorRightPOVButton, operatorLeftPOVButton, operatorBottomPOVButton, operatorTopPOVButton;
   XboxTrigger driverLTrigger, driverRTrigger, operatorRTrigger, operatorLTrigger;
   public XboxController operatorXbox, driverXbox;
+
   public OI(){
     
 //------------------------------DRIVER--------------------------------------
@@ -53,5 +52,4 @@ public class OI {
     this.operatorRTrigger = new XboxTrigger(this.operatorXbox, Hand.kRight);
 
   }
-
 }
