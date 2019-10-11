@@ -31,10 +31,6 @@ public class Drivetrain extends Subsystem {
     setSparksSettings(RobotComponents.Drivetrain.RIGHT_FRONT_MOTOR,
       RobotComponents.Drivetrain.RIGHT_MIDDLE_MOTOR, RobotComponents.Drivetrain.RIGHT_REAR_MOTOR); 
       
-    System.out.println(RobotComponents.Drivetrain.LEFT_FRONT_MOTOR.isFollower());
-    System.out.println(RobotComponents.Drivetrain.LEFT_MIDDLE_MOTOR.isFollower());
-    System.out.println(RobotComponents.Drivetrain.LEFT_REAR_MOTOR.isFollower());
-
     this.leftDriveGroup = new SpeedControllerGroup(RobotComponents.Drivetrain.LEFT_FRONT_MOTOR,
       RobotComponents.Drivetrain.LEFT_MIDDLE_MOTOR, RobotComponents.Drivetrain.LEFT_REAR_MOTOR); 
     this.rightDriveGroup = new SpeedControllerGroup(RobotComponents.Drivetrain.RIGHT_FRONT_MOTOR,
@@ -135,19 +131,16 @@ public class Drivetrain extends Subsystem {
     front.setOpenLoopRampRate(RAMP_LIMIT);
     middle.setOpenLoopRampRate(RAMP_LIMIT);
     rear.setOpenLoopRampRate(RAMP_LIMIT);
-    
+
     // Motor mode (break/coast) 
     front.setIdleMode(IdleMode.kCoast);
     middle.setIdleMode(IdleMode.kCoast);
     rear.setIdleMode(IdleMode.kCoast);
 
     // Current limit
-      front.setSmartCurrentLimit(30);
-      middle.setSmartCurrentLimit(30);
-      rear.setSmartCurrentLimit(30);
-    /* Sets the front and the middle sparks to follow the rear sprak
-    front.follow(rear);
-    middle.follow(rear); */
+    front.setSmartCurrentLimit(30);
+    middle.setSmartCurrentLimit(30);
+    rear.setSmartCurrentLimit(30);
     
     // Saves the settings for each Spark Max
     front.burnFlash();
