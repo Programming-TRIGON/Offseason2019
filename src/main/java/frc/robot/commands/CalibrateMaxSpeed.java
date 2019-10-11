@@ -1,5 +1,8 @@
 package frc.robot.commands;
 
+import java.util.function.DoubleSupplier;
+
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
@@ -15,32 +18,36 @@ public class CalibrateMaxSpeed extends Command {
   double rightReverseAcc = 0;
   boolean isReversed = false;
   Button button;
-  public CalibrateMaxSpeed(boolean isReversed, Button button) {
+  DoubleSupplier forwardSupplier, rotationSupplier;
+  public CalibrateMaxSpeed(boolean isReversed, Button button, DoubleSupplier forwardSupplier, DoubleSupplier rotationSupplier) {
     this.isReversed = isReversed;
     this.button = button;
+    this.forwardSupplier = forwardSupplier;
+    this.rotationSupplier = rotationSupplier;
   }
+  
   @Override
   protected void initialize() {
   }
+
   @Override
   protected void execute() {
+    Robot.drivetrain.arcadeDrive(this.rotationSupplier.getAsDouble(), this.forwardSupplier.getAsDouble());
     if(this.isReversed){
-      if(Robot.drivetrain.getRightVelocity() < rightReverseMaxSpeed){
+      if(Robot.drivetrain.getRightVelocity() < rightReverseMaxSpeed) {
         rightReverseMaxSpeed = Robot.drivetrain.getRightVelocity();
         rightReverseAcc = Robot.drivetrain.getRightAcceleration();
-
       }
-      if(Robot.drivetrain.getLeftVelocity() < leftReverseMaxSpeed){
+      if(Robot.drivetrain.getLeftVelocity() < leftReverseMaxSpeed) {
         leftReverseMaxSpeed = Robot.drivetrain.getLeftVelocity();
         leftReverseAcc = Robot.drivetrain.getLeftAcceleration();
       }
-    }
-    else{
+    } else {
       if(Robot.drivetrain.getRightVelocity() > rightForwardMaxSpeed) {
         rightForwardMaxSpeed = Robot.drivetrain.getRightVelocity();
         rightForwardAcc = Robot.drivetrain.getRightAcceleration();
       }
-      if(Robot.drivetrain.getLeftVelocity() > leftForwardMaxSpeed){
+      if(Robot.drivetrain.getLeftVelocity() > leftForwardMaxSpeed) {
         leftForwardMaxSpeed = Robot.drivetrain.getLeftVelocity();
         leftForwardAcc = Robot.drivetrain.getLeftAcceleration();
       }
@@ -52,19 +59,21 @@ public class CalibrateMaxSpeed extends Command {
   }
   @Override
   protected void end() {
+    Robot.drivetrain.arcadeDrive(0, 0);
     if(isReversed){
       System.out.println("Right reverse max speed: " + rightReverseMaxSpeed);
       System.out.println("Left reverse max speed: " + leftReverseMaxSpeed);
-    //  System.out.println("Right reverse acc: " + rightReverseAcc);
-    //  System.out.println("Left reverse acc: " + leftReverseAcc);
+      System.out.println("Right reverse acc: " + rightReverseAcc);
+      System.out.println("Left reverse acc: " + leftReverseAcc);
     }
     else{
       System.out.println("Right forward max speed: " + rightForwardMaxSpeed);
       System.out.println("Left forward max speed: " + leftForwardMaxSpeed);
-     // System.out.println("Right forward acc: " + rightForwardAcc);
-     // System.out.println("Left forward acc: " + leftForwardAcc); 
+      System.out.println("Right forward acc: " + rightForwardAcc);
+      System.out.println("Left forward acc: " + leftForwardAcc); 
     }
   }
+
   @Override
   protected void interrupted() {
     end();
