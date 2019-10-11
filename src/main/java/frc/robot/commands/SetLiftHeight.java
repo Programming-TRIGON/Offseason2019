@@ -28,8 +28,6 @@ public class SetLiftHeight extends Command {
 
   @Override
   protected void initialize() {
-    if(liftHeight > RobotConstants.RobotDimensions.SAFETY_HEIGHT)
-      Robot.cargoHolder.setTilt(true);
     pidController.reset();
     pidController.enable();
   }
