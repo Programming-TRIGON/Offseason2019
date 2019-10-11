@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import com.analog.adis16448.frc.ADIS16448_IMU;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
@@ -20,7 +21,7 @@ public class Drivetrain extends Subsystem {
     private SpeedControllerGroup leftDriveGroup, rightDriveGroup;
     private WPI_TalonSRX rightEncoder, lefEncoder;
     private DifferentialDrive drivetrain;
-    private ADXRS450_Gyro gyro;
+    private ADIS16448_IMU gyro;
     private double prevTime = 0, leftAcceleration = 0, rightAcceleration = 0, currentTime = 0;
     private double TICKS_PER_METER = RobotConstants.Sensors.DRIVETRAIN_ENCODERS_DISTANCE_PER_TICKS;
     private final double RAMP_LIMIT = 1; // In sesconds, to full speed
@@ -58,7 +59,7 @@ public class Drivetrain extends Subsystem {
     }
 
     public double getAngle() {
-        return this.gyro.getAngle();
+        return this.gyro.getAngleZ();
     }
 
     public void resetGyro() {
