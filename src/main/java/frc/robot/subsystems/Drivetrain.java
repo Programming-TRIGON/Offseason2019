@@ -23,7 +23,7 @@ public class Drivetrain extends Subsystem {
   private double prevTime = 0, leftAcceleration = 0, rightAcceleration = 0, currentTime = 0, prevLeftVelocity = 0,
       prevRightVelocity = 0;
   private double TICKS_PER_METER = RobotConstants.Sensors.DRIVETRAIN_ENCODERS_DISTANCE_PER_TICKS;
-  private final double RAMP_LIMIT = 0.5;
+  private final double RAMP_LIMIT = 1; // In sesconds, to full speed
 
   public Drivetrain() {
     // Settings for each side of the robot 
