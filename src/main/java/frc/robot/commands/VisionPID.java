@@ -32,7 +32,6 @@ public class VisionPID extends Command {
     public VisionPID(Target target, PidSettings pidSettingsX) {
         requires(Robot.drivetrain);
         this.target = target;
-
         this.pidSettingsX = pidSettingsX;
         // setting PID X values
         PIDSource visionPIDSourceX = new VisionPIDSourceX();
@@ -41,7 +40,7 @@ public class VisionPID extends Command {
                 visionPIDSourceX, output -> xOutput = -output);
         pidControllerX.setOutputRange(-1, 1);
         pidControllerX.setAbsoluteTolerance(pidSettingsX.getTolerance());
-        pidControllerX.setSetpoint(target.getSetpointX());
+        pidControllerX.setSetpoint(RobotConstants.Vision.ANGLE_FROM_TARGET);
 
     }
 
@@ -71,7 +70,7 @@ public class VisionPID extends Command {
                 visionPIDSourceY, output -> yOutput = -output);
         pidControllerY.setOutputRange(-1, 1);
         pidControllerY.setAbsoluteTolerance(pidSettingsY.getTolerance());
-        pidControllerY.setSetpoint(target.getSetpointY());
+        pidControllerY.setSetpoint(RobotConstants.Vision.DISTANCE_FROM_TARGET);
     }
 
     /**
