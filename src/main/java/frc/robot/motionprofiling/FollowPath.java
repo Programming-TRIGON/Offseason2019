@@ -17,21 +17,21 @@ public class FollowPath extends Command {
 
   private EncoderFollower right, left;
   private double leftCalculate, rightCalculate, gyroHeading, desiredHeading, angleDifference, turn, angleDiff;
+  private SplitTrajectories splitTrajectories;
 
   /** This command gets the path number and then follows it */
   public FollowPath(Path path) {
     requires(Robot.drivetrain);
-    SplitTrajectories splitTrajectories = new SplitTrajectories(path); // splits the path to two sides of the robot.
-    this.left = new EncoderFollower(splitTrajectories.getLeftTrajectory());
-    this.right = new EncoderFollower(splitTrajectories.getRightTrajectory());
+    this.splitTrajectories = new SplitTrajectories(path); // splits the path to two sides of the robot.
+    
   }
 
   @Override
   /** We configure the encoder and the PIDVA */
   protected void initialize() {
-    right.reset();
-    left.reset();
-        this.left.configureEncoder(Robot.drivetrain.getLeftTicks(), RobotConstants.MotionProfiling.TICKS_PER_REVOLUTION_LEFT,
+    this.left = new EncoderFollower(splitTrajectories.getLeftTrajectory());
+    this.right = new EncoderFollower(splitTrajectories.getRightTrajectory());
+    this.left.configureEncoder(Robot.drivetrain.getLeftTicks(), RobotConstants.MotionProfiling.TICKS_PER_REVOLUTION_LEFT,
         RobotConstants.MotionProfiling.WHEEL_DIAMETER);
     this.right.configureEncoder(Robot.drivetrain.getRightTicks(), RobotConstants.MotionProfiling.TICKS_PER_REVOLUTION_RIGHT,
         RobotConstants.MotionProfiling.WHEEL_DIAMETER);
