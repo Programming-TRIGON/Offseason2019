@@ -49,8 +49,16 @@ public class SetLiftHeight extends Command {
     Robot.lift.setMotorsPower(0);
   }
 
-  @Override
-  protected void interrupted() {
-    end();
-  }
+    @Override
+    protected void interrupted() {
+        end();
+    }
+
+  /**
+   * @param pidSettings pid settings to be set by testPID
+   */
+    public void setPID(PidSettings pidSettings) {
+        if (!isRunning())
+            pidController.setPID(pidSettings.getKP(), pidSettings.getKI(), pidSettings.getKD());
+    }
 }
