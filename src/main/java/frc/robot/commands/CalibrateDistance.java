@@ -14,6 +14,10 @@ public class CalibrateDistance extends Command {
     private double currentDistance = 0;
     private Logger logger;
 
+    public CalibrateDistance(Supplier<Boolean> wantToLog) {
+        this(wantToLog, 15);
+    }
+
     public CalibrateDistance(Supplier<Boolean> wantToLog, double deltaDistance) {
         setRunWhenDisabled(true);
         this.wantToLog = wantToLog;

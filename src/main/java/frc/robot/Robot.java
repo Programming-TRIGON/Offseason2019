@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.CalibrateDistance;
 import frc.robot.commands.SetLiftHeight;
 import frc.robot.commands.TestPID;
 import frc.robot.commands.VisionPID;
@@ -48,6 +49,7 @@ public class Robot extends TimedRobot {
         // autonomousChooser.setDefaultOption("Default Auto", new ExampleCommand());
         // autonomousChooser.addOption("Auto", new AutoCommand());
         SmartDashboard.putData("Auto mode", autonomousChooser);
+        SmartDashboard.putData("CalibrateDistance", new CalibrateDistance(oi.driver::getAButton));
         SetLiftHeight liftCommand = new SetLiftHeight(Enums.LiftHeights.RocketHatchMiddle);
         SmartDashboard.putData("Test PID lift", new TestPID(liftCommand, liftCommand::setPID));
         VisionPID visionCommand = new VisionPID(Enums.Target.RocketMiddle, true);
