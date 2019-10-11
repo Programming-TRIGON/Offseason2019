@@ -19,14 +19,14 @@ import frc.robot.subsystems.Lift;
 import frc.robot.utils.Limelight;
 
 public class Robot extends TimedRobot {
-  public static OI oi;
-  public static PathCreater pathCreater;
-  public static CargoHolder cargoHolder;
-  public static Drivetrain drivetrain;
-  public static Lift lift;
-  public static HatchHolder hatchHolder;
-  public static Limelight limelight;
-  public static Compressor compressor;
+    public static OI oi;
+    public static PathCreater pathCreater;
+    public static CargoHolder cargoHolder;
+    public static Drivetrain drivetrain;
+    public static Lift lift;
+    public static HatchHolder hatchHolder;
+    public static Limelight limelight;
+    public static Compressor compressor;
   private Command autonomousCommand;
   private SendableChooser<Command> autonomousChooser = new SendableChooser<>();
 
