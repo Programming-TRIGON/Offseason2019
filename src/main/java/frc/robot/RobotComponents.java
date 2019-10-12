@@ -1,9 +1,9 @@
 package frc.robot;
 
+import com.analog.adis16448.frc.ADIS16448_IMU;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DigitalInput;
 
@@ -28,7 +28,7 @@ public class RobotComponents {
         public static final CANSparkMax RIGHT_FRONT_MOTOR = new CANSparkMax(RobotMap.CAN.DRIVETRAIN_RIGHT_FRONT_MOTOR,
                 MotorType.kBrushless);
 
-        public static final ADXRS450_Gyro GYRO = new ADXRS450_Gyro();
+        public static final ADIS16448_IMU GYRO = new ADIS16448_IMU();
     }
     
     public static class HatchHolder {

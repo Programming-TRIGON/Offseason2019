@@ -1,9 +1,9 @@
 package frc.robot.subsystems;
 
+import com.analog.adis16448.frc.ADIS16448_IMU;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
-
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Timer;
@@ -16,14 +16,14 @@ import frc.robot.commands.DriveArcade;
 
 /** This is the susbsystem for the drivetrain of the robot */
 public class Drivetrain extends Subsystem {
-  private SpeedControllerGroup leftDriveGroup, rightDriveGroup;
-  private WPI_TalonSRX rightEncoder, leftEncoder;
-  private DifferentialDrive drivetrain;
-  private ADXRS450_Gyro gyro;
-  private double prevTime = 0, leftAcceleration = 0, rightAcceleration = 0, currentTime = 0, prevLeftVelocity = 0,
+    private SpeedControllerGroup leftDriveGroup, rightDriveGroup;
+    private WPI_TalonSRX rightEncoder, leftEncoder;
+    private DifferentialDrive drivetrain;
+    private ADIS16448_IMU gyro;
+    private double prevTime = 0, leftAcceleration = 0, rightAcceleration = 0, currentTime = 0, prevLeftVelocity = 0,
       prevRightVelocity = 0;
-  private double TICKS_PER_METER = RobotConstants.Sensors.DRIVETRAIN_ENCODERS_DISTANCE_PER_TICKS;
-  private final double RAMP_LIMIT = 1; // In sesconds, to full speed
+    private double TICKS_PER_METER = RobotConstants.Sensors.DRIVETRAIN_ENCODERS_DISTANCE_PER_TICKS;
+    private final double RAMP_LIMIT = 1; // In sesconds, to full speed
 
   public Drivetrain() {
     // Settings for each side of the robot 
@@ -37,13 +37,13 @@ public class Drivetrain extends Subsystem {
     this.rightDriveGroup = new SpeedControllerGroup(RobotComponents.Drivetrain.RIGHT_FRONT_MOTOR,
       RobotComponents.Drivetrain.RIGHT_MIDDLE_MOTOR, RobotComponents.Drivetrain.RIGHT_REAR_MOTOR); 
 
-    this.drivetrain = new DifferentialDrive(this.leftDriveGroup, this.rightDriveGroup);
-    
-    this.gyro = RobotComponents.Drivetrain.GYRO;
-    
-    this.rightEncoder = RobotComponents.Lift.LIFT_MOTOR_REAR; // TODO set real talons encoder connection
-    this.leftEncoder = RobotComponents.CargoCollector.HOLDER_MOTOR; // TODO set real talons encoder connection
-  }
+        this.drivetrain = new DifferentialDrive(this.leftDriveGroup, this.rightDriveGroup);
+
+        this.gyro = RobotComponents.Drivetrain.GYRO;
+
+        this.rightEncoder = RobotComponents.Lift.LIFT_MOTOR_REAR; // TODO set real talons encoder connection
+        this.leftEncoder = RobotComponents.CargoCollector.HOLDER_MOTOR; // TODO set real talons encoder connection
+    }
 
   public void arcadeDrive(double x, double y) {
     this.drivetrain.arcadeDrive(y, x);
@@ -57,9 +57,9 @@ public class Drivetrain extends Subsystem {
     this.drivetrain.curvatureDrive(y, x, quickTurn);
   }
 
-  public double getAngle() {
-    return this.gyro.getAngle();
-  }
+    public double getAngle() {
+        return this.gyro.getAngleZ();
+    }
 
   public void resetGyro() {
     this.gyro.reset();
