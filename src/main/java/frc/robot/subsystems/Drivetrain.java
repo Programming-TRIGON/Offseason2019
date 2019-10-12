@@ -1,9 +1,9 @@
 package frc.robot.subsystems;
 
+import com.analog.adis16448.frc.ADIS16448_IMU;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
-
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Timer;
@@ -16,13 +16,14 @@ import frc.robot.commands.DriveArcade;
 
 /** This is the susbsystem for the drivetrain of the robot */
 public class Drivetrain extends Subsystem {
-  private SpeedControllerGroup leftDriveGroup, rightDriveGroup;
-  private WPI_TalonSRX rightEncoder, lefEncoder;
-  private DifferentialDrive drivetrain;
-  private ADXRS450_Gyro gyro;
-  private double prevTime = 0, leftAcceleration = 0, rightAcceleration = 0, currentTime = 0;
-  private double TICKS_PER_METER =  RobotConstants.Sensors.DRIVETRAIN_ENCODERS_DISTANCE_PER_TICKS; 
-  private final double RAMP_LIMIT = 1; // In sesconds, to full speed
+    private SpeedControllerGroup leftDriveGroup, rightDriveGroup;
+    private WPI_TalonSRX rightEncoder, leftEncoder;
+    private DifferentialDrive drivetrain;
+    private ADIS16448_IMU gyro;
+    private double prevTime = 0, leftAcceleration = 0, rightAcceleration = 0, currentTime = 0, prevLeftVelocity = 0,
+      prevRightVelocity = 0;
+    private double TICKS_PER_METER = RobotConstants.Sensors.DRIVETRAIN_ENCODERS_DISTANCE_PER_TICKS;
+    private final double RAMP_LIMIT = 1; // In sesconds, to full speed
 
   public Drivetrain() {
     // Settings for each side of the robot 
@@ -36,13 +37,13 @@ public class Drivetrain extends Subsystem {
     this.rightDriveGroup = new SpeedControllerGroup(RobotComponents.Drivetrain.RIGHT_FRONT_MOTOR,
       RobotComponents.Drivetrain.RIGHT_MIDDLE_MOTOR, RobotComponents.Drivetrain.RIGHT_REAR_MOTOR); 
 
-    this.drivetrain = new DifferentialDrive(this.leftDriveGroup, this.rightDriveGroup);
-    
-    this.gyro = RobotComponents.Drivetrain.GYRO;
-    
-    this.rightEncoder = RobotComponents.Lift.LIFT_MOTOR_REAR; // TODO set real talons encoder connection
-    this.lefEncoder = RobotComponents.CargoCollector.HOLDER_MOTOR; // TODO set real talons encoder connection
-  }
+        this.drivetrain = new DifferentialDrive(this.leftDriveGroup, this.rightDriveGroup);
+
+        this.gyro = RobotComponents.Drivetrain.GYRO;
+
+        this.rightEncoder = RobotComponents.Lift.LIFT_MOTOR_REAR; // TODO set real talons encoder connection
+        this.leftEncoder = RobotComponents.CargoCollector.HOLDER_MOTOR; // TODO set real talons encoder connection
+    }
 
   public void arcadeDrive(double x, double y) {
     this.drivetrain.arcadeDrive(y, x);
@@ -56,9 +57,9 @@ public class Drivetrain extends Subsystem {
     this.drivetrain.curvatureDrive(y, x, quickTurn);
   }
 
-  public double getAngle() {
-    return this.gyro.getAngle();
-  }
+    public double getAngle() {
+        return this.gyro.getAngleZ();
+    }
 
   public void resetGyro() {
     this.gyro.reset();
@@ -69,7 +70,7 @@ public class Drivetrain extends Subsystem {
   }
 
   public int getLeftTicks() {
-    return this.lefEncoder.getSelectedSensorPosition();
+    return this.leftEncoder.getSelectedSensorPosition();
   }
 
   public int getRightTicks() {
@@ -77,7 +78,7 @@ public class Drivetrain extends Subsystem {
   }
 
   public void resetEncoders() {
-    this.lefEncoder.setSelectedSensorPosition(0);
+    this.leftEncoder.setSelectedSensorPosition(0);
     this.rightEncoder.setSelectedSensorPosition(0);
   }
 
@@ -86,25 +87,31 @@ public class Drivetrain extends Subsystem {
   }
 
   public double getLeftDistance() {
-    return getLeftTicks() / TICKS_PER_METER; 
+    return getLeftTicks() / TICKS_PER_METER;
   }
 
   public double getAverageDistance() {
     return (getRightDistance() + getLeftDistance()) / 2;
   }
 
-  /** We devide the output of getSelectedSensorVelocity from tick per 0.1 second to meter per second */
+  /**
+   * We devide the output of getSelectedSensorVelocity from tick per 0.1 second to
+   * meter per second
+   */
   public double getRightVelocity() {
-    return this.rightEncoder.getSelectedSensorVelocity() / (TICKS_PER_METER * 0.1);  
+    return this.rightEncoder.getSelectedSensorVelocity() / (TICKS_PER_METER * 0.1);
   }
 
-  /** We devide the output of getSelectedSensorVelocity from tick per 0.1 second to meter per second */
+  /**
+   * We devide the output of getSelectedSensorVelocity from tick per 0.1 second to
+   * meter per second
+   */
   public double getLeftVelocity() {
-    return this.lefEncoder.getSelectedSensorVelocity() / (TICKS_PER_METER * 0.1);
+    return this.leftEncoder.getSelectedSensorVelocity() / (TICKS_PER_METER * 0.1);
   }
 
   public double getAverageVelocity() {
-    return (this.rightEncoder.getSelectedSensorVelocity() + this.lefEncoder.getSelectedSensorVelocity()) / 2;
+    return (getRightVelocity() + getLeftVelocity()) / 2;
   }
 
   public double getLeftAcceleration() {
@@ -120,10 +127,12 @@ public class Drivetrain extends Subsystem {
   public void periodic() {
     currentTime = Timer.getFPGATimestamp();
 
-    this.leftAcceleration = getLeftVelocity() / (currentTime - prevTime);
-    this.rightAcceleration = getRightVelocity() / (currentTime - prevTime);
+    this.leftAcceleration = (getLeftVelocity() - this.prevLeftVelocity) / (currentTime - prevTime);
+    this.rightAcceleration = (getRightVelocity() - this.prevRightVelocity) / (currentTime - prevTime);
 
     this.prevTime = currentTime;
+    this.prevLeftVelocity = getLeftVelocity();
+    this.prevRightVelocity = getRightVelocity();
   }
 
   private void setSparksSettings(CANSparkMax front, CANSparkMax middle, CANSparkMax rear){
@@ -150,6 +159,6 @@ public class Drivetrain extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new DriveArcade(() -> Robot.oi.driver.getX(), () -> Robot.oi.driver.getY()));
+    setDefaultCommand(new DriveArcade(() -> Robot.oi.driverXbox.getX(), () -> Robot.oi.driverXbox.getY()));
   }
 }
