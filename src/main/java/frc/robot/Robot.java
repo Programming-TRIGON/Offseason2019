@@ -49,7 +49,7 @@ public class Robot extends TimedRobot {
         
         // SmartDashboard commands 
         SmartDashboard.putData("Auto mode", autonomousChooser);
-        SmartDashboard.putData("CalibrateDistance", new CalibrateDistance(oi.driver::getAButton));
+        SmartDashboard.putData("CalibrateDistance", new CalibrateDistance(oi.driverXbox::getAButton));
         SmartDashboard.putData("Test PID vision", new TestPID());
         SmartDashboard.putData("clearPreferences", Commands.clearPreferences());
     
