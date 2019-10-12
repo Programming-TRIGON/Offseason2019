@@ -47,7 +47,7 @@ public class Robot extends TimedRobot {
         // autonomousChooser.setDefaultOption("Default Auto", new ExampleCommand());
         // autonomousChooser.addOption("Auto", new AutoCommand());
         SmartDashboard.putData("Auto mode", autonomousChooser);
-        SmartDashboard.putData("CalibrateDistance", new CalibrateDistance(oi.driver::getAButton));
+        SmartDashboard.putData("CalibrateDistance", new CalibrateDistance(oi.driverButtonA::get));
         dbc.addNumber("limelight distance", limelight::getDistance);
         SmartDashboard.putData("Test PID vision", new TestPID());
         SmartDashboard.putData("clearPreferences", Commands.clearPreferences());
