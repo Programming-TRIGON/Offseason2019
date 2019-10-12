@@ -26,7 +26,7 @@ public class DriveStraight extends Command {
 
   public DriveStraight(double setpoint) {
     this(setpoint, RobotConstants.RobotPIDSettings.DRIVETRAIN_TURN_PID_SETTINGS,
-        RobotConstants.RobotPIDSettings.DRIVETRAIN_ENCODERS_PID_SETTINGS);
+        RobotConstants.RobotPIDSettings.DRIVE_FORWARD_PID_SETTINGS);
   }
 
   @Override
