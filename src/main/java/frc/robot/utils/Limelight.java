@@ -71,7 +71,7 @@ public class Limelight {
     //TODO: set real function
     public double getDistance() {
         double x = getTy();
-            return 0.2502*Math.pow(x,2) - 10.377*x + 105.32;
+            return 0.3273*Math.pow(x, 2) + 0.3881*x + 0.795;
     }
 
     /**
