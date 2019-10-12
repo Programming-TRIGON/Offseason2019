@@ -2,10 +2,12 @@ package frc.robot;
 
 /** This class used to store constants related to the robot */
 public class RobotConstants {
-
+    //TODO: find dimensions
     /** Physical measurements of the robot */
     public static class RobotDimensions {
 
+        /** The height which is safe for opening the tilt*/
+        public static final double SAFETY_HEIGHT = 0.0;
     }
 
     // TODO: set configure pid settings
