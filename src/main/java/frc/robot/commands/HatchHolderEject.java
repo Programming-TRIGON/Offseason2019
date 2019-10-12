@@ -8,7 +8,6 @@ import frc.robot.Robot;
 public class HatchHolderEject extends Command {
   private boolean eject;
   // TODO: find real value
-  
   private static double DEFAULT_WAIT_TIME = 1;
   private double waitTime;
 
