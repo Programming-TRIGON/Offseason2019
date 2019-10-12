@@ -50,10 +50,6 @@ public class Lift extends Subsystem {
   public void resetEncoderHeight() {
     this.frontMotor.setSelectedSensorPosition(0);
   }
-  public boolean isOnTarget(){
-      SetLiftHeight runningPIDCommand = (SetLiftHeight)getCurrentCommand();
-      return runningPIDCommand.isOnTarget();
-  }
 
   @Override
   public void initDefaultCommand() {
