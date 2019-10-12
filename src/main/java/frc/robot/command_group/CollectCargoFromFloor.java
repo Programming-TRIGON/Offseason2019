@@ -2,7 +2,6 @@ package frc.robot.command_group;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Enums.LiftHeights;
-import frc.robot.Robot;
 import frc.robot.commands.CollectCargo;
 import frc.robot.commands.SetLiftHeight;
 import frc.robot.commands.Commands;
