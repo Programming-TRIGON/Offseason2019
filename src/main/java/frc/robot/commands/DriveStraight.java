@@ -8,7 +8,7 @@ import frc.robot.PidSettings;
 import frc.robot.Robot;
 import frc.robot.RobotComponents;
 import frc.robot.RobotConstants;
-import frc.robot.pidsources.DrivetrainPidSource;
+import frc.robot.pidsources.DriveForwardPidSource;
 
 /** Drive straight with encoders and gyro. */
 public class DriveStraight extends Command {
@@ -31,7 +31,7 @@ public class DriveStraight extends Command {
 
   @Override
   protected void initialize() {
-    drivePidSource = new DrivetrainPidSource();
+    drivePidSource = new DriveForwardPidSource();
     this.pidControllerY = new PIDController(pidSettingsY.getKP(), pidSettingsY.getKI(), pidSettingsY.getKD(),
         drivePidSource, output -> outputY = output);
     pidControllerY.setOutputRange(-1, 1);

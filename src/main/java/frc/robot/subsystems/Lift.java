@@ -5,7 +5,6 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.robot.commands.SetLiftHeight;
 import frc.robot.RobotComponents;
 import frc.robot.RobotConstants;
 

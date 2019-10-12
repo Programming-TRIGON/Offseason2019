@@ -15,8 +15,9 @@ public class CollectCargoFromFloor extends CommandGroup {
    */
   public CollectCargoFromFloor() {
     addSequential(Commands.setTiltCommand(true));
-    addParallel(new SetLiftHeight(LiftHeights.floor));
-    addSequential(new WaitUntil(Robot.lift::isOnTarget));
+    SetLiftHeight setLiftHeight = new SetLiftHeight(LiftHeights.Floor);
+    addParallel(setLiftHeight);
+    addSequential(new WaitUntil(setLiftHeight::isOnTarget));
     addSequential(new CollectCargo());
     addSequential(new SetLiftHeight(LiftHeights.RocketCargoBottom));
   }

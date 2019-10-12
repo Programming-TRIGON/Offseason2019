@@ -4,10 +4,13 @@ import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import frc.robot.Robot;
 
+
 /**
- * Returns the encoder pid source.
+ * Returns the encoder pid source from the avarage distance that the robot drove,
+ * from both the encoders on each side.
  */
-public class DrivetrainPidSource implements PIDSource {
+
+public class DriveForwardPidSource implements PIDSource {
     @Override
     public PIDSourceType getPIDSourceType() {
         return PIDSourceType.kDisplacement;
