@@ -17,7 +17,7 @@ public class DriveStraight extends Command {
   private double timeOnTarget, setpoint, outputX, outputY;
   private PIDSource drivePidSource;
 
-  public DriveStraight(double setpoint, PidSettings pidSettingsX, PidSettings PidSettingsY) {
+  public DriveStraight(double setpoint, PidSettings pidSettingsX, PidSettings pidSettingsY) {
     requires(Robot.drivetrain);
     this.setpoint = setpoint;
     this.pidSettingsX = pidSettingsX;
@@ -44,12 +44,11 @@ public class DriveStraight extends Command {
     pidControllerX.setOutputRange(-1, 1);
     pidControllerX.setAbsoluteTolerance(pidSettingsX.getTolerance());
     pidControllerX.setSetpoint(Robot.drivetrain.getAngle());
+    
     Robot.drivetrain.resetEncoders();
 
     pidControllerX.enable(); 
     pidControllerY.enable();
-
-    
   }
 
   @Override
@@ -57,7 +56,7 @@ public class DriveStraight extends Command {
     Robot.drivetrain.arcadeDrive(outputX, outputY);
 
     if (!pidControllerY.onTarget())
-    timeOnTarget = Timer.getFPGATimestamp();
+      timeOnTarget = Timer.getFPGATimestamp();
   }
 
   @Override
@@ -69,6 +68,8 @@ public class DriveStraight extends Command {
   protected void end() {
     pidControllerX.disable();
     pidControllerY.disable();
+    pidControllerX.close();
+    pidControllerY.close();
     Robot.drivetrain.arcadeDrive(0, 0);
   }
 
