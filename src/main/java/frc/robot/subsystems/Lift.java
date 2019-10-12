@@ -5,7 +5,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.robot.commands.setLiftHeight;
+
 import frc.robot.RobotComponents;
 import frc.robot.RobotConstants;
 
@@ -49,10 +49,6 @@ public class Lift extends Subsystem {
 
   public void resetEncoderHeight() {
     this.frontMotor.setSelectedSensorPosition(0);
-  }
-  public boolean isOnTarget(){
-      setLiftHeight runningPIDCommand = (setLiftHeight)getCurrentCommand();
-      return runningPIDCommand.isOnTarget();
   }
 
   @Override
