@@ -46,18 +46,22 @@ public class Robot extends TimedRobot {
 
         // autonomousChooser.setDefaultOption("Default Auto", new ExampleCommand());
         // autonomousChooser.addOption("Auto", new AutoCommand());
+        
+        // SmartDashboard commands 
         SmartDashboard.putData("Auto mode", autonomousChooser);
         SmartDashboard.putData("CalibrateDistance", new CalibrateDistance(oi.driver::getAButton));
-        dbc.addNumber("limelight distance", limelight::getDistance);
         SmartDashboard.putData("Test PID vision", new TestPID());
         SmartDashboard.putData("clearPreferences", Commands.clearPreferences());
+    
+        // dbc SmartDashboard values to display
+        dbc.addNumber("limelight distance", limelight::getDistance);
     }
 
     @Override
     public void robotPeriodic() {
         dbc.update();
-        if (lift.getBottomSwitch())
-            lift.resetEncoderHeight();
+        // When the lift touches the bottom switch, the encoder reset to prevent the lift mechanism to go lower.
+        if (lift.getBottomSwitch()) lift.resetEncoderHeight();
     }
 
     @Override
