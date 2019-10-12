@@ -7,6 +7,7 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Robot;
@@ -159,6 +160,6 @@ public class Drivetrain extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new DriveArcade(() -> Robot.oi.driverXbox.getX(), () -> Robot.oi.driverXbox.getY()));
+    setDefaultCommand(new DriveArcade(() -> Robot.oi.driverXbox.getX(Hand.kLeft), () -> Robot.oi.driverXbox.getY(Hand.kLeft)));
   }
 }

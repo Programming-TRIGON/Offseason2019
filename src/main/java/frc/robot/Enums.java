@@ -7,7 +7,7 @@ package frc.robot;
 public class Enums {
     public enum Target {
         // TODO: set real values
-        RocketMiddle(1), RocketSide(0), Feeder(2), CargoShip(3);
+        RocketMiddle(1), RocketSide(0), Feeder(0), CargoShip(0);
     
         private final int index;
     

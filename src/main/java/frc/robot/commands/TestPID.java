@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Enums;
 import frc.robot.PidSettings;
+import frc.robot.Enums.Target;
 
 public class TestPID extends Command {
   private Supplier<Double> KP = ConstantHandler.addConstantDouble("KP", 0.01);
@@ -29,7 +30,7 @@ public class TestPID extends Command {
   @Override
   protected void initialize() {
     updatePID();
-    testCommand = new VisionPID(Enums.Target.RocketMiddle, pidSettings, pidSettings2);
+    testCommand = new VisionPID(Target.RocketSide, pidSettings, pidSettings2);
     testCommand.start();
   }
 
