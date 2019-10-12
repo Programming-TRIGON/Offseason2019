@@ -20,7 +20,9 @@ public class DriveArcade extends Command {
 
   @Override
   protected void execute() {
-    Robot.drivetrain.arcadeDrive(x.get(), y.get());
+    double y = this.y.get();
+    Robot.drivetrain.curvatureDrive(RobotStates.isDriveInverted() ? this.sensetivity * y
+    : -this.sensetivity * y, this.rotentionSupplier.get() * this.sensetivity);
   }
 
   @Override
