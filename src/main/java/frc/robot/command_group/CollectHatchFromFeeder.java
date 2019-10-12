@@ -12,7 +12,7 @@ import frc.robot.commands.*;
 public class CollectHatchFromFeeder extends CommandGroup {
 
     public CollectHatchFromFeeder() {
-        setLiftHeight lowerLiftCommand = new setLiftHeight(LiftHeights.HatchBottom);
+        SetLiftHeight lowerLiftCommand = new SetLiftHeight(LiftHeights.HatchBottom);
         addParallel(lowerLiftCommand);
         addSequential(new VisionPID(Enums.Target.Feeder, true));
         addSequential(new WaitUntil(lowerLiftCommand::isOnTarget));
@@ -20,6 +20,5 @@ public class CollectHatchFromFeeder extends CommandGroup {
         addSequential(new HatchHolderEject(true));
         addSequential(new HatchHolderLock(true));
         addSequential(new HatchHolderEject(false));
-
     }
 }
