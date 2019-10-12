@@ -13,6 +13,8 @@ import frc.robot.subsystems.CargoHolder;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.HatchHolder;
 import frc.robot.subsystems.Lift;
+import frc.robot.testpids.TestPID;
+import frc.robot.testpids.TestPIDGyro;
 import frc.robot.utils.Limelight;
 
 public class Robot extends TimedRobot {
@@ -51,10 +53,12 @@ public class Robot extends TimedRobot {
         SmartDashboard.putData("Auto mode", autonomousChooser);
         SmartDashboard.putData("CalibrateDistance", new CalibrateDistance(oi.driverXbox::getAButton));
         SmartDashboard.putData("Test PID vision", new TestPID());
+        SmartDashboard.putData("test PID Turn", new TestPIDGyro());
         SmartDashboard.putData("clearPreferences", Commands.clearPreferences());
     
         // dbc SmartDashboard values to display
         dbc.addNumber("limelight distance", limelight::getDistance);
+        dbc.addNumber("robot angle", drivetrain::getAngle);
     }
 
     @Override
