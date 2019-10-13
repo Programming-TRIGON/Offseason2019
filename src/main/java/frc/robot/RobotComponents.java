@@ -32,7 +32,6 @@ public class RobotComponents {
 
         public static final ADIS16448_IMU GYRO = new ADIS16448_IMU();
 
-        public static final WPI_TalonSRX ENCODER_LEFT = new WPI_TalonSRX(RobotMap.CAN.ENCODER_LEFT);
         public static final WPI_TalonSRX ENCODER_RIGHT = new WPI_TalonSRX(RobotMap.CAN.ENCODER_RIGHT);
     }
     

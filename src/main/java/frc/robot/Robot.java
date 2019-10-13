@@ -6,10 +6,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.CalibrateCurrent;
-import frc.robot.commands.CalibrateDistance;
-import frc.robot.commands.Commands;
-import frc.robot.commands.MoveLiftWithJoystick;
+import frc.robot.commands.*;
 import frc.robot.motionprofiling.PathCreater;
 import frc.robot.subsystems.CargoHolder;
 import frc.robot.subsystems.Drivetrain;
@@ -57,6 +54,10 @@ public class Robot extends TimedRobot {
         SmartDashboard.putData("move lift with joystick", new MoveLiftWithJoystick(oi.driverXbox::getY));
         SmartDashboard.putData("calibrate stall",
                 new CalibrateCurrent(cargoHolder, RobotComponents.CargoCollector.HOLDER_MOTOR));
+        SmartDashboard.putData("test stall", new CollectCargo());
+        SmartDashboard.putData("plot", new EjectCargo());
+        dbc.addNumber("expected current",Robot.cargoHolder::getExpectedCurrent);
+        dbc.addNumber("actual current",Robot.cargoHolder::getActualCurrent);
         SmartDashboard.putData("clearPreferences", Commands.clearPreferences());
 
         // dbc SmartDashboard values to display
@@ -67,6 +68,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void robotPeriodic() {
+        dbc.update();
         if (lift.getBottomSwitch())
             lift.resetEncoderHeight();
     }

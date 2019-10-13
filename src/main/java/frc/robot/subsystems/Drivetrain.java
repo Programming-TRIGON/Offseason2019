@@ -43,7 +43,7 @@ public class Drivetrain extends Subsystem {
         this.gyro = RobotComponents.Drivetrain.GYRO;
 
         this.rightEncoder = RobotComponents.Drivetrain.ENCODER_RIGHT;
-        this.leftEncoder = RobotComponents.Drivetrain.ENCODER_LEFT;
+        this.leftEncoder = RobotComponents.CargoCollector.HOLDER_MOTOR;
     }
 
   public void arcadeDrive(double x, double y) {
