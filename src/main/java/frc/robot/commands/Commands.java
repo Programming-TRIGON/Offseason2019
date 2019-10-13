@@ -13,7 +13,7 @@ public class Commands {
      * @return new instant command that changes the state of the tilt
      */
     public static InstantCommand setTiltCommand(boolean tilt){
-        return new InstantCommand(()->Robot.cargoHolder.setTilt(tilt));
+        return new InstantCommand(Robot.cargoHolder,()->Robot.cargoHolder.setTilt(tilt));
     }
     public static InstantCommand clearPreferences(){
         InstantCommand c = new InstantCommand(()->Preferences.getInstance().removeAll());
