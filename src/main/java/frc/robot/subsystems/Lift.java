@@ -1,37 +1,56 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
-
+import frc.robot.Robot;
 import frc.robot.RobotComponents;
 import frc.robot.RobotConstants;
+import frc.robot.commands.MoveLiftWithJoystick;
 
 /** This is the subsystem of the lift */
 public class Lift extends Subsystem {
   private DigitalInput topSwitch, bottomSwitch;
-  private TalonSRX frontMotor, rearMotor;
+  private WPI_TalonSRX leftMotor, rightMotor;
+  private Encoder encoder;
 
   public Lift() {
     this.topSwitch = RobotComponents.Lift.LIFT_SWITCH_TOP;
     this.bottomSwitch = RobotComponents.Lift.LIFT_SWITCH_BOTTOM;
-    // TODO: find what motor has the encoder
-    this.frontMotor = RobotComponents.Lift.LIFT_MOTOR_FRONT;
-    this.rearMotor = RobotComponents.Lift.LIFT_MOTOR_REAR;
-    this.rearMotor.follow(this.frontMotor);
-    // TODO: set real values
-    this.frontMotor.configVoltageCompSaturation(11);
-    this.rearMotor.configVoltageCompSaturation(11);
-    // TODO: find out if i need to config both motors
-    this.frontMotor.configOpenloopRamp(0.5);
-    this.frontMotor.enableVoltageCompensation(true);
-    this.rearMotor.enableVoltageCompensation(true);
+    
+    this.leftMotor = RobotComponents.Lift.LIFT_MOTOR_LEFT;
+    this.rightMotor = RobotComponents.Lift.LIFT_MOTOR_RIGHT;
+
+    this.encoder = RobotComponents.Lift.encoder;
+    
+    this.leftMotor.setInverted(true);
+    
+    leftMotor.setNeutralMode(NeutralMode.Brake);
+    rightMotor.setNeutralMode(NeutralMode.Brake);
+    
+    leftMotor.configOpenloopRamp(0.5);
+    rightMotor.configOpenloopRamp(0.5);
+
+    leftMotor.configContinuousCurrentLimit(6);
+    rightMotor.configContinuousCurrentLimit(6);
+
+    leftMotor.configPeakCurrentDuration(500);
+    rightMotor.configPeakCurrentDuration(500);
+
+    leftMotor.configPeakCurrentLimit(20);
+    rightMotor.configPeakCurrentLimit(20);
+
+    leftMotor.enableCurrentLimit(false);
+    rightMotor.enableCurrentLimit(false);
   }
 
   public void setMotorsPower(double power) {
-    this.frontMotor.set(ControlMode.PercentOutput, power);
+    this.rightMotor.set(ControlMode.PercentOutput, power);
+    this.leftMotor.set(ControlMode.PercentOutput, power);
   }
 
   public boolean getTopSwitch() {
@@ -43,15 +62,16 @@ public class Lift extends Subsystem {
   }
 
   public double getHeight() {
-    return this.frontMotor.getSelectedSensorPosition() / RobotConstants.Sensors.LIFT_ENCODER_DISTANCE_PER_TICKS
+    return this.encoder.get() / RobotConstants.Sensors.LIFT_ENCODER_DISTANCE_PER_TICKS
         + RobotConstants.Sensors.LIFT_ENCODER_OFFSET;
   }
 
   public void resetEncoderHeight() {
-    this.frontMotor.setSelectedSensorPosition(0);
+    this.encoder.reset();
   }
 
   @Override
   public void initDefaultCommand() {
+    setDefaultCommand(new MoveLiftWithJoystick(Robot.oi.operatorXbox::getY)); 
   }
 }

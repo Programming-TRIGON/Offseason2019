@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.PidSettings;
 import frc.robot.Robot;
+import frc.robot.RobotComponents;
 import frc.robot.RobotConstants;
 import frc.robot.Enums.LiftHeights;
 import frc.robot.pidsources.LiftEncoderPidSource;
