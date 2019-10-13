@@ -14,7 +14,7 @@ public class HatchHolder extends Subsystem {
     this.ejectorSolenoid = RobotComponents.HatchHolder.EJECT_SOLENOID;
 
     // default values TODO uncomment
-    // setLock(false);
+    // setLock(true);
     // setEjection(false);
   }
 
