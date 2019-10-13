@@ -56,4 +56,8 @@ public class SetLiftHeight extends Command {
   protected void interrupted() {
     end();
   }
+
+  public boolean isOnTarget(){
+    return pidController.onTarget();
+  }
 }
