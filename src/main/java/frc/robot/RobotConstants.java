@@ -1,17 +1,12 @@
 package frc.robot;
 
-import java.util.Map;
-
-import frc.robot.Enums.LiftHeights;
-import frc.robot.Enums.Target;
-
 /** This class used to store constants related to the robot */
 public class RobotConstants {
-    //TODO: find dimensions
+    // TODO: find dimensions
     /** Physical measurements of the robot */
     public static class RobotDimensions {
 
-        /** The height which is safe for opening the tilt*/
+        /** The height which is safe for opening the tilt */
         public static final double SAFETY_HEIGHT = 0.0;
     }
 
@@ -30,28 +25,28 @@ public class RobotConstants {
         public static final double DRIVETRAIN_ENCODERS_DISTANCE_PER_TICKS = 4096;
 
         public static final double LIFT_ENCODER_OFFSET = 4096;
-        public static final double LIFT_ENCODER_DISTANCE_PER_TICKS = 4096; 
+        public static final double LIFT_ENCODER_DISTANCE_PER_TICKS = 4096;
     }
 
     public static class MotionProfiling {
-        
-    public static final double WHEEL_DIAMETER = 0.1524;
-    public static final double WHEEL_BASE_WIDTH = 0.6;
-    public static final double TIMEFRAME = 0.02;
 
-    public static final double MAX_VELOCITY = 3;
-    public static final double MAX_ACCELERATION = 2;
-    public static final double MAX_JERK = 80;
+        public static final double WHEEL_DIAMETER = 0.1524;
+        public static final double WHEEL_BASE_WIDTH = 0.6;
+        public static final double TIMEFRAME = 0.02;
 
-    public static final PidSettings MOTION_PROFILING_PID_SETTINGS_LEFT = new PidSettings(0.0, 0, 0.0, 0.0);//0.2103, 0.5139
-    public static final PidSettings MOTION_PROFILING_PID_SETTINGS_RIGHT = new PidSettings(0.0, 0, 0.0, 0.0);//0.1929, 2.5147
+        public static final double MAX_VELOCITY = 3;
+        public static final double MAX_ACCELERATION = 2;
+        public static final double MAX_JERK = 80;
 
-    public static final double MOTION_PROFILING_KP_TURN = 0.0025;
+        public static final PidSettings MOTION_PROFILING_PID_SETTINGS_LEFT = new PidSettings(0.0, 0, 0.0, 0.0);// 0.2103, 0.5139
+        public static final PidSettings MOTION_PROFILING_PID_SETTINGS_RIGHT = new PidSettings(0.0, 0, 0.0, 0.0);// 0.1929, 2.5147
 
-    public static final double TICKS_PER_METER_RIGHT = 575.0;
-    public static final double TICKS_PER_METER_LEFT = 771.5;
-    public static final int TICKS_PER_REVOLUTION_RIGHT = 290;
-    public static final int TICKS_PER_REVOLUTION_LEFT = 360;
+        public static final double MOTION_PROFILING_KP_TURN = 0.0025;
+
+        public static final double TICKS_PER_METER_RIGHT = 575.0;
+        public static final double TICKS_PER_METER_LEFT = 771.5;
+        public static final int TICKS_PER_REVOLUTION_RIGHT = 290;
+        public static final int TICKS_PER_REVOLUTION_LEFT = 360;
     }
 
     public static class Vision {
@@ -59,7 +54,7 @@ public class RobotConstants {
         public static final double ANGLE_FROM_TARGET = 0;
     }
 
-    public class Calibration{
+    public class Calibration {
         public static final double leftForwardKv = 0.2103;
         public static final double leftForwardVi = 0.3717;
         public static final double rightForwardKv = 0.1929;
