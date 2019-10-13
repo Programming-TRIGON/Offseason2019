@@ -15,6 +15,7 @@ import frc.robot.subsystems.HatchHolder;
 import frc.robot.subsystems.Lift;
 import frc.robot.testpids.TestPID;
 import frc.robot.testpids.TestPIDGyro;
+import frc.robot.testpids.TestPIDLift;
 import frc.robot.utils.Limelight;
 
 public class Robot extends TimedRobot {
@@ -52,17 +53,21 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("CalibrateDistance", new CalibrateDistance(oi.driverXbox::getAButton));
     SmartDashboard.putData("Test PID vision", new TestPID());
     SmartDashboard.putData("test PID Turn", new TestPIDGyro());
+    SmartDashboard.putData("test pid Lift", new TestPIDLift());
     SmartDashboard.putData("clearPreferences", Commands.clearPreferences());
 
     // dbc SmartDashboard values to display
     dbc.addNumber("limelight distance", limelight::getDistance);
     dbc.addNumber("robot angle", drivetrain::getAngle);
+    dbc.addNumber("lift height", lift::getHeight);
   }
 
   @Override
   public void robotPeriodic() {
-    if (lift.getBottomSwitch())
-      lift.resetEncoderHeight();
+    dbc.update();
+
+    //if (lift.getBottomSwitch())
+    // lift.resetEncoderHeight();
   }
 
   @Override
