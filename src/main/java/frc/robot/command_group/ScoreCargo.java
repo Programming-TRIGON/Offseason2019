@@ -14,8 +14,7 @@ import frc.robot.commands.VisionPID;
 public class ScoreCargo extends CommandGroup {
 
   /** Scores the cargo. */
-  public ScoreCargo(LiftHeights height) {
-    Target target = RobotConstants.liftVisionMap.get(height);
+  public ScoreCargo(LiftHeights height, Target target) {
     SetLiftHeight setLiftHeight = new SetLiftHeight(height);
     addParallel(setLiftHeight);
     addSequential(new VisionPID(target, true));
