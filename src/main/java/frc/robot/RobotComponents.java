@@ -14,7 +14,6 @@ public class RobotComponents {
     public static Compressor compressor = new Compressor(RobotMap.PCM.PCM_PORT);
 
     public static class CargoCollector {
-        public static final DoubleSolenoid TILT_SOLENOID = null; //new DoubleSolenoid(RobotMap.PCM.TILT_SOLENOID_FORWARD, RobotMap.PCM.TILT_SOLENOID_REVERSE);
         public static final WPI_TalonSRX HOLDER_MOTOR = new WPI_TalonSRX(RobotMap.CAN.CARGO_HOLDER_MOTOR);
     }
      
@@ -34,7 +33,6 @@ public class RobotComponents {
 
         public static final ADIS16448_IMU GYRO = new ADIS16448_IMU();
 
-        public static final WPI_TalonSRX ENCODER_LEFT = RobotComponents.CargoCollector.HOLDER_MOTOR;
         public static final WPI_TalonSRX ENCODER_RIGHT = new WPI_TalonSRX(RobotMap.CAN.ENCODER_RIGHT);
     }
     
@@ -44,7 +42,7 @@ public class RobotComponents {
     }
     
     public static class Lift {
-        public static final Encoder encoder = new Encoder(RobotMap.DIO.LIFT_ENCODER_CHANNEL_A, RobotMap.DIO.LIFT_ENCODER_CHANNEL_B);    
+        public static final Encoder encoder = new Encoder(RobotMap.DIO.LIFT_ENCODER_CHANNEL_A, RobotMap.DIO.LIFT_ENCODER_CHANNEL_B);
         public static final WPI_TalonSRX LIFT_MOTOR_LEFT = new WPI_TalonSRX(RobotMap.CAN.LIFT_MOTOR_LEFT);
         public static final WPI_TalonSRX LIFT_MOTOR_RIGHT = new WPI_TalonSRX(RobotMap.CAN.LIFT_MOTOR_RIGHT);
         public static final DigitalInput LIFT_SWITCH_TOP = new DigitalInput(RobotMap.DIO.LIFT_SWITCH_TOP);

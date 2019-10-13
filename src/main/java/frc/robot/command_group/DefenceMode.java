@@ -18,12 +18,11 @@ public class DefenceMode extends CommandGroup {
     
       @Override
       protected boolean condition() {
-        return Robot.cargoHolder.isCargoCollectedStall();
+        return Robot.cargoHolder.isCargoCollected();
       }
     });
     SetLiftHeight setLiftHeight = new SetLiftHeight(LiftHeights.Floor);
     addParallel(setLiftHeight);
     addSequential(new WaitUntil(setLiftHeight::isOnTarget));
-    addSequential(Commands.setTiltCommand(true));
   }
 }

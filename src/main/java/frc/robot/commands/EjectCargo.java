@@ -1,6 +1,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
@@ -8,11 +9,16 @@ import frc.robot.Robot;
  * this command ejects cargo until the stall stops.
  */
 public class EjectCargo extends Command {
-  //TODO: calibrate power.
-  private final static double EJECT_POWER = -0.3,TIMEOUT = 2;
+  private final static double EJECT_POWER = -0.6,TIMEOUT = 1;
+  private double startTime;
+
   public EjectCargo() {
     requires(Robot.cargoHolder);
-    setTimeout(TIMEOUT);
+  }
+
+  @Override
+  protected void initialize() {
+    startTime = Timer.getFPGATimestamp();
   }
 
   @Override
@@ -23,7 +29,7 @@ public class EjectCargo extends Command {
 
   @Override
   protected boolean isFinished() {
-    return isTimedOut();
+    return Timer.getFPGATimestamp() - startTime > 1;
   }
 
   @Override

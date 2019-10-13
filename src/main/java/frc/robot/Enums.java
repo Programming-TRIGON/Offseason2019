@@ -38,4 +38,7 @@ public class Enums {
             return height;
         }
     }
+    public enum ScoreHeight {
+        kLow, kMedium, kHigh
+    }
 }

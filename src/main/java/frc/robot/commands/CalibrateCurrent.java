@@ -28,12 +28,13 @@ public class CalibrateCurrent extends Command {
         logger = new Logger("current calibration.csv", "power", "amps");
         startTime = Timer.getFPGATimestamp();
         currentPower = 0.2;
+
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        talon.set(currentPower);
+        talon.set(-currentPower);
         double changeTime = Timer.getFPGATimestamp() - startTime;
         if (changeTime > DELTA_TIME) {
             //starts measuring the current.
