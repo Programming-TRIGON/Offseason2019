@@ -5,15 +5,15 @@ import com.spikes2212.dashboard.ConstantHandler;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.PidSettings;
-import frc.robot.commands.TurnWithGyro;
+import frc.robot.Enums.LiftHeights;
+import frc.robot.commands.SetLiftHeight;
 
 public class TestPIDLift extends Command {
-  private Supplier<Double> KP = ConstantHandler.addConstantDouble("KP", 0.0);
-  private Supplier<Double> KI = ConstantHandler.addConstantDouble("KI", 0);
-  private Supplier<Double> KD = ConstantHandler.addConstantDouble("KD", 0);
-  private Supplier<Double> SETPOINT = ConstantHandler.addConstantDouble("SETPOINT", 0);
-  private Supplier<Double> TOLERANCE = ConstantHandler.addConstantDouble("TOLERANCE", 0);
-  private Supplier<Double> DELTA_TOLERANCE = ConstantHandler.addConstantDouble("WAIT TIME", 0);
+  private Supplier<Double> KP = ConstantHandler.addConstantDouble("KP_lift", 0.0);
+  private Supplier<Double> KI = ConstantHandler.addConstantDouble("KI_lift", 0);
+  private Supplier<Double> KD = ConstantHandler.addConstantDouble("KD_lift", 0);
+  private Supplier<Double> TOLERANCE = ConstantHandler.addConstantDouble("TOLERANCE_lift", 0);
+  private Supplier<Double> DELTA_TOLERANCE = ConstantHandler.addConstantDouble("WAIT TIME_lift", 0);
 
   private PidSettings pidSettings;
   private Command testCommand;
@@ -24,7 +24,7 @@ public class TestPIDLift extends Command {
   @Override
   protected void initialize() {
     updatePID();
-    testCommand = new TurnWithGyro(this.SETPOINT.get(), this.pidSettings);
+    testCommand = new SetLiftHeight(LiftHeights.RocketCargoBottom, this.pidSettings);
     testCommand.start();
   }
 
@@ -45,7 +45,7 @@ public class TestPIDLift extends Command {
 
   public void updatePID(){
     this.pidSettings = new PidSettings(KP.get(), KI.get(), KD.get(), TOLERANCE.get(), DELTA_TOLERANCE.get());
-    SmartDashboard.putString("PID setting", "" + KP.get() + KI.get() + KD.get() + TOLERANCE.get() + DELTA_TOLERANCE.get() + SETPOINT.get());
+    SmartDashboard.putString("PID setting", "" + KP.get() + KI.get() + KD.get() + TOLERANCE.get() + DELTA_TOLERANCE.get());
   }
 
   @Override

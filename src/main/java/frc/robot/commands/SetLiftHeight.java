@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.PidSettings;
 import frc.robot.Robot;
+import frc.robot.RobotComponents;
 import frc.robot.RobotConstants;
 import frc.robot.Enums.LiftHeights;
 import frc.robot.pidsources.LiftEncoderPidSource;
@@ -26,9 +27,6 @@ public class SetLiftHeight extends Command {
 
   @Override
   protected void initialize() {
-    if (liftHeight > RobotConstants.RobotDimensions.SAFETY_HEIGHT || Robot.lift.getHeight() > RobotConstants.RobotDimensions.SAFETY_HEIGHT)
-      Robot.cargoHolder.setTilt(true);
-
     pidController = new PIDController(pidSettings.getKP(), pidSettings.getKI(), pidSettings.getKD(),
         new LiftEncoderPidSource(), output -> Robot.lift.setMotorsPower(output));
     pidController.setSetpoint(liftHeight);

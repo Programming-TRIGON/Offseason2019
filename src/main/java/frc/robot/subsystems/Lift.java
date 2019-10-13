@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
@@ -15,7 +16,7 @@ import frc.robot.commands.MoveLiftWithJoystick;
 /** This is the subsystem of the lift */
 public class Lift extends Subsystem {
   private DigitalInput topSwitch, bottomSwitch;
-  private TalonSRX frontMotor, rearMotor;
+  private WPI_TalonSRX frontMotor, rearMotor;
   private Encoder encoder;
 
   public Lift() {
@@ -27,7 +28,7 @@ public class Lift extends Subsystem {
 
     this.encoder = RobotComponents.Lift.encoder;
     this.frontMotor.setInverted(true);
-    this.rearMotor.follow(this.frontMotor);
+    //this.frontMotor.set(ControlMode.Follower, this.rearMotor.getDeviceID());
     
     frontMotor.setNeutralMode(NeutralMode.Brake);
     rearMotor.setNeutralMode(NeutralMode.Brake);
@@ -44,12 +45,15 @@ public class Lift extends Subsystem {
     frontMotor.configPeakCurrentLimit(20);
     rearMotor.configPeakCurrentLimit(20);
 
-    frontMotor.enableCurrentLimit(true);
-    rearMotor.enableCurrentLimit(true);
+    frontMotor.enableCurrentLimit(false);
+    rearMotor.enableCurrentLimit(false);
   }
 
   public void setMotorsPower(double power) {
+    this.rearMotor.set(ControlMode.PercentOutput, power);
     this.frontMotor.set(ControlMode.PercentOutput, power);
+    System.out.println(frontMotor.getControlMode()); 
+    System.out.println(rearMotor.getControlMode()); 
   }
 
   public boolean getTopSwitch() {
