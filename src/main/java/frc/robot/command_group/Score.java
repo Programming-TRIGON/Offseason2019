@@ -25,14 +25,13 @@ public class Score extends CommandGroup {
                 break;
             case kCargoShip:
                 return;
-
         }
         addSequential(new ConditionalCommand
                 (new ScoreCargo(cargoHeight, Enums.Target.RocketMiddle),
                 new HatchScore(hatchHeight, Enums.Target.RocketSide, true)) {
             @Override
             protected boolean condition() {
-                return Robot.cargoHolder.isCargoCollectedStall();
+                return Robot.cargoHolder.isCargoCollected();
             }
         });
     }
