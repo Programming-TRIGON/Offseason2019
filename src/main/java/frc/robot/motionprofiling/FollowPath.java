@@ -1,6 +1,7 @@
 package frc.robot.motionprofiling;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.PidSettings;
 import frc.robot.Robot;
 import frc.robot.RobotConstants;
 import frc.robot.motionprofiling.Path;
@@ -84,4 +85,17 @@ public class FollowPath extends Command {
   protected void interrupted() {
     end();
   }
+  /**
+   * @param pidSettings pid settings for the left follower to be set by testPID
+   */
+  public void setPID(PidSettings pidSettings){
+      this.left.configurePIDVA(pidSettings.getKP(),pidSettings.getKI(),pidSettings.getKD(),pidSettings.getKV(),pidSettings.getKA());
+  }
+  /**
+   * @param pidSettings pid settings for the right follower to be set by testPID
+   */
+  public void setPID2(PidSettings pidSettings){
+    this.right.configurePIDVA(pidSettings.getKP(),pidSettings.getKI(),pidSettings.getKD(),pidSettings.getKV(),pidSettings.getKA());
+  }
+
 }

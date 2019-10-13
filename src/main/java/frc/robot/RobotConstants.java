@@ -53,8 +53,10 @@ public class RobotConstants {
     public static final int TICKS_PER_REVOLUTION_RIGHT = 290;
     public static final int TICKS_PER_REVOLUTION_LEFT = 360;
     }
-    
-    public class Vision{
+
+    public static class Vision {
+        public static final double DISTANCE_FROM_TARGET = 0;
+        public static final double ANGLE_FROM_TARGET = 0;
     }
 
     public class Calibration{

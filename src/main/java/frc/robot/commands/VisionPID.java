@@ -83,15 +83,15 @@ public class VisionPID extends Command {
                 visionPIDSourceX, output -> xOutput = -output);
         pidControllerX.setOutputRange(-1, 1);
         pidControllerX.setAbsoluteTolerance(pidSettingsX.getTolerance());
-        pidControllerX.setSetpoint(target.getSetpointX());
+        pidControllerX.setSetpoint(RobotConstants.Vision.ANGLE_FROM_TARGET);
 
         // setting PID Y values
         if (isDrivingForward) {
-            this.pidControllerY = new PIDController(pidControllerY.getP(), pidSettingsY.getKI(), pidSettingsY.getKD(),
-                    visionPIDSourceY, output -> yOutput = -output);
+            this.pidControllerY = new PIDController(pidSettingsY.getKP(), pidSettingsY.getKI(), pidSettingsY.getKD(),
+                    visionPIDSourceY, output -> yOutput = output);
             pidControllerY.setOutputRange(-1, 1);
             pidControllerY.setAbsoluteTolerance(pidSettingsY.getTolerance());
-            pidControllerY.setSetpoint(target.getSetpointY());
+            pidControllerY.setSetpoint(RobotConstants.Vision.DISTANCE_FROM_TARGET);
             pidControllerY.enable();
         }
         pidControllerX.enable();
@@ -101,7 +101,7 @@ public class VisionPID extends Command {
     protected void execute() {
         // powering the motors
         if (isDrivingForward)
-            Robot.drivetrain.curvatureDrive(xOutput, yOutput, false);
+            Robot.drivetrain.arcadeDrive(xOutput, yOutput);
         else
             Robot.drivetrain.curvatureDrive(xOutput, forwardSupplier.get(), false);
 

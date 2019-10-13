@@ -52,10 +52,10 @@ public class SetLiftHeight extends Command {
     Robot.lift.setMotorsPower(0);
   }
 
-  @Override
+    @Override
   protected void interrupted() {
-    end();
-  }
+      end();
+    }
 
   public boolean isOnTarget(){
     return pidController.onTarget();

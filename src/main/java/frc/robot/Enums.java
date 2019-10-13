@@ -7,28 +7,19 @@ package frc.robot;
 public class Enums {
     public enum Target {
         // TODO: set real values
-        RocketMiddle(0, 91, 25), RocketSide(1, 0, 0), Feeder(2, 0, 0), CargoShip(3, 0, 0);
+        RocketMiddle(1), RocketSide(0), Feeder(0), CargoShip(0);
     
         private final int index;
-        private final double setpointX, setpointY;
     
-        Target(int index, double setpointX, double setpointY) {
+        Target(int index) {
             this.index = index;
-            this.setpointX = setpointX;
-            this.setpointY = setpointY;
+
         }
     
         public int getIndex() {
             return index;
         }
-    
-        public double getSetpointX() {
-            return setpointX;
-        }
 
-        public double getSetpointY() {
-            return setpointY;
-        }
     }
 
     public static enum LiftHeights {
