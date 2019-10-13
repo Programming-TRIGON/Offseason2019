@@ -2,7 +2,6 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -16,44 +15,42 @@ import frc.robot.commands.MoveLiftWithJoystick;
 /** This is the subsystem of the lift */
 public class Lift extends Subsystem {
   private DigitalInput topSwitch, bottomSwitch;
-  private WPI_TalonSRX frontMotor, rearMotor;
+  private WPI_TalonSRX leftMotor, rightMotor;
   private Encoder encoder;
 
   public Lift() {
     this.topSwitch = RobotComponents.Lift.LIFT_SWITCH_TOP;
     this.bottomSwitch = RobotComponents.Lift.LIFT_SWITCH_BOTTOM;
-    // TODO: find what motor has the encoder
-    this.frontMotor = RobotComponents.Lift.LIFT_MOTOR_FRONT;
-    this.rearMotor = RobotComponents.Lift.LIFT_MOTOR_REAR;
+    
+    this.leftMotor = RobotComponents.Lift.LIFT_MOTOR_LEFT;
+    this.rightMotor = RobotComponents.Lift.LIFT_MOTOR_RIGHT;
 
     this.encoder = RobotComponents.Lift.encoder;
-    this.frontMotor.setInverted(true);
-    //this.frontMotor.set(ControlMode.Follower, this.rearMotor.getDeviceID());
     
-    frontMotor.setNeutralMode(NeutralMode.Brake);
-    rearMotor.setNeutralMode(NeutralMode.Brake);
+    this.leftMotor.setInverted(true);
     
-    frontMotor.configOpenloopRamp(0.5);
-    rearMotor.configOpenloopRamp(0.5);
+    leftMotor.setNeutralMode(NeutralMode.Brake);
+    rightMotor.setNeutralMode(NeutralMode.Brake);
+    
+    leftMotor.configOpenloopRamp(0.5);
+    rightMotor.configOpenloopRamp(0.5);
 
-    frontMotor.configContinuousCurrentLimit(6);
-    rearMotor.configContinuousCurrentLimit(6);
+    leftMotor.configContinuousCurrentLimit(6);
+    rightMotor.configContinuousCurrentLimit(6);
 
-    frontMotor.configPeakCurrentDuration(500);
-    rearMotor.configPeakCurrentDuration(500);
+    leftMotor.configPeakCurrentDuration(500);
+    rightMotor.configPeakCurrentDuration(500);
 
-    frontMotor.configPeakCurrentLimit(20);
-    rearMotor.configPeakCurrentLimit(20);
+    leftMotor.configPeakCurrentLimit(20);
+    rightMotor.configPeakCurrentLimit(20);
 
-    frontMotor.enableCurrentLimit(false);
-    rearMotor.enableCurrentLimit(false);
+    leftMotor.enableCurrentLimit(false);
+    rightMotor.enableCurrentLimit(false);
   }
 
   public void setMotorsPower(double power) {
-    this.rearMotor.set(ControlMode.PercentOutput, power);
-    this.frontMotor.set(ControlMode.PercentOutput, power);
-    System.out.println(frontMotor.getControlMode()); 
-    System.out.println(rearMotor.getControlMode()); 
+    this.rightMotor.set(ControlMode.PercentOutput, power);
+    this.leftMotor.set(ControlMode.PercentOutput, power);
   }
 
   public boolean getTopSwitch() {
