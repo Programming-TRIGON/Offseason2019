@@ -23,13 +23,13 @@ public class CollectCargo extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return false;
+        return Robot.cargoHolder.isCargoCollectedStall();
     }
 
     // Called once after isFinished returns true
     @Override
     protected void end() {
-      Robot.cargoHolder.setIsCargoCollected(Robot.cargoHolder.isCargoCollectedStall());
+      Robot.cargoHolder.setIsCargoCollected(true);
       Robot.cargoHolder.setHolderMotorPower(0);
     }
 
@@ -37,6 +37,7 @@ public class CollectCargo extends Command {
     // subsystems is scheduled to run
     @Override
     protected void interrupted() {
-        end();
+      Robot.cargoHolder.setIsCargoCollected(Robot.cargoHolder.isCargoCollectedStall());
+      Robot.cargoHolder.setHolderMotorPower(0);
     }
 }
