@@ -14,7 +14,7 @@ public class RobotMap {
         public static final int DRIVETRAIN_RIGHT_MIDDLE_MOTOR = 8;
         public static final int DRIVETRAIN_RIGHT_FRONT_MOTOR = 9;
 
-        public static final int LIFT_MOTOR_FRONT = 1;
+        public static final int LIFT_MOTOR_FRONT = 6;
         public static final int LIFT_MOTOR_REAR = 2;
 
         public static final int ENCODER_LEFT = 11;
@@ -43,5 +43,8 @@ public class RobotMap {
         
         public static final int LIFT_SWITCH_TOP = 4;
         public static final int LIFT_SWITCH_BOTTOM = 5;
+
+        public static final int LIFT_ENCODER_CHANNEL_A = 7;
+        public static final int LIFT_ENCODER_CHANNEL_B = 8;
     }
 }

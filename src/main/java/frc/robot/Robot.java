@@ -57,12 +57,15 @@ public class Robot extends TimedRobot {
     // dbc SmartDashboard values to display
     dbc.addNumber("limelight distance", limelight::getDistance);
     dbc.addNumber("robot angle", drivetrain::getAngle);
+    dbc.addNumber("lift height", lift::getHeight);
   }
 
   @Override
   public void robotPeriodic() {
-    if (lift.getBottomSwitch())
-      lift.resetEncoderHeight();
+    dbc.update();
+
+    //if (lift.getBottomSwitch())
+    // lift.resetEncoderHeight();
   }
 
   @Override
