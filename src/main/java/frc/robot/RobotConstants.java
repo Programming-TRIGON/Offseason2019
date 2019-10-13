@@ -15,7 +15,7 @@ public class RobotConstants {
     // TODO: set configure pid settings
     /** All the robot pid values for monitoring */
     public static class RobotPIDSettings {
-        public static final PidSettings LIFT_PID_SETTINGS = new PidSettings(0.1, 0.0, 0.0, 5.0, 1.0);
+        public static final PidSettings LIFT_PID_SETTINGS = new PidSettings(0.085, 0, 0.04, 1, 1);
         public static final PidSettings DRIVETRAIN_TURN_PID_SETTINGS = new PidSettings(0, 0, 0, 0, 0);
         public static final PidSettings DRIVE_FORWARD_PID_SETTINGS = new PidSettings(0, 0, 0, 0, 0);
         public static final PidSettings VISION_X_PID_SETTINGS = new PidSettings(0, 0, 0, 0, 0);
