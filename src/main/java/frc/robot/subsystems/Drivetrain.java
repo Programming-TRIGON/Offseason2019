@@ -42,8 +42,8 @@ public class Drivetrain extends Subsystem {
 
         this.gyro = RobotComponents.Drivetrain.GYRO;
 
-        this.rightEncoder = RobotComponents.Lift.LIFT_MOTOR_REAR; // TODO set real talons encoder connection
-        this.leftEncoder = RobotComponents.CargoCollector.HOLDER_MOTOR; // TODO set real talons encoder connection
+        this.rightEncoder = RobotComponents.Drivetrain.ENCODER_RIGHT;
+        this.leftEncoder = RobotComponents.Drivetrain.ENCODER_LEFT;
     }
 
   public void arcadeDrive(double x, double y) {

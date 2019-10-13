@@ -53,15 +53,11 @@ public class SetLiftHeight extends Command {
   }
 
     @Override
-    protected void interrupted() {
-        end();
+  protected void interrupted() {
+      end();
     }
 
-  /**
-   * @param pidSettings pid settings to be set by testPID
-   */
-    public void setPID(PidSettings pidSettings) {
-        if (!isRunning())
-            pidController.setPID(pidSettings.getKP(), pidSettings.getKI(), pidSettings.getKD());
-    }
+  public boolean isOnTarget(){
+    return pidController.onTarget();
+  }
 }

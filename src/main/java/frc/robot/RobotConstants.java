@@ -1,5 +1,10 @@
 package frc.robot;
 
+import java.util.Map;
+
+import frc.robot.Enums.LiftHeights;
+import frc.robot.Enums.Target;
+
 /** This class used to store constants related to the robot */
 public class RobotConstants {
     //TODO: find dimensions
@@ -15,6 +20,7 @@ public class RobotConstants {
     public static class RobotPIDSettings {
         public static final PidSettings LIFT_PID_SETTINGS = new PidSettings(0.1, 0.0, 0.0, 5.0, 1.0);
         public static final PidSettings DRIVETRAIN_TURN_PID_SETTINGS = new PidSettings(0, 0, 0, 0, 0);
+        public static final PidSettings DRIVE_FORWARD_PID_SETTINGS = new PidSettings(0, 0, 0, 0, 0);
         public static final PidSettings VISION_X_PID_SETTINGS = new PidSettings(0, 0, 0, 0, 0);
         public static final PidSettings VISION_Y_PID_SETTINGS = new PidSettings(0, 0, 0, 0, 0);
     }

@@ -25,7 +25,7 @@ public class Enums {
     public static enum LiftHeights {
         // TODO: add real values
         RocketCargoTop(0), RocketCargoMiddle(0), RocketCargoBottom(0), RocketHatchTop(0), RocketHatchMiddle(0),
-        HatchBottom(0), CargoShip(0);
+        HatchBottom(0), CargoShip(0), Floor(0), Feeder(0); // Feeder is the same height as rocket hatch low.
         private double height;
 
         private LiftHeights(double height) {
