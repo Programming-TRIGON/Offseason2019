@@ -18,20 +18,20 @@ import frc.robot.testpids.TestPIDGyro;
 import frc.robot.utils.Limelight;
 
 public class Robot extends TimedRobot {
-    public static OI oi;
-    public static PathCreater pathCreater;
-    public static CargoHolder cargoHolder;
-    public static Drivetrain drivetrain;
-    public static Lift lift;
-    public static HatchHolder hatchHolder;
-    public static Limelight limelight;
-    private Command autonomousCommand;
-    private SendableChooser<Command> autonomousChooser = new SendableChooser<>();
-    private DashBoardController dbc;
+  public static OI oi;
+  public static PathCreater pathCreater;
+  public static CargoHolder cargoHolder;
+  public static Drivetrain drivetrain;
+  public static Lift lift;
+  public static HatchHolder hatchHolder;
+  public static Limelight limelight;
+  private Command autonomousCommand;
+  private SendableChooser<Command> autonomousChooser = new SendableChooser<Command>();
+  private DashBoardController dbc;
 
   @Override
   public void robotInit() {
-    //compressor:
+    // compressor:
     RobotComponents.compressor.start();
     // Utils:
     oi = new OI();
@@ -44,20 +44,20 @@ public class Robot extends TimedRobot {
     lift = new Lift();
     hatchHolder = new HatchHolder();
 
-        // autonomousChooser.setDefaultOption("Default Auto", new ExampleCommand());
-        // autonomousChooser.addOption("Auto", new AutoCommand());
+    // autonomousChooser.setDefaultOption("Default Auto", new ExampleCommand());
+    // autonomousChooser.addOption("Auto", new AutoCommand());
 
-        // SmartDashboard commands
-        SmartDashboard.putData("Auto mode", autonomousChooser);
-        SmartDashboard.putData("CalibrateDistance", new CalibrateDistance(oi.driverXbox::getAButton));
-        SmartDashboard.putData("Test PID vision", new TestPID());
-        SmartDashboard.putData("test PID Turn", new TestPIDGyro());
-        SmartDashboard.putData("clearPreferences", Commands.clearPreferences());
+    // SmartDashboard commands
+    SmartDashboard.putData("Auto mode", autonomousChooser);
+    SmartDashboard.putData("CalibrateDistance", new CalibrateDistance(oi.driverXbox::getAButton));
+    SmartDashboard.putData("Test PID vision", new TestPID());
+    SmartDashboard.putData("test PID Turn", new TestPIDGyro());
+    SmartDashboard.putData("clearPreferences", Commands.clearPreferences());
 
-        // dbc SmartDashboard values to display
-        dbc.addNumber("limelight distance", limelight::getDistance);
-        dbc.addNumber("robot angle", drivetrain::getAngle);
-    }
+    // dbc SmartDashboard values to display
+    dbc.addNumber("limelight distance", limelight::getDistance);
+    dbc.addNumber("robot angle", drivetrain::getAngle);
+  }
 
   @Override
   public void robotPeriodic() {
