@@ -148,9 +148,9 @@ public class Drivetrain extends Subsystem {
     rear.setIdleMode(IdleMode.kCoast);
 
     // Current limit
-    front.setSmartCurrentLimit(30);
-    middle.setSmartCurrentLimit(30);
-    rear.setSmartCurrentLimit(30);
+    front.setSmartCurrentLimit(40);
+    middle.setSmartCurrentLimit(40);
+    rear.setSmartCurrentLimit(40);
     
     // Saves the settings for each Spark Max
     front.burnFlash();
