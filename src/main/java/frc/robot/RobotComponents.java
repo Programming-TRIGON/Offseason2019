@@ -13,7 +13,6 @@ public class RobotComponents {
     public static Compressor compressor = new Compressor(RobotMap.PCM.PCM_PORT);
 
     public static class CargoCollector {
-        public static final DoubleSolenoid TILT_SOLENOID = null; //new DoubleSolenoid(RobotMap.PCM.TILT_SOLENOID_FORWARD, RobotMap.PCM.TILT_SOLENOID_REVERSE);
         public static final WPI_TalonSRX HOLDER_MOTOR = new WPI_TalonSRX(RobotMap.CAN.CARGO_HOLDER_MOTOR);
     }
      

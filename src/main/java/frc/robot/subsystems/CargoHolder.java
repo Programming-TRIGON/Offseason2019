@@ -2,8 +2,6 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotComponents;
 import frc.robot.commands.KeepCargo;
@@ -16,11 +14,9 @@ public class CargoHolder extends Subsystem {
   private static final double DELTA_CURRENT = 3;
   private static final double CURRENT_OFFSET = -0.6384;
   private static final double CURRENT_FACTOR = 9.375;
-  private DoubleSolenoid tiltSolenoid;
   private WPI_TalonSRX holderMotor;
   private boolean isCargoCollected;
   public CargoHolder() {
-    this.tiltSolenoid = RobotComponents.CargoCollector.TILT_SOLENOID;
     this.holderMotor = RobotComponents.CargoCollector.HOLDER_MOTOR;
 
   }
@@ -48,16 +44,7 @@ public class CargoHolder extends Subsystem {
     return CURRENT_FACTOR * power + CURRENT_OFFSET;
   }
 
-  public void setTilt(boolean tilt){
-    this.tiltSolenoid.set(tilt ? Value.kForward : Value.kReverse);
-  }
-
-  public void setTiltSolenoidOff(){
-    this.tiltSolenoid.set(Value.kOff);
-  }
-
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new KeepCargo());
   }
 }
