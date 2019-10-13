@@ -1,5 +1,10 @@
 package frc.robot;
 
+import java.util.Map;
+
+import frc.robot.Enums.LiftHeights;
+import frc.robot.Enums.Target;
+
 /** This class used to store constants related to the robot */
 public class RobotConstants {
     //TODO: find dimensions

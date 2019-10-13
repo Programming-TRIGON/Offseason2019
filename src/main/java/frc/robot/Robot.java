@@ -37,7 +37,6 @@ public class Robot extends TimedRobot {
     drivetrain = new Drivetrain();
     lift = new Lift();
     hatchHolder = new HatchHolder();
-
     // autonomousChooser.setDefaultOption("Default Auto", new ExampleCommand());
     // autonomousChooser.addOption("Auto", new AutoCommand());
     SmartDashboard.putData("Auto mode", autonomousChooser);
