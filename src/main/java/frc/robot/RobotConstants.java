@@ -63,4 +63,8 @@ public class RobotConstants {
         public static final double rightForwardKv = 0.1929;
         public static final double rightForwardVi = 0.3913;
     }
+    public static class FieldDimensions{
+        public static final double PATH2_DISTANCE = 1;
+        public static final double PATH3_DISTANCE = 1;
+    }
 }

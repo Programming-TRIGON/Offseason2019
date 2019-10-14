@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.*;
+import frc.robot.autonomous.AutonomousCommand;
 import frc.robot.motionprofiling.PathCreater;
 import frc.robot.subsystems.CargoHolder;
 import frc.robot.subsystems.Drivetrain;
@@ -45,10 +46,10 @@ public class Robot extends TimedRobot {
     dbc = new DashBoardController();
 
     autonomousChooser = new SendableChooser<Command>();
-    // autonomousChooser.setDefaultOption("Default Auto", new ExampleCommand());
-    // autonomousChooser.addOption("Auto", new AutoCommand());
+    autonomousChooser.setDefaultOption("Default Auto", null);
+    autonomousChooser.addOption("Right cargo ship", new AutonomousCommand(false));
+    autonomousChooser.addOption("Left cargo ship", new AutonomousCommand(true));
 
-    // SmartDashboard commands
     SmartDashboard.putData("Auto mode", autonomousChooser);
     SmartDashboard.putData("CalibrateDistance", new CalibrateDistance(oi.driverXbox::getAButton));
     SmartDashboard.putData("Test PID vision", new TestPID());
