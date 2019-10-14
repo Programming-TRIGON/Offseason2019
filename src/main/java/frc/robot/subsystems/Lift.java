@@ -7,16 +7,15 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.robot.Robot;
 import frc.robot.RobotComponents;
 import frc.robot.RobotConstants;
-import frc.robot.commands.MoveLiftWithJoystick;
 
 /** This is the subsystem of the lift */
 public class Lift extends Subsystem {
   private DigitalInput topSwitch, bottomSwitch;
   private WPI_TalonSRX leftMotor, rightMotor;
   private Encoder encoder;
+  private boolean isOverride;
 
   public Lift() {
     this.topSwitch = RobotComponents.Lift.LIFT_SWITCH_TOP;
@@ -72,6 +71,14 @@ public class Lift extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    //setDefaultCommand(new MoveLiftWithJoystick(Robot.oi.operatorXbox::getY)); //For emergency! 
+    //setDefaultCommand(new MoveLiftWithJoystick(Robot.oi.operatorXbox::getY)); //For emergency!
+  }
+
+  public boolean getIsOverride() {
+    return isOverride;
+  }
+
+  public void setIsOverride(boolean isOverride) {
+    this.isOverride = isOverride;
   }
 }

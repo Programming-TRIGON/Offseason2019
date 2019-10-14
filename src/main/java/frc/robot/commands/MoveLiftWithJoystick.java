@@ -18,6 +18,7 @@ public class MoveLiftWithJoystick extends Command {
 
   @Override
   protected void initialize() {
+    Robot.lift.setIsOverride(true);
   }
 
   @Override
@@ -33,6 +34,7 @@ public class MoveLiftWithJoystick extends Command {
 
   @Override
   protected void end() {
+    Robot.lift.setIsOverride(false);
     Robot.lift.setMotorsPower(0);
   }
 
