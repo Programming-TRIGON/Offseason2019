@@ -26,7 +26,7 @@ public class Robot extends TimedRobot {
   public static HatchHolder hatchHolder;
   public static Limelight limelight;
   private Command autonomousCommand;
-  private SendableChooser<Command> autonomousChooser = new SendableChooser<Command>();
+  private SendableChooser<Command> autonomousChooser;
   private DashBoardController dbc;
 
   @Override
@@ -44,6 +44,7 @@ public class Robot extends TimedRobot {
     limelight = new Limelight();
     dbc = new DashBoardController();
 
+    autonomousChooser = new SendableChooser<Command>();
     // autonomousChooser.setDefaultOption("Default Auto", new ExampleCommand());
     // autonomousChooser.addOption("Auto", new AutoCommand());
 

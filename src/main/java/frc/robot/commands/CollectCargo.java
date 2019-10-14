@@ -45,7 +45,7 @@ public class CollectCargo extends Command {
     // subsystems is scheduled to run
     @Override
     protected void interrupted() {
-        Robot.cargoHolder.setIsCargoCollected(Robot.cargoHolder.isCargoCollectedStall());
+        Robot.cargoHolder.setIsCargoCollected(false);
         Robot.cargoHolder.setHolderMotorPower(0);
     }
 }

@@ -5,8 +5,11 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.POVButton;
+import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.robot.command_group.CollectCargoFromFloor;
 import frc.robot.command_group.DefenceMode;
 import frc.robot.command_group.EjectHatch;
+import frc.robot.commands.Commands;
 import frc.robot.commands.EjectCargo;
 import frc.robot.commands.MoveLiftWithJoystick;
 import frc.robot.triggers.XboxTrigger;
@@ -57,6 +60,10 @@ public OI(){
     operatorBottomPOVButton = new POVButton(operatorXbox, 180);
     operatorLTrigger = new XboxTrigger(operatorXbox, Hand.kLeft);
     operatorRTrigger = new XboxTrigger(operatorXbox, Hand.kRight);
+
+    CommandGroup collectCargoFromFloor = new CollectCargoFromFloor();
+    operatorButtonA.whenPressed(collectCargoFromFloor);
+    operatorButtonA.whenReleased(Commands.cancelCommand(collectCargoFromFloor));
 
     operatorButtonAxisLeft.whenPressed(new MoveLiftWithJoystick(() -> -operatorXbox.getY(Hand.kLeft)));
     operatorStartButton.whenPressed(new DefenceMode());
