@@ -53,6 +53,7 @@ public class Enums {
             return trajectory;
         }
     }
+    
     public enum Target {
         // TODO: set real values
         RocketMiddle(1), RocketSide(0), Feeder(0), CargoShip(0);
@@ -72,6 +73,7 @@ public class Enums {
 
     private static double cargoOffset = RobotConstants.RobotDimensions.CARGO_LIFT_OFFSET;
     private static double hatchOffset = RobotConstants.RobotDimensions.HATCH_LIFT_OFFSET;
+    
     public static enum LiftHeights {
         // TODO: add real values
         RocketCargoTop(212-cargoOffset), RocketCargoMiddle(141-cargoOffset), RocketCargoBottom(70-cargoOffset), RocketHatchTop(190-hatchOffset), RocketHatchMiddle(119-RobotConstants.RobotDimensions.HATCH_LIFT_OFFSET),
@@ -86,6 +88,7 @@ public class Enums {
             return height;
         }
     }
+    
     public enum ScoreHeight {
         kLow, kMedium, kHigh
     }
