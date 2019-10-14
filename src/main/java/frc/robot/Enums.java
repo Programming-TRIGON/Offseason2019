@@ -22,10 +22,12 @@ public class Enums {
 
     }
 
+    private static double cargoOffset = RobotConstants.RobotDimensions.CARGO_LIFT_OFFSET;
+    private static double hatchOffset = RobotConstants.RobotDimensions.HATCH_LIFT_OFFSET;
     public static enum LiftHeights {
         // TODO: add real values
-        RocketCargoTop(212), RocketCargoMiddle(141), RocketCargoBottom(70), RocketHatchTop(190), RocketHatchMiddle(119),
-        HatchBottom(48), CargoShip(100), Floor(0), Feeder(48); // Feeder is the same height as rocket hatch low.
+        RocketCargoTop(212-cargoOffset), RocketCargoMiddle(141-cargoOffset), RocketCargoBottom(70-cargoOffset), RocketHatchTop(190-hatchOffset), RocketHatchMiddle(119-RobotConstants.RobotDimensions.HATCH_LIFT_OFFSET),
+        HatchBottom(48-hatchOffset), CargoShip(100-cargoOffset), Floor(0), Feeder(48-hatchOffset); // Feeder is the same height as rocket hatch low.
         private double height;
 
         private LiftHeights(double height) {
@@ -35,5 +37,8 @@ public class Enums {
         public double getHeight() {
             return height;
         }
+    }
+    public enum ScoreHeight {
+        kLow, kMedium, kHigh
     }
 }

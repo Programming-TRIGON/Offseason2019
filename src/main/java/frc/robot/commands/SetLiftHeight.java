@@ -26,9 +26,6 @@ public class SetLiftHeight extends Command {
 
   @Override
   protected void initialize() {
-    if (liftHeight > RobotConstants.RobotDimensions.SAFETY_HEIGHT || Robot.lift.getHeight() > RobotConstants.RobotDimensions.SAFETY_HEIGHT)
-      Robot.cargoHolder.setTilt(true);
-
     pidController = new PIDController(pidSettings.getKP(), pidSettings.getKI(), pidSettings.getKD(),
         new LiftEncoderPidSource(), output -> Robot.lift.setMotorsPower(output));
     pidController.setSetpoint(liftHeight);

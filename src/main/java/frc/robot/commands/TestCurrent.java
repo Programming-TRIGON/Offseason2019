@@ -5,7 +5,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.robot.Robot;
 
 public class TestCurrent extends Command {
     private static final double WIND_UP_TIME = 2, POWER = 0.4,DELTA_CURRENT = 3;

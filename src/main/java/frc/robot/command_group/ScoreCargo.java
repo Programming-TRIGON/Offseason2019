@@ -1,11 +1,8 @@
 package frc.robot.command_group;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import edu.wpi.first.wpilibj.command.WaitCommand;
-import frc.robot.Robot;
 import frc.robot.commands.SetLiftHeight;
 import frc.robot.commands.WaitUntil;
-import frc.robot.RobotConstants;
 import frc.robot.Enums.LiftHeights;
 import frc.robot.Enums.Target;
 import frc.robot.commands.EjectCargo;

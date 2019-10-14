@@ -7,8 +7,8 @@ import frc.robot.Robot;
 
 public class DriveArcade extends Command {
   private Supplier<Double> x, y;
-  private final double SENSETIVITY = 1.15;
-  private final double THRESHOLD = 0.5;  
+  //private final double SENSETIVITY = 1.15;
+  //private final double THRESHOLD = 0.5;  
 
   public DriveArcade(Supplier<Double> x, Supplier<Double> y) {
     requires(Robot.drivetrain);
@@ -23,7 +23,8 @@ public class DriveArcade extends Command {
   @Override
   protected void execute() {
     double y = this.y.get();
-    Robot.drivetrain.curvatureDrive(SENSETIVITY * x.get(), SENSETIVITY * y, y <= THRESHOLD);
+    Robot.drivetrain.arcadeDrive(x.get(), y);
+    // Robot.drivetrain.curvatureDrive(SENSETIVITY * x.get(), SENSETIVITY * y, y <= THRESHOLD);
   }
 
   @Override
