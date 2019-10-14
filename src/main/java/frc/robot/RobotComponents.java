@@ -45,7 +45,6 @@ public class RobotComponents {
         public static final Encoder encoder = new Encoder(RobotMap.DIO.LIFT_ENCODER_CHANNEL_A, RobotMap.DIO.LIFT_ENCODER_CHANNEL_B);
         public static final WPI_TalonSRX LIFT_MOTOR_LEFT = new WPI_TalonSRX(RobotMap.CAN.LIFT_MOTOR_LEFT);
         public static final WPI_TalonSRX LIFT_MOTOR_RIGHT = new WPI_TalonSRX(RobotMap.CAN.LIFT_MOTOR_RIGHT);
-        public static final DigitalInput LIFT_SWITCH_TOP = new DigitalInput(RobotMap.DIO.LIFT_SWITCH_TOP);
         public static final DigitalInput LIFT_SWITCH_BOTTOM = new DigitalInput(RobotMap.DIO.LIFT_SWITCH_BOTTOM);
     }
 }

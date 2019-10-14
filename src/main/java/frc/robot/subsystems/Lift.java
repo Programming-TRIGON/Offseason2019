@@ -7,19 +7,16 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.robot.Robot;
 import frc.robot.RobotComponents;
 import frc.robot.RobotConstants;
-import frc.robot.commands.MoveLiftWithJoystick;
 
 /** This is the subsystem of the lift */
 public class Lift extends Subsystem {
-  private DigitalInput topSwitch, bottomSwitch;
+  private DigitalInput bottomSwitch;
   private WPI_TalonSRX leftMotor, rightMotor;
   private Encoder encoder;
 
   public Lift() {
-    this.topSwitch = RobotComponents.Lift.LIFT_SWITCH_TOP;
     this.bottomSwitch = RobotComponents.Lift.LIFT_SWITCH_BOTTOM;
     
     this.leftMotor = RobotComponents.Lift.LIFT_MOTOR_LEFT;
@@ -51,10 +48,6 @@ public class Lift extends Subsystem {
   public void setMotorsPower(double power) {
     this.rightMotor.set(ControlMode.PercentOutput, power);
     this.leftMotor.set(ControlMode.PercentOutput, power);
-  }
-
-  public boolean getTopSwitch() {
-    return this.topSwitch.get();
   }
 
   public boolean getBottomSwitch() {
