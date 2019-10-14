@@ -27,7 +27,7 @@ public class RobotConstants {
 
         //we measure the height according to the bottom of the tilt.
         public static final double LIFT_ENCODER_OFFSET = 0;
-        public static final double LIFT_ENCODER_DISTANCE_PER_TICKS = 69152 / 100;
+        public static final double LIFT_ENCODER_DISTANCE_PER_TICKS = 69152.0 / 100;
     }
 
     public static class MotionProfiling {
