@@ -1,7 +1,6 @@
 package frc.robot.motionprofiling;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.PidSettings;
 import frc.robot.Robot;
 import frc.robot.RobotConstants;
 import frc.robot.Enums.Path;
