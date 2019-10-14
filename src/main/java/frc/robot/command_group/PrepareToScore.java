@@ -28,7 +28,7 @@ public class PrepareToScore extends CommandGroup {
         {
             @Override
             protected boolean condition() {
-                return Robot.cargoHolder.isCargoCollected();
+                return Robot.cargoHolder.isCargoCollected(); //Change this value to true if we have only cargo subsystem 
             }
         });
     }

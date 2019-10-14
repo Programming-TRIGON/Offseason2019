@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.POVButton;
-import edu.wpi.first.wpilibj.command.InstantCommand;
+import frc.robot.command_group.DefenceMode;
 import frc.robot.commands.EjectCargo;
 import frc.robot.commands.MoveLiftWithJoystick;
 import frc.robot.triggers.XboxTrigger;
@@ -25,37 +25,38 @@ public class OI {
     
 //------------------------------DRIVER--------------------------------------
 
-    this.driverXbox = new XboxController(0);
-    this.driverButtonA = new JoystickButton(driverXbox, 1);
-    this.driverButtonB = new JoystickButton(driverXbox, 2);
-    this.driverButtonX = new JoystickButton(driverXbox, 3);
-    this.driverButtonY = new JoystickButton(driverXbox, 4);
-    this.driverButtonLB = new JoystickButton(driverXbox, 5);
-    this.driverButtonRB = new JoystickButton(driverXbox, 6);
-    this.driverLTrigger = new XboxTrigger(this.driverXbox, Hand.kLeft);
-    this.driverRTrigger = new XboxTrigger(this.driverXbox, Hand.kRight);
+    driverXbox = new XboxController(0);
+    driverButtonA = new JoystickButton(driverXbox, 1);
+    driverButtonB = new JoystickButton(driverXbox, 2);
+    driverButtonX = new JoystickButton(driverXbox, 3);
+    driverButtonY = new JoystickButton(driverXbox, 4);
+    driverButtonLB = new JoystickButton(driverXbox, 5);
+    driverButtonRB = new JoystickButton(driverXbox, 6);
+    driverLTrigger = new XboxTrigger(this.driverXbox, Hand.kLeft);
+    driverRTrigger = new XboxTrigger(this.driverXbox, Hand.kRight);
 
-    this.driverRTrigger.whenActive(new EjectCargo());
+    driverRTrigger.whenActive(new EjectCargo());
 
 //------------------------------OPERATER------------------------------------
 
-    this.operatorXbox = new XboxController(1);
-    this.operatorButtonA = new JoystickButton(operatorXbox, 1);
-    this.operatorButtonB = new JoystickButton(operatorXbox, 2);
-    this.operatorButtonX = new JoystickButton(operatorXbox, 3);
-    this.operatorButtonY = new JoystickButton(operatorXbox, 4);
-    this.operatorButtonLB = new JoystickButton(operatorXbox, 5);
-    this.operatorButtonRB = new JoystickButton(operatorXbox, 6);
-    this.operatorStartButton = new JoystickButton(operatorXbox, 8);
-    this.operatorButtonAxisLeft = new JoystickButton(operatorXbox, 9);
-    this.operatorButtonAxisRight = new JoystickButton(operatorXbox, 10);
-    this.operatorRightPOVButton = new POVButton(operatorXbox, 90);
-    this.operatorLeftPOVButton = new POVButton(operatorXbox, 270);
-    this.operatorTopPOVButton = new POVButton(operatorXbox, 0);
-    this.operatorBottomPOVButton = new POVButton(operatorXbox, 180);
-    this.operatorLTrigger = new XboxTrigger(this.operatorXbox, Hand.kLeft);
-    this.operatorRTrigger = new XboxTrigger(this.operatorXbox, Hand.kRight);
+    operatorXbox = new XboxController(1);
+    operatorButtonA = new JoystickButton(operatorXbox, 1);
+    operatorButtonB = new JoystickButton(operatorXbox, 2);
+    operatorButtonX = new JoystickButton(operatorXbox, 3);
+    operatorButtonY = new JoystickButton(operatorXbox, 4);
+    operatorButtonLB = new JoystickButton(operatorXbox, 5);
+    operatorButtonRB = new JoystickButton(operatorXbox, 6);
+    operatorStartButton = new JoystickButton(operatorXbox, 8);
+    operatorButtonAxisLeft = new JoystickButton(operatorXbox, 9);
+    operatorButtonAxisRight = new JoystickButton(operatorXbox, 10);
+    operatorRightPOVButton = new POVButton(operatorXbox, 90);
+    operatorLeftPOVButton = new POVButton(operatorXbox, 270);
+    operatorTopPOVButton = new POVButton(operatorXbox, 0);
+    operatorBottomPOVButton = new POVButton(operatorXbox, 180);
+    operatorLTrigger = new XboxTrigger(this.operatorXbox, Hand.kLeft);
+    operatorRTrigger = new XboxTrigger(this.operatorXbox, Hand.kRight);
 
-    this.operatorButtonAxisLeft.whenPressed(new MoveLiftWithJoystick(() -> -operatorXbox.getY(Hand.kLeft)));
+    operatorButtonAxisLeft.whenPressed(new MoveLiftWithJoystick(() -> -operatorXbox.getY(Hand.kLeft)));
+    operatorStartButton.whenPressed(new DefenceMode());
   }
 }
