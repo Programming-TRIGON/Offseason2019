@@ -12,6 +12,7 @@ import frc.robot.command_group.CollectHatchFromFeeder;
 import frc.robot.command_group.DefenceMode;
 import frc.robot.command_group.EjectHatch;
 import frc.robot.command_group.PrepareToScore;
+import frc.robot.commands.CollectCargo;
 import frc.robot.commands.Commands;
 import frc.robot.commands.EjectCargo;
 import frc.robot.commands.MoveLiftWithJoystick;
@@ -75,5 +76,7 @@ public OI(){
     operatorButtonLB.whenPressed(new PrepareToScore(ScoreHeight.kLow));        
     operatorButtonRB.whenPressed(new PrepareToScore(ScoreHeight.kMedium));
     operatorRTrigger.whenActive(new PrepareToScore(ScoreHeight.kHigh));
+
+    operatorButtonX.whenPressed(new CollectCargo());
   }
 }
