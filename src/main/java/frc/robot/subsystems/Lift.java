@@ -72,6 +72,6 @@ public class Lift extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new MoveLiftWithJoystick(Robot.oi.operatorXbox::getY)); 
+    //setDefaultCommand(new MoveLiftWithJoystick(Robot.oi.operatorXbox::getY)); //For emergency! 
   }
 }

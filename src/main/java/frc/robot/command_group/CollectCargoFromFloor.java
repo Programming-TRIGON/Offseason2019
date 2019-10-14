@@ -10,7 +10,7 @@ public class CollectCargoFromFloor extends CommandGroup {
    * This CG lowers the lift then collects the cargo then highers the lift to the lowest scoring height.
    */
   public CollectCargoFromFloor() {
-    addParallel(new SetLiftHeight(LiftHeights.Floor));
+    addSequential(new SetLiftHeight(LiftHeights.Floor));
     addSequential(new CollectCargo());
   }
 }
