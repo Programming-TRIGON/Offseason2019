@@ -1,17 +1,21 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Compressor;
+import com.spikes2212.dashboard.DashBoardController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.*;
 import frc.robot.autonomous.AutonomousCommand;
 import frc.robot.motionprofiling.PathCreater;
 import frc.robot.subsystems.CargoHolder;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.HatchHolder;
 import frc.robot.subsystems.Lift;
+import frc.robot.testpids.TestPID;
+import frc.robot.testpids.TestPIDGyro;
+import frc.robot.testpids.TestPIDLift;
 import frc.robot.utils.Limelight;
 
 public class Robot extends TimedRobot {
@@ -23,31 +27,45 @@ public class Robot extends TimedRobot {
   public static HatchHolder hatchHolder;
   public static Limelight limelight;
   private Command autonomousCommand;
-  private SendableChooser<Command> autonomousChooser = new SendableChooser<>();
+  private SendableChooser<Command> autonomousChooser = new SendableChooser<Command>();
+  private DashBoardController dbc;
 
   @Override
   public void robotInit() {
-    //compressor:
+    // compressor:
     RobotComponents.compressor.start();
-    // Utils:
-    oi = new OI();
-    pathCreater = new PathCreater();
-    limelight = new Limelight();
     // Subsystems:
     cargoHolder = new CargoHolder();
     drivetrain = new Drivetrain();
     lift = new Lift();
     hatchHolder = new HatchHolder();
+    // Utils:
+    oi = new OI();
+    pathCreater = new PathCreater();
+    limelight = new Limelight();
+    dbc = new DashBoardController();
 
     autonomousChooser.setDefaultOption("Default left ship", null);
     autonomousChooser.addOption("right ship", new AutonomousCommand(false));
     SmartDashboard.putData("Auto mode", autonomousChooser);
+    SmartDashboard.putData("CalibrateDistance", new CalibrateDistance(oi.driverXbox::getAButton));
+    SmartDashboard.putData("Test PID vision", new TestPID());
+    SmartDashboard.putData("test PID Turn", new TestPIDGyro());
+    SmartDashboard.putData("test pid Lift", new TestPIDLift());
+    SmartDashboard.putData("clearPreferences", Commands.clearPreferences());
+
+    // dbc SmartDashboard values to display
+    dbc.addNumber("limelight distance", limelight::getDistance);
+    dbc.addNumber("robot angle", drivetrain::getAngle);
+    dbc.addNumber("lift height", lift::getHeight);
   }
 
   @Override
   public void robotPeriodic() {
-    if (lift.getBottomSwitch())
-      lift.resetEncoderHeight();
+    dbc.update();
+
+    //if (lift.getBottomSwitch())
+    // lift.resetEncoderHeight();
   }
 
   @Override

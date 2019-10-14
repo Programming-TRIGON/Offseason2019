@@ -6,6 +6,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.DigitalInput;
 
 public class RobotComponents {
@@ -13,7 +14,6 @@ public class RobotComponents {
     public static Compressor compressor = new Compressor(RobotMap.PCM.PCM_PORT);
 
     public static class CargoCollector {
-        public static final DoubleSolenoid TILT_SOLENOID = null; //new DoubleSolenoid(RobotMap.PCM.TILT_SOLENOID_FORWARD, RobotMap.PCM.TILT_SOLENOID_REVERSE);
         public static final WPI_TalonSRX HOLDER_MOTOR = new WPI_TalonSRX(RobotMap.CAN.CARGO_HOLDER_MOTOR);
     }
      
@@ -32,6 +32,8 @@ public class RobotComponents {
                 MotorType.kBrushless);
 
         public static final ADIS16448_IMU GYRO = new ADIS16448_IMU();
+
+        public static final WPI_TalonSRX ENCODER_RIGHT = new WPI_TalonSRX(RobotMap.CAN.ENCODER_RIGHT);
     }
     
     public static class HatchHolder {
@@ -40,8 +42,9 @@ public class RobotComponents {
     }
     
     public static class Lift {
-        public static final WPI_TalonSRX LIFT_MOTOR_FRONT = new WPI_TalonSRX(RobotMap.CAN.LIFT_MOTOR_FRONT);
-        public static final WPI_TalonSRX LIFT_MOTOR_REAR = new WPI_TalonSRX(RobotMap.CAN.LIFT_MOTOR_REAR);
+        public static final Encoder encoder = new Encoder(RobotMap.DIO.LIFT_ENCODER_CHANNEL_A, RobotMap.DIO.LIFT_ENCODER_CHANNEL_B);
+        public static final WPI_TalonSRX LIFT_MOTOR_LEFT = new WPI_TalonSRX(RobotMap.CAN.LIFT_MOTOR_LEFT);
+        public static final WPI_TalonSRX LIFT_MOTOR_RIGHT = new WPI_TalonSRX(RobotMap.CAN.LIFT_MOTOR_RIGHT);
         public static final DigitalInput LIFT_SWITCH_TOP = new DigitalInput(RobotMap.DIO.LIFT_SWITCH_TOP);
         public static final DigitalInput LIFT_SWITCH_BOTTOM = new DigitalInput(RobotMap.DIO.LIFT_SWITCH_BOTTOM);
     }

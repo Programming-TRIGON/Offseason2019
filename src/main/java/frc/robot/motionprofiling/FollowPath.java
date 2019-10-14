@@ -1,11 +1,13 @@
 package frc.robot.motionprofiling;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.PidSettings;
 import frc.robot.Robot;
 import frc.robot.RobotConstants;
 import frc.robot.Enums.Path;
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.followers.EncoderFollower;
+
 
 /**
  * This command uses the paths we generated on the path creater and uses it to
@@ -22,7 +24,7 @@ public class FollowPath extends Command {
   public FollowPath(Path path) {
     requires(Robot.drivetrain);
     this.splitTrajectories = new SplitTrajectories(path); // splits the path to two sides of the robot.
-
+    
   }
 
   public FollowPath(Path path, boolean isFlipped) {

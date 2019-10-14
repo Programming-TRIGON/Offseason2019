@@ -7,6 +7,7 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Robot;
@@ -41,8 +42,8 @@ public class Drivetrain extends Subsystem {
 
         this.gyro = RobotComponents.Drivetrain.GYRO;
 
-        this.rightEncoder = RobotComponents.Lift.LIFT_MOTOR_REAR; // TODO set real talons encoder connection
-        this.leftEncoder = RobotComponents.CargoCollector.HOLDER_MOTOR; // TODO set real talons encoder connection
+        this.rightEncoder = RobotComponents.Drivetrain.ENCODER_RIGHT;
+        this.leftEncoder = RobotComponents.CargoCollector.HOLDER_MOTOR;
     }
 
   public void arcadeDrive(double x, double y) {
@@ -147,9 +148,9 @@ public class Drivetrain extends Subsystem {
     rear.setIdleMode(IdleMode.kCoast);
 
     // Current limit
-    front.setSmartCurrentLimit(30);
-    middle.setSmartCurrentLimit(30);
-    rear.setSmartCurrentLimit(30);
+    front.setSmartCurrentLimit(40);
+    middle.setSmartCurrentLimit(40);
+    rear.setSmartCurrentLimit(40);
     
     // Saves the settings for each Spark Max
     front.burnFlash();
@@ -159,6 +160,6 @@ public class Drivetrain extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new DriveArcade(() -> Robot.oi.driverXbox.getX(), () -> Robot.oi.driverXbox.getY()));
+    setDefaultCommand(new DriveArcade(() -> Robot.oi.driverXbox.getX(Hand.kLeft), () -> Robot.oi.driverXbox.getY(Hand.kLeft)));
   }
 }

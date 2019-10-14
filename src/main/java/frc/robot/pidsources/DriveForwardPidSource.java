@@ -4,11 +4,13 @@ import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import frc.robot.Robot;
 
-/**
- * pid source for the x axis using vision
- */
-public class VisionPIDSourceY implements PIDSource {
 
+/**
+ * Returns the encoder pid source from the avarage distance that the robot drove,
+ * from both the encoders on each side.
+ */
+
+public class DriveForwardPidSource implements PIDSource {
     @Override
     public PIDSourceType getPIDSourceType() {
         return PIDSourceType.kDisplacement;
@@ -20,9 +22,6 @@ public class VisionPIDSourceY implements PIDSource {
 
     @Override
     public double pidGet() {
-        double distance = Robot.limelight.getDistance();
-        if (distance == -1)
-            return 95;
-        return distance;
+        return Robot.drivetrain.getAverageDistance();
     }
 }

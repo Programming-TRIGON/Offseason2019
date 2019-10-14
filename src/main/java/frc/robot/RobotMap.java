@@ -5,7 +5,7 @@ public class RobotMap {
 
     // Device ID's for devices connected to the CAN bus
     static class CAN {
-        public static final int CARGO_HOLDER_MOTOR = 6;
+        public static final int CARGO_HOLDER_MOTOR = 11;
 
         public static final int DRIVETRAIN_LEFT_REAR_MOTOR = 3;
         public static final int DRIVETRAIN_LEFT_MIDDLE_MOTOR = 4;
@@ -14,8 +14,10 @@ public class RobotMap {
         public static final int DRIVETRAIN_RIGHT_MIDDLE_MOTOR = 8;
         public static final int DRIVETRAIN_RIGHT_FRONT_MOTOR = 9;
 
-        public static final int LIFT_MOTOR_FRONT = 1;
-        public static final int LIFT_MOTOR_REAR = 2;
+        public static final int LIFT_MOTOR_LEFT = 6;
+        public static final int LIFT_MOTOR_RIGHT = 2;
+
+        public static final int ENCODER_RIGHT = 12;
     }
 
     // Solenoid ports connected to PCM
@@ -40,5 +42,8 @@ public class RobotMap {
         
         public static final int LIFT_SWITCH_TOP = 4;
         public static final int LIFT_SWITCH_BOTTOM = 5;
+
+        public static final int LIFT_ENCODER_CHANNEL_A = 7;
+        public static final int LIFT_ENCODER_CHANNEL_B = 8;
     }
 }
