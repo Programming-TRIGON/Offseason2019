@@ -56,7 +56,7 @@ public class RobotConstants {
         public static final double ANGLE_FROM_TARGET = 0;
     }
 
-    public class Calibration {
+    public static class Calibration {
         public static final double leftForwardKv = 0.2103;
         public static final double leftForwardVi = 0.3717;
         public static final double rightForwardKv = 0.1929;
