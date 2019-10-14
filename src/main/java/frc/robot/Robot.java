@@ -33,16 +33,16 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // compressor:
     RobotComponents.compressor.start();
-    // Utils:
-    oi = new OI();
-    pathCreater = new PathCreater();
-    limelight = new Limelight();
-    dbc = new DashBoardController();
     // Subsystems:
     cargoHolder = new CargoHolder();
     drivetrain = new Drivetrain();
     lift = new Lift();
     hatchHolder = new HatchHolder();
+    // Utils:
+    oi = new OI();
+    pathCreater = new PathCreater();
+    limelight = new Limelight();
+    dbc = new DashBoardController();
 
     // autonomousChooser.setDefaultOption("Default Auto", new ExampleCommand());
     // autonomousChooser.addOption("Auto", new AutoCommand());

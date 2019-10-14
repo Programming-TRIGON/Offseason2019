@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.POVButton;
 import edu.wpi.first.wpilibj.command.InstantCommand;
+import frc.robot.commands.EjectCargo;
+import frc.robot.commands.MoveLiftWithJoystick;
 import frc.robot.triggers.XboxTrigger;
 
 /**
@@ -33,6 +35,8 @@ public class OI {
     this.driverLTrigger = new XboxTrigger(this.driverXbox, Hand.kLeft);
     this.driverRTrigger = new XboxTrigger(this.driverXbox, Hand.kRight);
 
+    this.driverRTrigger.whenActive(new EjectCargo());
+
 //------------------------------OPERATER------------------------------------
 
     this.operatorXbox = new XboxController(1);
@@ -52,6 +56,6 @@ public class OI {
     this.operatorLTrigger = new XboxTrigger(this.operatorXbox, Hand.kLeft);
     this.operatorRTrigger = new XboxTrigger(this.operatorXbox, Hand.kRight);
 
-    operatorButtonA.whenPressed(new InstantCommand(()->Robot.lift.resetEncoderHeight()));
+    this.operatorButtonAxisLeft.whenPressed(new MoveLiftWithJoystick(() -> -operatorXbox.getY(Hand.kLeft)));
   }
 }
