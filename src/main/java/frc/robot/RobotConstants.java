@@ -7,7 +7,6 @@ public class RobotConstants {
     public static class RobotDimensions {
 
         /** The height which is safe for opening the tilt */
-        public static final double SAFETY_HEIGHT = 0.0;
         public static final double CARGO_LIFT_OFFSET = 0; 
         public static final double HATCH_LIFT_OFFSET = 24; 
     }
@@ -57,7 +56,7 @@ public class RobotConstants {
         public static final double ANGLE_FROM_TARGET = 0;
     }
 
-    public class Calibration {
+    public static class Calibration {
         public static final double leftForwardKv = 0.2103;
         public static final double leftForwardVi = 0.3717;
         public static final double rightForwardKv = 0.1929;
@@ -68,5 +67,6 @@ public class RobotConstants {
         public static final double PATH3_DISTANCE = 1;
         //TODO: CALIBRATE ON COMP!
         public static final double HAB_TO_CARGO_SHIP_DISTANCE = 100;
+        public static final double AUTO_TURN_ANGLE = 90;
     }
 }

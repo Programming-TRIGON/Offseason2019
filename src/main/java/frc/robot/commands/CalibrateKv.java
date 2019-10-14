@@ -6,7 +6,6 @@ import frc.robot.Robot;
 import frc.robot.utils.Logger;
 
 public class CalibrateKv extends Command {
-  // TODO: change const values.
   private static final double EPSILON_ACC = 1e-1;
   private static final double EPSILON_VEL = 1e-2;
   private static final double DELTA_VOLTAGE = 0.05;

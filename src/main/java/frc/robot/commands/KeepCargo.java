@@ -8,7 +8,6 @@ import frc.robot.Robot;
  * this command keeps the cargo inside the holder. runs by defualt.
  */
 public class KeepCargo extends Command {
-  // TODO: calibrate power.
   private final static double STALL_POWER = 0.05;
   private final static double FULL_POWER = 0.4;
 

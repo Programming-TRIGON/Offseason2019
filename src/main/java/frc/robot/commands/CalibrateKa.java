@@ -6,7 +6,6 @@ import frc.robot.Robot;
 import frc.robot.utils.Logger;
 
 public class CalibrateKa extends Command {
-  // TODO: change values.
   private static final double EPSILON_ACC = 1e-6;
   private static final double EPSILON_VEL = 0.4;
   private static final double VOLTAGE = 1;
