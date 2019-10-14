@@ -8,7 +8,7 @@ import frc.robot.Robot;
 public class HatchHolderLock extends Command {
   private boolean lock;
   // TODO: find real value
-  private static final double DEFAULT_WAIT_TIME = 1;
+  private static final double DEFAULT_WAIT_TIME = 0.75;
   private double waitTime;
 
   public HatchHolderLock(boolean lock) {

@@ -16,9 +16,6 @@ public class CollectHatchFromFeeder extends CommandGroup {
         addParallel(lowerLiftCommand);
         addSequential(new VisionPID(Enums.Target.Feeder, true));
         addSequential(new WaitUntil(lowerLiftCommand::isOnTarget));
-        addSequential(new HatchHolderLock(false));
-        addSequential(new HatchHolderEject(true));
-        addSequential(new HatchHolderLock(true));
-        addSequential(new HatchHolderEject(false));
+        addSequential(new CollectHatch());
     }
 }
