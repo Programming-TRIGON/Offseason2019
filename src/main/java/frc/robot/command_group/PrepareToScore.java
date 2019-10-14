@@ -2,7 +2,6 @@ package frc.robot.command_group;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.ConditionalCommand;
-import frc.robot.Enums;
 import frc.robot.Enums.LiftHeights;
 import frc.robot.Enums.ScoreHeight;
 import frc.robot.Robot;
@@ -21,13 +20,12 @@ public class PrepareToScore extends CommandGroup {
                 hatchHeight = LiftHeights.RocketHatchMiddle;
                 break;
             case kHigh:
-                cargoHeight = LiftHeights.RocketCargoTop;
+                cargoHeight = LiftHeights.RocketCargoMiddle;
                 hatchHeight = LiftHeights.RocketHatchTop;
                 break;
         }
-        addSequential(new ConditionalCommand
-                (new SetLiftHeight(cargoHeight),
-                new SetLiftHeight(hatchHeight)) {
+        addSequential(new ConditionalCommand(new SetLiftHeight(cargoHeight), new SetLiftHeight(hatchHeight))
+        {
             @Override
             protected boolean condition() {
                 return Robot.cargoHolder.isCargoCollected();
