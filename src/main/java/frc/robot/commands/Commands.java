@@ -3,7 +3,6 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.InstantCommand;
-import frc.robot.Robot;
 /**
  * this class holds all of the instant commands.
  */

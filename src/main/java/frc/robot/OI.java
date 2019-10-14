@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.POVButton;
 import frc.robot.command_group.DefenceMode;
+import frc.robot.command_group.EjectHatch;
 import frc.robot.commands.EjectCargo;
 import frc.robot.commands.MoveLiftWithJoystick;
 import frc.robot.triggers.XboxTrigger;
@@ -21,7 +22,7 @@ public class OI {
   XboxTrigger driverLTrigger, driverRTrigger, operatorRTrigger, operatorLTrigger;
   public XboxController operatorXbox, driverXbox;
 
-  public OI(){
+public OI(){
     
 //------------------------------DRIVER--------------------------------------
 
@@ -32,10 +33,11 @@ public class OI {
     driverButtonY = new JoystickButton(driverXbox, 4);
     driverButtonLB = new JoystickButton(driverXbox, 5);
     driverButtonRB = new JoystickButton(driverXbox, 6);
-    driverLTrigger = new XboxTrigger(this.driverXbox, Hand.kLeft);
-    driverRTrigger = new XboxTrigger(this.driverXbox, Hand.kRight);
+    driverLTrigger = new XboxTrigger(driverXbox, Hand.kLeft);
+    driverRTrigger = new XboxTrigger(driverXbox, Hand.kRight);
 
     driverRTrigger.whenActive(new EjectCargo());
+    driverLTrigger.whenActive(new EjectHatch());
 
 //------------------------------OPERATER------------------------------------
 
@@ -53,8 +55,8 @@ public class OI {
     operatorLeftPOVButton = new POVButton(operatorXbox, 270);
     operatorTopPOVButton = new POVButton(operatorXbox, 0);
     operatorBottomPOVButton = new POVButton(operatorXbox, 180);
-    operatorLTrigger = new XboxTrigger(this.operatorXbox, Hand.kLeft);
-    operatorRTrigger = new XboxTrigger(this.operatorXbox, Hand.kRight);
+    operatorLTrigger = new XboxTrigger(operatorXbox, Hand.kLeft);
+    operatorRTrigger = new XboxTrigger(operatorXbox, Hand.kRight);
 
     operatorButtonAxisLeft.whenPressed(new MoveLiftWithJoystick(() -> -operatorXbox.getY(Hand.kLeft)));
     operatorStartButton.whenPressed(new DefenceMode());
