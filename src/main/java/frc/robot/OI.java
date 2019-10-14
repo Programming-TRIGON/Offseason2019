@@ -44,7 +44,7 @@ public OI(){
     driverRTrigger = new XboxTrigger(driverXbox, Hand.kRight);
 
     driverRTrigger.whenActive(new EjectCargo());
-    driverLTrigger.whenActive(new EjectHatch());
+    //driverLTrigger.whenActive(new EjectHatch()); // move null from double solenoid on robot Components
 
 //------------------------------OPERATER------------------------------------
 
@@ -68,7 +68,7 @@ public OI(){
     CommandGroup collectCargoFromFloor = new CollectCargoFromFloor();
     operatorButtonA.whenPressed(collectCargoFromFloor);
     operatorButtonA.whenReleased(Commands.cancelCommand(collectCargoFromFloor));
-    operatorButtonB.whenPressed(new CollectHatchFromFeeder());
+    //operatorButtonB.whenPressed(new CollectHatchFromFeeder()); // move null from double solenoid on robot Components
 
     operatorButtonAxisLeft.whenPressed(new MoveLiftWithJoystick(() -> -operatorXbox.getY(Hand.kLeft))); //ISSUE - not work with other command groups (collectCargoFromFloor, etc.)
     operatorStartButton.whenPressed(new DefenceMode());

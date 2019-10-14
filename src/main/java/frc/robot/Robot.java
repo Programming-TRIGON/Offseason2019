@@ -72,8 +72,8 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     dbc.update();
 
-    // if (lift.getBottomSwitch())
-    // lift.resetEncoderHeight();
+    if (lift.getBottomSwitch())
+      lift.resetEncoderHeight();
   }
 
   @Override

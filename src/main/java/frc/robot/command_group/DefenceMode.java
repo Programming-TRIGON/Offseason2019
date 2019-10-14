@@ -17,7 +17,7 @@ public class DefenceMode extends CommandGroup {
     {
       @Override
       protected boolean condition() {
-        return Robot.cargoHolder.isCargoCollected();
+        return true; //Robot.cargoHolder.isCargoCollected(); //Change the condition to this when we have hatch subsystem
       }
     });
     SetLiftHeight setLiftHeight = new SetLiftHeight(LiftHeights.Floor);
