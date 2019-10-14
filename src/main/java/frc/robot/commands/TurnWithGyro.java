@@ -13,11 +13,11 @@ import frc.robot.RobotConstants;
 
 /** A command for turning in place and driving straight with gyro correction. */
 public class TurnWithGyro extends Command {
-  PIDController pidController;
-  PidSettings pidSettings;
-  Button button;
-  double angle, timeOnTarget;
-  Supplier<Double> forwardSupplier = () -> 0.0;
+  private PIDController pidController;
+  private PidSettings pidSettings;
+  private boolean forward = false;
+  private double angle, timeOnTarget;
+  private Supplier<Double> forwardSupplier = () -> 0.0;
 
   /**
    * In this constructor the robot turns in place with PidSettings you gave it.
@@ -34,19 +34,21 @@ public class TurnWithGyro extends Command {
   }
 
   /** The robot will drive straight with the correction of the gyro. */
-  public TurnWithGyro(double angle, Supplier<Double> forwardSupplier, Button button) {
+  public TurnWithGyro(double angle, Supplier<Double> forwardSupplier) {
     requires(Robot.drivetrain);
     this.angle = angle;
     this.forwardSupplier = forwardSupplier;
     this.pidSettings = RobotConstants.RobotPIDSettings.DRIVETRAIN_TURN_PID_SETTINGS;
-    this.button = button;
+    this.forward = true;
   }
 
   @Override
   protected void initialize() {
+    Robot.drivetrain.resetEncoders();
     this.pidController = new PIDController(pidSettings.getKP(), pidSettings.getKI(), pidSettings.getKD(),
         RobotComponents.Drivetrain.GYRO, output -> Robot.drivetrain.arcadeDrive(output, forwardSupplier.get()));
     pidController.setContinuous(true);
+    pidController.setInputRange(-180, 180);
     pidController.setOutputRange(-1, 1);
     pidController.setAbsoluteTolerance(pidSettings.getTolerance());
     pidController.setSetpoint(angle);
@@ -62,7 +64,7 @@ public class TurnWithGyro extends Command {
   @Override
   protected boolean isFinished() {
     boolean onTarget = (Timer.getFPGATimestamp() - timeOnTarget) > pidSettings.getWaitTime();
-    return button != null ? !button.get() : onTarget;
+    return !this.forward && onTarget;
   }
 
   @Override
