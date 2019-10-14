@@ -7,7 +7,6 @@ public class RobotConstants {
     public static class RobotDimensions {
 
         /** The height which is safe for opening the tilt */
-        public static final double SAFETY_HEIGHT = 0.0;
         public static final double CARGO_LIFT_OFFSET = 0; 
         public static final double HATCH_LIFT_OFFSET = 24; 
     }
