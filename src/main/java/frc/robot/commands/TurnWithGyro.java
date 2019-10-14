@@ -4,7 +4,6 @@ import java.util.function.Supplier;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.PidSettings;
 import frc.robot.Robot;
