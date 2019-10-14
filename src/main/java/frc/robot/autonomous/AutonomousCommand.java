@@ -17,5 +17,6 @@ public class AutonomousCommand extends CommandGroup {
     addSequential(new WaitUntil(setLiftHeight::isOnTarget));
     addSequential(new VisionPID(Target.CargoShip, true));
     addSequential(new EjectCargo());
+    this.clearRequirements();
   }
 }

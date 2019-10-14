@@ -26,8 +26,6 @@ public class SetLiftHeight extends Command {
 
   @Override
   protected void initialize() {
-    if (Robot.lift.getIsOverride())
-      cancel();
     pidController = new PIDController(pidSettings.getKP(), pidSettings.getKI(), pidSettings.getKD(),
         new LiftEncoderPidSource(), output -> Robot.lift.setMotorsPower(output));
     pidController.setSetpoint(liftHeight);

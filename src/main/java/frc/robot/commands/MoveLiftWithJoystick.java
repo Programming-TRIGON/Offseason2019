@@ -3,6 +3,7 @@ package frc.robot.commands;
 import java.util.function.Supplier;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.Robot;
 
 public class MoveLiftWithJoystick extends Command {
@@ -13,6 +14,7 @@ public class MoveLiftWithJoystick extends Command {
    */
   public MoveLiftWithJoystick(Supplier<Double> power) {
     requires(Robot.lift);
+    setInterruptible(false);
     this.power = power;
   }
 

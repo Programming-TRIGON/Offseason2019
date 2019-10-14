@@ -6,6 +6,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Enums.LiftHeights;
+import frc.robot.Enums.Target;
+import frc.robot.command_group.ScoreCargo;
 import frc.robot.commands.*;
 import frc.robot.autonomous.AutonomousCommand;
 import frc.robot.motionprofiling.PathCreater;
@@ -56,7 +59,13 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("test PID Turn", new TestPIDGyro());
     SmartDashboard.putData("test pid Lift", new TestPIDLift());
     SmartDashboard.putData("clearPreferences", Commands.clearPreferences());
-
+    SmartDashboard.putData("scheduler",Scheduler.getInstance());
+    MoveLiftWithJoystick data = new MoveLiftWithJoystick(() -> 0.0);
+    data.setRunWhenDisabled(true);
+    SmartDashboard.putData("move with joystick", data);
+    var data1 = new ScoreCargo(LiftHeights.CargoShip, Target.RocketMiddle);
+    data1.setRunWhenDisabled(true);
+    SmartDashboard.putData("setLift", data1);
     // dbc SmartDashboard values to display
     dbc.addNumber("limelight distance", limelight::getDistance);
     dbc.addNumber("robot angle", drivetrain::getAngle);
