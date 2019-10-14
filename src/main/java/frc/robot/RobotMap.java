@@ -35,13 +35,12 @@ public class RobotMap {
     static class DIO {
         public static final int HOLDER_SWITCH = 6;
 
-        public static final int DRIVETRAIN_ENCODER_LEFT_CHANNEL_A = 0;
         public static final int DRIVETRAIN_ENCODER_LEFT_CHANNEL_B = 1;
         public static final int DRIVETRAIN_ENCODER_RIGHT_CHANNEL_A = 2;
         public static final int DRIVETRAIN_ENCODER_RIGHT_CHANNEL_B = 3;
         
         public static final int LIFT_SWITCH_TOP = 4;
-        public static final int LIFT_SWITCH_BOTTOM = 5;
+        public static final int LIFT_SWITCH_BOTTOM = 0;
 
         public static final int LIFT_ENCODER_CHANNEL_A = 7;
         public static final int LIFT_ENCODER_CHANNEL_B = 8;

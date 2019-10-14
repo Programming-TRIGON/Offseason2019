@@ -23,7 +23,7 @@ public class MoveLiftWithJoystick extends Command {
   @Override
   protected void execute() {
     //updates the motor according to the supplier.
-    Robot.lift.setMotorsPower(this.power.get());
+    Robot.lift.setMotorsPower(0.5 * this.power.get());
   }
 
   @Override

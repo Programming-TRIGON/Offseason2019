@@ -12,6 +12,7 @@ import frc.robot.RobotConstants;
 import frc.robot.pidsources.VisionPIDSourceX;
 import frc.robot.pidsources.VisionPIDSourceY;
 import frc.robot.utils.Limelight.CamMode;
+import frc.robot.utils.Limelight.LedMode;
 
 import java.util.function.Supplier;
 
@@ -75,6 +76,7 @@ public class VisionPID extends Command {
         // setting Vision values
         Robot.limelight.setPipeline(target);
         Robot.limelight.setCamMode(CamMode.vision);
+        Robot.limelight.setLedMode(LedMode.on);
 
         // setting PID X values
         PIDSource visionPIDSourceX = new VisionPIDSourceX();
@@ -135,6 +137,7 @@ public class VisionPID extends Command {
         pidControllerX.close();
         pidControllerY.close();
         Robot.drivetrain.arcadeDrive(0, 0);
+        Robot.limelight.setLedMode(LedMode.off);
     }
 
     @Override

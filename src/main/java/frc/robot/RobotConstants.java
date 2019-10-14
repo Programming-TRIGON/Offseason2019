@@ -15,7 +15,7 @@ public class RobotConstants {
     // TODO: set configure pid settings
     /** All the robot pid values for monitoring */
     public static class RobotPIDSettings {
-        public static final PidSettings LIFT_PID_SETTINGS = new PidSettings(0.085, 0, 0.04, 1, 1);
+        public static final PidSettings LIFT_PID_SETTINGS = new PidSettings(0.085, 0, 0.04, 5, 0);
         public static final PidSettings DRIVETRAIN_TURN_PID_SETTINGS = new PidSettings(0, 0, 0, 0, 0);
         public static final PidSettings DRIVE_FORWARD_PID_SETTINGS = new PidSettings(0, 0, 0, 0, 0);
         public static final PidSettings VISION_X_PID_SETTINGS = new PidSettings(0, 0, 0, 0, 0);
@@ -28,7 +28,7 @@ public class RobotConstants {
 
         //we measure the height according to the bottom of the tilt.
         public static final double LIFT_ENCODER_OFFSET = 0;
-        public static final double LIFT_ENCODER_DISTANCE_PER_TICKS = 69152 / 100;
+        public static final double LIFT_ENCODER_DISTANCE_PER_TICKS = 1; //69152 / 100;
     }
 
     public static class MotionProfiling {

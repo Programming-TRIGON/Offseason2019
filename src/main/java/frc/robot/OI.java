@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.buttons.POVButton;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Enums.ScoreHeight;
 import frc.robot.command_group.CollectCargoFromFloor;
+import frc.robot.command_group.CollectHatchFromFeeder;
 import frc.robot.command_group.DefenceMode;
 import frc.robot.command_group.EjectHatch;
 import frc.robot.command_group.PrepareToScore;
@@ -66,6 +67,7 @@ public OI(){
     CommandGroup collectCargoFromFloor = new CollectCargoFromFloor();
     operatorButtonA.whenPressed(collectCargoFromFloor);
     operatorButtonA.whenReleased(Commands.cancelCommand(collectCargoFromFloor));
+    operatorButtonB.whenPressed(new CollectHatchFromFeeder());
 
     operatorButtonAxisLeft.whenPressed(new MoveLiftWithJoystick(() -> -operatorXbox.getY(Hand.kLeft))); //ISSUE - not work with other command groups (collectCargoFromFloor, etc.)
     operatorStartButton.whenPressed(new DefenceMode());

@@ -1,8 +1,11 @@
 package frc.robot;
 
 import com.spikes2212.dashboard.DashBoardController;
+
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.InstantCommand;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -17,6 +20,7 @@ import frc.robot.testpids.TestPID;
 import frc.robot.testpids.TestPIDGyro;
 import frc.robot.testpids.TestPIDLift;
 import frc.robot.utils.Limelight;
+import frc.robot.utils.Limelight.LedMode;
 
 public class Robot extends TimedRobot {
   public static OI oi;
@@ -55,19 +59,21 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Test PID vision", new TestPID());
     SmartDashboard.putData("test PID Turn", new TestPIDGyro());
     SmartDashboard.putData("test pid Lift", new TestPIDLift());
-    SmartDashboard.putData("clearPreferences", Commands.clearPreferences());
-
+    SmartDashboard.putData("clearPreferences", Commands.setRunWhenDisabled(Preferences.getInstance()::removeAll));
+    SmartDashboard.putData("limelight toggle",Commands.setRunWhenDisabled(limelight::toggleLedMode));
     // dbc SmartDashboard values to display
     dbc.addNumber("limelight distance", limelight::getDistance);
     dbc.addNumber("robot angle", drivetrain::getAngle);
     dbc.addNumber("lift height", lift::getHeight);
+
+    limelight.setLedMode(LedMode.off); 
   }
 
   @Override
   public void robotPeriodic() {
     dbc.update();
 
-    //if (lift.getBottomSwitch())
+    // if (lift.getBottomSwitch())
     // lift.resetEncoderHeight();
   }
 

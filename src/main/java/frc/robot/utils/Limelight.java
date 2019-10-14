@@ -126,6 +126,13 @@ public class Limelight {
             return value;
         }
     }
+    public void toggleLedMode(){
+        if(getLedMode().equals(LedMode.off))
+            setLedMode(LedMode.on);
+        else
+            setLedMode(LedMode.off);
+
+    }
 
     /**
      * @return the led mode in the NetworkTable.
