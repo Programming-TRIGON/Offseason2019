@@ -15,6 +15,7 @@ public class Lift extends Subsystem {
   private DigitalInput bottomSwitch;
   private WPI_TalonSRX leftMotor, rightMotor;
   private Encoder encoder;
+  private boolean isOverride;
 
   public Lift() {
     this.bottomSwitch = RobotComponents.Lift.LIFT_SWITCH_BOTTOM;
@@ -65,6 +66,14 @@ public class Lift extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    //setDefaultCommand(new MoveLiftWithJoystick(Robot.oi.operatorXbox::getY)); //For emergency! 
+    //setDefaultCommand(new MoveLiftWithJoystick(Robot.oi.operatorXbox::getY)); //For emergency!
+  }
+
+  public boolean getIsOverride() {
+    return isOverride;
+  }
+
+  public void setIsOverride(boolean isOverride) {
+    this.isOverride = isOverride;
   }
 }
