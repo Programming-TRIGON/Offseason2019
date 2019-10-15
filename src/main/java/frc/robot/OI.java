@@ -1,6 +1,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -86,6 +87,7 @@ public OI(){
   }
 
   public OI(boolean isHillel) {
+    CameraServer.getInstance().startAutomaticCapture(0);
     yoavSettings();
     if(isHillel){
       hillelSettings();
@@ -168,8 +170,9 @@ public OI(){
     operatorButtonA.whenPressed(collectCargoFromFloor);
     operatorButtonA.whenReleased(Commands.cancelCommand(collectCargoFromFloor));
     
-    operatorButtonB.whenPressed(new CollectHatchFromFeeder()); // move null from double solenoid on robot Components
-    operatorButtonB.whenReleased(new HatchHolderLock(true));
+    CommandGroup collectHatchFromFeeder = new CollectHatchFromFeeder();
+    operatorButtonB.whenPressed(collectHatchFromFeeder); // move null from double solenoid on robot Components
+    operatorButtonB.whenReleased(Commands.cancelCommand(collectHatchFromFeeder));
 
     operatorButtonAxisLeft.whenPressed(new MoveLiftWithJoystick(() -> -operatorXbox.getY(Hand.kLeft))); //ISSUE - not work with other command groups (collectCargoFromFloor, etc.)
     operatorStartButton.whenPressed(new DefenceMode());

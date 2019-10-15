@@ -45,7 +45,7 @@ public class Robot extends TimedRobot {
     lift = new Lift();
     hatchHolder = new HatchHolder();
     // Utils:
-    oi = new OI(false);
+    oi = new OI(true);
     pathCreater = new PathCreater();
     limelight = new Limelight();
     dbc = new DashBoardController();
@@ -69,8 +69,7 @@ public class Robot extends TimedRobot {
     dbc.addNumber("lift height", lift::getHeight);
     dbc.addBoolean("Is Cargo collected ", cargoHolder::isCargoCollected);
 
-    limelight.setLedMode(LedMode.off);
-    limelight.setCamMode(CamMode.driver);
+    limelight.setCamMode(CamMode.vision);
   }
 
   @Override
