@@ -22,8 +22,9 @@ public class DriveArcade extends Command {
 
   @Override
   protected void execute() {
-    double y = this.y.get();
-    Robot.drivetrain.arcadeDrive(x.get(), y);
+    double y = this.y.get() * 0.8;
+    double x = this.x.get() * 0.8;
+    Robot.drivetrain.arcadeDrive(x, y);
     // Robot.drivetrain.curvatureDrive(SENSETIVITY * x.get(), SENSETIVITY * y, y <= THRESHOLD);
   }
 

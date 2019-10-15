@@ -19,6 +19,10 @@ public class PrepareToScore extends CommandGroup {
                 cargoHeight = LiftHeights.CargoShip;
                 hatchHeight = LiftHeights.RocketHatchMiddle;
                 break;
+            case kMediumGrossman:
+                cargoHeight = LiftHeights.RocketCargoMiddle;
+                hatchHeight = LiftHeights.RocketHatchMiddle;
+                break;
             case kHigh:
                 cargoHeight = LiftHeights.RocketCargoMiddle;
                 hatchHeight = LiftHeights.RocketHatchTop;

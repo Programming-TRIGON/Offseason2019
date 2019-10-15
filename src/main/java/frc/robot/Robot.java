@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.*;
@@ -44,7 +45,7 @@ public class Robot extends TimedRobot {
     lift = new Lift();
     hatchHolder = new HatchHolder();
     // Utils:
-    oi = new OI();
+    oi = new OI(true);
     pathCreater = new PathCreater();
     limelight = new Limelight();
     dbc = new DashBoardController();

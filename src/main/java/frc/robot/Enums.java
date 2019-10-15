@@ -88,6 +88,6 @@ public class Enums {
     }
     
     public enum ScoreHeight {
-        kLow, kMedium, kHigh
+        kLow, kMedium, kHigh, kMediumGrossman
     }
 }
