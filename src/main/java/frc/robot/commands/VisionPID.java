@@ -138,6 +138,7 @@ public class VisionPID extends Command {
         pidControllerY.close();
         Robot.drivetrain.arcadeDrive(0, 0);
         Robot.limelight.setLedMode(LedMode.off);
+        Robot.limelight.setCamMode(CamMode.driver);
     }
 
     @Override

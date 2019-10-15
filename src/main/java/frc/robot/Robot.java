@@ -19,6 +19,7 @@ import frc.robot.testpids.TestPID;
 import frc.robot.testpids.TestPIDGyro;
 import frc.robot.testpids.TestPIDLift;
 import frc.robot.utils.Limelight;
+import frc.robot.utils.Limelight.CamMode;
 import frc.robot.utils.Limelight.LedMode;
 
 public class Robot extends TimedRobot {
@@ -65,7 +66,8 @@ public class Robot extends TimedRobot {
     dbc.addNumber("robot angle", drivetrain::getAngle);
     dbc.addNumber("lift height", lift::getHeight);
 
-    limelight.setLedMode(LedMode.off); 
+    limelight.setLedMode(LedMode.off);
+    limelight.setCamMode(CamMode.driver);
   }
 
   @Override
