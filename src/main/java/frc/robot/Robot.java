@@ -37,7 +37,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     // Compressor:
-    RobotComponents.compressor.stop();
+    RobotComponents.compressor.start();
     // Subsystems:
     cargoHolder = new CargoHolder();
     drivetrain = new Drivetrain();
@@ -50,9 +50,10 @@ public class Robot extends TimedRobot {
     dbc = new DashBoardController();
 
     autonomousChooser = new SendableChooser<Command>();
-    autonomousChooser.setDefaultOption("Default Auto", null);
-    autonomousChooser.addOption("Right cargo ship", new AutonomousCommand(false));
-    autonomousChooser.addOption("Left cargo ship", new AutonomousCommand(true));
+    
+    //autonomousChooser.setDefaultOption("Default Auto", null);
+    //autonomousChooser.addOption("Right cargo ship", new AutonomousCommand(false));
+    //autonomousChooser.addOption("Left cargo ship", new AutonomousCommand(true));
 
     SmartDashboard.putData("Auto mode", autonomousChooser);
     SmartDashboard.putData("CalibrateDistance", new CalibrateDistance(oi.driverXbox::getAButton));
@@ -65,6 +66,7 @@ public class Robot extends TimedRobot {
     dbc.addNumber("limelight distance", limelight::getDistance);
     dbc.addNumber("robot angle", drivetrain::getAngle);
     dbc.addNumber("lift height", lift::getHeight);
+    dbc.addBoolean("Is Cargo collected ", cargoHolder::isCargoCollected);
 
     limelight.setLedMode(LedMode.off);
     limelight.setCamMode(CamMode.driver);
@@ -89,10 +91,10 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    autonomousCommand = autonomousChooser.getSelected();
-    if (autonomousCommand != null) {
-      autonomousCommand.start();
-    }
+    // autonomousCommand = autonomousChooser.getSelected();
+    // if (autonomousCommand != null) {
+    //   autonomousCommand.start();
+    // }
   }
 
   @Override
@@ -102,9 +104,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    if (autonomousCommand != null) {
-      autonomousCommand.cancel();
-    }
+    // if (autonomousCommand != null) {
+    //   autonomousCommand.cancel();
+    // }
   }
 
   @Override

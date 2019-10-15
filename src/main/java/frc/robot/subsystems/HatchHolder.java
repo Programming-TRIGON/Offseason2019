@@ -7,15 +7,13 @@ import frc.robot.RobotComponents;
 
 /** Hatch holder Subsystem catchs the hatch and eject it */
 public class HatchHolder extends Subsystem {
-  private DoubleSolenoid lockerSolenoid, ejectorSolenoid;
+  private DoubleSolenoid lockerSolenoid;
 
   public HatchHolder() {
     this.lockerSolenoid = RobotComponents.HatchHolder.LOCK_SOLENOID;
-    this.ejectorSolenoid = RobotComponents.HatchHolder.EJECT_SOLENOID;
 
     // default values TODO uncomment
-    // setLock(true);
-    // setEjection(false);
+    setLock(true);
   }
 
   /**
@@ -25,17 +23,8 @@ public class HatchHolder extends Subsystem {
     this.lockerSolenoid.set(booleanToValue(lock));
   }
 
-  /**
-   * sets the status of the rear solenoids, the ones that pushes the subsystem
-   * outwards.
-   */
-  public void setEjection(boolean eject) {
-    this.ejectorSolenoid.set(booleanToValue(eject));
-  }
-
   public void setSolenoidsOff() {
     this.lockerSolenoid.set(Value.kOff);
-    this.ejectorSolenoid.set(Value.kOff);
   }
 
   /**

@@ -37,8 +37,7 @@ public class RobotComponents {
     }
     
     public static class HatchHolder {
-        public static final DoubleSolenoid LOCK_SOLENOID = null; //new DoubleSolenoid(RobotMap.PCM.HATCH_HOLDER_LOCK_SOLENOID_FORWARD, RobotMap.PCM.HATCH_HOLDER_LOCK_SOLENOID_REVERSE);
-        public static final DoubleSolenoid EJECT_SOLENOID = null; //new DoubleSolenoid(RobotMap.PCM.HATCH_HOLDER_EJECT_SOLENOID_FORWARD, RobotMap.PCM.HATCH_HOLDER_EJECT_SOLENOID_REVERSE);        
+        public static final DoubleSolenoid LOCK_SOLENOID = new DoubleSolenoid(RobotMap.PCM.HATCH_HOLDER_LOCK_SOLENOID_FORWARD, RobotMap.PCM.HATCH_HOLDER_LOCK_SOLENOID_REVERSE);
     }
     
     public static class Lift {

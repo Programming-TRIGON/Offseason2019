@@ -1,21 +1,24 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.POVButton;
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.robot.Enums.LiftHeights;
 import frc.robot.Enums.ScoreHeight;
 import frc.robot.command_group.CollectCargoFromFloor;
 import frc.robot.command_group.CollectHatchFromFeeder;
 import frc.robot.command_group.DefenceMode;
-import frc.robot.command_group.EjectHatch;
 import frc.robot.command_group.PrepareToScore;
 import frc.robot.commands.CollectCargo;
 import frc.robot.commands.Commands;
 import frc.robot.commands.EjectCargo;
+import frc.robot.commands.HatchHolderLock;
 import frc.robot.commands.MoveLiftWithJoystick;
+import frc.robot.commands.SetLiftHeight;
 import frc.robot.triggers.XboxTrigger;
 
 /**
@@ -44,7 +47,8 @@ public OI(){
     driverRTrigger = new XboxTrigger(driverXbox, Hand.kRight);
 
     driverRTrigger.whenActive(new EjectCargo());
-    //driverLTrigger.whenActive(new EjectHatch()); // move null from double solenoid on robot Components
+    driverLTrigger.whenActive(new HatchHolderLock(false));
+    driverLTrigger.whenInactive(new HatchHolderLock(true));
 
 //------------------------------OPERATER------------------------------------
 
@@ -68,15 +72,17 @@ public OI(){
     CommandGroup collectCargoFromFloor = new CollectCargoFromFloor();
     operatorButtonA.whenPressed(collectCargoFromFloor);
     operatorButtonA.whenReleased(Commands.cancelCommand(collectCargoFromFloor));
-    //operatorButtonB.whenPressed(new CollectHatchFromFeeder()); // move null from double solenoid on robot Components
+    
+    operatorButtonB.whenPressed(new CollectHatchFromFeeder()); // move null from double solenoid on robot Components
+    operatorButtonB.whenReleased(new HatchHolderLock(true));
 
     operatorButtonAxisLeft.whenPressed(new MoveLiftWithJoystick(() -> -operatorXbox.getY(Hand.kLeft))); //ISSUE - not work with other command groups (collectCargoFromFloor, etc.)
     operatorStartButton.whenPressed(new DefenceMode());
 
     operatorButtonLB.whenPressed(new PrepareToScore(ScoreHeight.kLow));        
     operatorButtonRB.whenPressed(new PrepareToScore(ScoreHeight.kMedium));
-    operatorRTrigger.whenActive(new PrepareToScore(ScoreHeight.kHigh));
+    //operatorRTrigger.whenActive(new PrepareToScore(ScoreHeight.kHigh));
 
-    operatorButtonX.whenPressed(new CollectCargo());
+    operatorButtonX.whenPressed(new SetLiftHeight(LiftHeights.CargoShip));
   }
 }

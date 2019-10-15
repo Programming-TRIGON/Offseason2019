@@ -46,6 +46,21 @@ public class Lift extends Subsystem {
   }
 
   public void setMotorsPower(double power) {
+    if(getBottomSwitch()){
+      if(power <= 0){
+        this.rightMotor.set(ControlMode.PercentOutput, 0);
+        this.leftMotor.set(ControlMode.PercentOutput, 0);
+      }else{
+        this.rightMotor.set(ControlMode.PercentOutput, power);
+        this.leftMotor.set(ControlMode.PercentOutput, power);
+      }  
+    }else{
+      this.rightMotor.set(ControlMode.PercentOutput, power);
+      this.leftMotor.set(ControlMode.PercentOutput, power);  
+    }
+  }
+
+  public void setMotorsPowerOvveride(double power) {
     this.rightMotor.set(ControlMode.PercentOutput, power);
     this.leftMotor.set(ControlMode.PercentOutput, power);
   }
