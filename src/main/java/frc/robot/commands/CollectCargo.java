@@ -9,7 +9,7 @@ import frc.robot.Robot;
  * this command collects cargo until it detects a stall.
  */
 public class CollectCargo extends Command {
-    private final static double POWER = 0.5;
+    private final static double POWER = 0.6;
     private static final double CollectTime = 1;
     private double startTime;
 

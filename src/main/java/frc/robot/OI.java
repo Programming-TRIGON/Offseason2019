@@ -12,6 +12,7 @@ import frc.robot.command_group.CollectCargoFromFloor;
 import frc.robot.command_group.CollectHatchFromFeeder;
 import frc.robot.command_group.DefenceMode;
 import frc.robot.command_group.PrepareToScore;
+import frc.robot.commands.CollectCargo;
 import frc.robot.commands.Commands;
 import frc.robot.commands.EjectCargo;
 import frc.robot.commands.HatchHolderLock;
@@ -140,7 +141,9 @@ public OI(){
     operatorButtonLB.whenPressed(new PrepareToScore(ScoreHeight.kLow));        
     operatorButtonRB.whenPressed(new PrepareToScore(ScoreHeight.kMedium));
 
-    operatorButtonX.whenPressed(new SetLiftHeight(LiftHeights.CargoShip));    
+    operatorButtonX.whenPressed(new CollectCargo());
+    operatorButtonY.whenPressed(new SetLiftHeight(LiftHeights.CargoShip));
+    //operatorButtonX.whenPressed(new SetLiftHeight(LiftHeights.RocketCargoMiddle));    
   }
 
   public void grossmanSettings() {
