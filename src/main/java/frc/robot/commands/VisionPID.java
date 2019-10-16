@@ -36,6 +36,7 @@ public class VisionPID extends Command {
         this.target = target;
         this.pidSettingsX = pidSettingsX;
         this.pidSettingsY = RobotConstants.RobotPIDSettings.VISION_Y_PID_SETTINGS;
+        this.button = null;
     }
 
     /**
@@ -57,6 +58,7 @@ public class VisionPID extends Command {
         this.isDrivingForward = true;
         this.pidSettingsX = pidSettingsX;
         this.pidSettingsY = pidSettingsY;
+        this.button = null; 
     }
 
     /**
@@ -137,7 +139,7 @@ public class VisionPID extends Command {
         pidControllerX.close();
         pidControllerY.close();
         Robot.drivetrain.arcadeDrive(0, 0);
-        Robot.limelight.setLedMode(LedMode.off);
+        //Robot.limelight.setLedMode(LedMode.off);
     }
 
     @Override

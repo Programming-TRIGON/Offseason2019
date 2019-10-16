@@ -135,7 +135,7 @@ public OI(){
     operatorButtonA.whenReleased(Commands.cancelCommand(collectCargoFromFloor));
     
     operatorButtonB.whenPressed(new CollectHatchFromFeeder()); // move null from double solenoid on robot Components
-    operatorButtonB.whenReleased(new HatchHolderLock(true));
+    //operatorButtonB.whenReleased(new HatchHolderLock(true));
 
     operatorButtonAxisLeft.whenPressed(new MoveLiftWithJoystick(() -> -operatorXbox.getY(Hand.kLeft))); //ISSUE - not work with other command groups (collectCargoFromFloor, etc.)
     operatorStartButton.whenPressed(new DefenceMode());

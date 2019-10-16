@@ -6,11 +6,9 @@ import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.*;
-import frc.robot.autonomous.AutonomousCommand;
 import frc.robot.motionprofiling.PathCreater;
 import frc.robot.subsystems.CargoHolder;
 import frc.robot.subsystems.Drivetrain;
@@ -21,7 +19,6 @@ import frc.robot.testpids.TestPIDGyro;
 import frc.robot.testpids.TestPIDLift;
 import frc.robot.utils.Limelight;
 import frc.robot.utils.Limelight.CamMode;
-import frc.robot.utils.Limelight.LedMode;
 
 public class Robot extends TimedRobot {
   public static OI oi;
