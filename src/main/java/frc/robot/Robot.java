@@ -35,7 +35,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     // Compressor:
-    RobotComponents.compressor.start();
+    RobotComponents.compressor.stop();
     // Subsystems:
     cargoHolder = new CargoHolder();
     drivetrain = new Drivetrain();
