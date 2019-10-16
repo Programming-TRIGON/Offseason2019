@@ -13,7 +13,9 @@ import frc.robot.Robot;
 public class Commands {
     
     public static InstantCommand cancelCommand(Command commandToCancel){ 
-        return new InstantCommand(commandToCancel::cancel);
+        if(commandToCancel != null)
+            return new InstantCommand(commandToCancel::cancel);
+        return null;
     }
     
 
