@@ -9,7 +9,7 @@ import frc.robot.Robot;
  * this command ejects cargo until the stall stops.
  */
 public class EjectCargo extends Command {
-  private final static double EJECT_POWER = -0.6, TIMEOUT = 1;
+  private final static double EJECT_POWER = -0.8, TIMEOUT = 0.4;
   private double startTime;
 
   public EjectCargo() {

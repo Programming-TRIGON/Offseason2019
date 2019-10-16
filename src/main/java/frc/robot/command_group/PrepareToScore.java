@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj.command.ConditionalCommand;
 import frc.robot.Enums.LiftHeights;
 import frc.robot.Enums.ScoreHeight;
 import frc.robot.Robot;
-import frc.robot.commands.Commands;
 import frc.robot.commands.SetLiftHeight;
 
 public class PrepareToScore extends CommandGroup {
@@ -29,6 +28,7 @@ public class PrepareToScore extends CommandGroup {
                 hatchHeight = LiftHeights.RocketHatchTop;
                 break;
         }
+        //addSequential(new CancelCommand(Robot.lift::getCurrentCommand));
         addSequential(new ConditionalCommand(new SetLiftHeight(cargoHeight), new SetLiftHeight(hatchHeight))
         {
             @Override

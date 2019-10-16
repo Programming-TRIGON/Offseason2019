@@ -42,7 +42,7 @@ public class Robot extends TimedRobot {
     lift = new Lift();
     hatchHolder = new HatchHolder();
     // Utils:
-    oi = new OI(false);
+    oi = new OI(true);
     pathCreater = new PathCreater();
     limelight = new Limelight();
     dbc = new DashBoardController();
