@@ -9,13 +9,16 @@ import edu.wpi.first.wpilibj.buttons.POVButton;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Enums.LiftHeights;
 import frc.robot.Enums.ScoreHeight;
+import frc.robot.Enums.Target;
 import frc.robot.command_group.CollectCargoFromFloor;
 import frc.robot.command_group.CollectHatchFromFeeder;
 import frc.robot.command_group.DefenceMode;
 import frc.robot.command_group.PrepareToScore;
 import frc.robot.commands.CollectCargo;
 import frc.robot.commands.Commands;
+import frc.robot.commands.DriveArcade;
 import frc.robot.commands.EjectCargo;
+import frc.robot.commands.FollowTargetWithJoystick;
 import frc.robot.commands.HatchHolderLock;
 import frc.robot.commands.MoveLiftWithJoystick;
 import frc.robot.commands.SetLiftHeight;
@@ -107,9 +110,11 @@ public OI(){
     driverLTrigger = new XboxTrigger(driverXbox, Hand.kLeft);
     driverRTrigger = new XboxTrigger(driverXbox, Hand.kRight);
 
-    driverRTrigger.whenActive(new EjectCargo());
-    driverLTrigger.whenActive(new HatchHolderLock(false));
-    driverLTrigger.whenInactive(new HatchHolderLock(true));
+    driverLTrigger.whenActive(new EjectCargo());
+    driverRTrigger.whenActive(new HatchHolderLock(false));
+    driverRTrigger.whenInactive(new HatchHolderLock(true));
+    driverButtonA.whileHeld(new FollowTargetWithJoystick(Target.Feeder));
+    driverButtonA.whenReleased(new DriveArcade(() -> Robot.oi.driverXbox.getX(Hand.kLeft), () -> Robot.oi.driverXbox.getY(Hand.kLeft)));
   }
 
   private void hillelSettings() {
@@ -134,8 +139,9 @@ public OI(){
     operatorButtonA.whenPressed(collectCargoFromFloor);
     operatorButtonA.whenReleased(Commands.cancelCommand(collectCargoFromFloor));
     
-    operatorButtonB.whenPressed(new CollectHatchFromFeeder()); // move null from double solenoid on robot Components
-    //operatorButtonB.whenReleased(new HatchHolderLock(true));
+    CommandGroup collectHatchFromFeeder = new CollectHatchFromFeeder();
+    operatorButtonB.whenPressed(collectHatchFromFeeder); // move null from double solenoid on robot Components
+    operatorButtonB.whenReleased(Commands.cancelCommand(collectHatchFromFeeder));
 
     operatorButtonAxisLeft.whenPressed(new MoveLiftWithJoystick(() -> -operatorXbox.getY(Hand.kLeft))); //ISSUE - not work with other command groups (collectCargoFromFloor, etc.)
     operatorStartButton.whenPressed(new DefenceMode());
@@ -170,9 +176,7 @@ public OI(){
     operatorButtonA.whenPressed(collectCargoFromFloor);
     operatorButtonA.whenReleased(Commands.cancelCommand(collectCargoFromFloor));
     
-    CommandGroup collectHatchFromFeeder = new CollectHatchFromFeeder();
-    operatorButtonB.whenPressed(collectHatchFromFeeder); // move null from double solenoid on robot Components
-    operatorButtonB.whenReleased(Commands.cancelCommand(collectHatchFromFeeder));
+    operatorButtonB.whenPressed(new CollectHatchFromFeeder()); // move null from double solenoid on robot Components
 
     operatorButtonAxisLeft.whenPressed(new MoveLiftWithJoystick(() -> -operatorXbox.getY(Hand.kLeft))); //ISSUE - not work with other command groups (collectCargoFromFloor, etc.)
     operatorStartButton.whenPressed(new DefenceMode());

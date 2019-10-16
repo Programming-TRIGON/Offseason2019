@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.PidSettings;
 import frc.robot.Enums.Target;
+import frc.robot.commands.FollowTarget;
 import frc.robot.commands.VisionPID;
 
 public class TestPID extends Command {
@@ -30,7 +31,7 @@ public class TestPID extends Command {
   @Override
   protected void initialize() {
     updatePID();
-    testCommand = new VisionPID(Target.RocketSide, pidSettings, pidSettings2);
+    testCommand = new FollowTarget(Target.RocketSide, pidSettings, pidSettings2);
     testCommand.start();
   }
 
