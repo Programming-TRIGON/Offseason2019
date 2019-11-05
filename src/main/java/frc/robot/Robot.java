@@ -8,13 +8,14 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.command_group.CollectHatchFromFeeder;
 import frc.robot.commands.*;
 import frc.robot.motionprofiling.PathCreater;
 import frc.robot.subsystems.CargoHolder;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.HatchHolder;
 import frc.robot.subsystems.Lift;
-import frc.robot.testpids.TestPID;
+import frc.robot.testpids.TestPIDVision;
 import frc.robot.testpids.TestPIDGyro;
 import frc.robot.testpids.TestPIDLift;
 import frc.robot.utils.Limelight;
@@ -35,7 +36,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     // Compressor:
-    RobotComponents.compressor.stop();
+    RobotComponents.compressor.start();
     // Subsystems:
     cargoHolder = new CargoHolder();
     drivetrain = new Drivetrain();
@@ -55,11 +56,15 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putData("Auto mode", autonomousChooser);
     SmartDashboard.putData("CalibrateDistance", new CalibrateDistance(oi.driverXbox::getAButton));
-    SmartDashboard.putData("Test PID vision", new TestPID());
+    SmartDashboard.putData("Test PID vision", new TestPIDVision());
     SmartDashboard.putData("test PID Turn", new TestPIDGyro());
     SmartDashboard.putData("test pid Lift", new TestPIDLift());
     SmartDashboard.putData("clearPreferences", Commands.setRunWhenDisabled(Preferences.getInstance()::removeAll));
-    SmartDashboard.putData("limelight toggle",Commands.setRunWhenDisabled(limelight::toggleLedMode));
+    SmartDashboard.putData("limelight toggle", Commands.setRunWhenDisabled(limelight::toggleLedMode));
+    SmartDashboard.putData("Auto hatch feeder collection", new CollectHatchFromFeeder());
+    SmartDashboard.putData("Compressor stop", Commands.stopCompressor());
+    SmartDashboard.putData("Compressor start", Commands.startCompressor());
+
     // dbc SmartDashboard values to display
     dbc.addNumber("limelight distance", limelight::getDistance);
     dbc.addNumber("robot angle", drivetrain::getAngle);

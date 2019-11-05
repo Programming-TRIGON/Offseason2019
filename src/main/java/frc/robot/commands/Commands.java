@@ -3,6 +3,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.InstantCommand;
+import frc.robot.RobotComponents;
 /**
  * this class holds all of the instant commands.
  */
@@ -17,6 +18,18 @@ public class Commands {
 
     public static InstantCommand setRunWhenDisabled(Runnable runnable){
         InstantCommand c =  new InstantCommand(runnable);
+        c.setRunWhenDisabled(true);
+        return c;
+    }
+
+    public static InstantCommand stopCompressor() {
+        InstantCommand c = new InstantCommand(RobotComponents.compressor::stop);
+        c.setRunWhenDisabled(true);
+        return c;
+    }
+    
+    public static InstantCommand startCompressor() {
+        InstantCommand c = new InstantCommand(RobotComponents.compressor::start);
         c.setRunWhenDisabled(true);
         return c;
     }

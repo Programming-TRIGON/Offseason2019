@@ -65,7 +65,11 @@ public class FollowTarget extends Command {
     protected void execute() {
         // if it sees a target it will do PID on the x axis else it won't move
         if (Robot.limelight.getTv()) {
-            Robot.drivetrain.curvatureDrive(xOutput,yOutput,false);
+            if(Robot.limelight.getDistance() > 5) {
+                Robot.drivetrain.curvatureDrive(xOutput,-0.3,false);
+            } else {
+                Robot.drivetrain.curvatureDrive(xOutput,0,false);
+            }
             lastTimeOnTarget = Timer.getFPGATimestamp();
         } else {
             // the target hasn't been found.
@@ -76,7 +80,10 @@ public class FollowTarget extends Command {
     @Override
     protected boolean isFinished() {
         // if it does not detect a target for enough time it will return true
-        return Timer.getFPGATimestamp() - lastTimeOnTarget > pidSettingsX.getWaitTime()
+        // return Timer.getFPGATimestamp() - lastTimeOnTarget > pidSettingsX.getWaitTime()
+        //         || (pidControllerX.onTarget() && pidControllerY.onTarget());
+        
+        return (Robot.limelight.getDistance() < 5 && pidControllerY.onTarget()) 
                 || (pidControllerX.onTarget() && pidControllerY.onTarget());
     }
 

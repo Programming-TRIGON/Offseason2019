@@ -1,4 +1,4 @@
-package frc.robot.commands;
+package frc.robot.testpids;
 
 import java.util.function.Supplier;
 import com.spikes2212.dashboard.ConstantHandler;
@@ -7,8 +7,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Enums;
 import frc.robot.PidSettings;
 import frc.robot.motionprofiling.FollowPath;
-
-
 
 public class TestPIDMotionProfiling extends Command {
   private Supplier<Double> KP = ConstantHandler.addConstantDouble("KP", 0.01);
