@@ -4,7 +4,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotComponents;
@@ -12,13 +11,10 @@ import frc.robot.RobotConstants;
 
 /** This is the subsystem of the lift */
 public class Lift extends Subsystem {
-  private DigitalInput bottomSwitch;
   private WPI_TalonSRX leftMotor, rightMotor;
   private Encoder encoder;
 
   public Lift() {
-    this.bottomSwitch = RobotComponents.Lift.LIFT_SWITCH_BOTTOM;
-    
     this.leftMotor = RobotComponents.Lift.LIFT_MOTOR_LEFT;
     this.rightMotor = RobotComponents.Lift.LIFT_MOTOR_RIGHT;
 
@@ -46,27 +42,13 @@ public class Lift extends Subsystem {
   }
 
   public void setMotorsPower(double power) {
-    if(getBottomSwitch()){
-      if(power <= 0){
-        this.rightMotor.set(ControlMode.PercentOutput, 0);
-        this.leftMotor.set(ControlMode.PercentOutput, 0);
-      }else{
-        this.rightMotor.set(ControlMode.PercentOutput, power);
-        this.leftMotor.set(ControlMode.PercentOutput, power);
-      }  
-    }else{
       this.rightMotor.set(ControlMode.PercentOutput, power);
-      this.leftMotor.set(ControlMode.PercentOutput, power);  
-    }
+      this.leftMotor.set(ControlMode.PercentOutput, power);
   }
 
   public void setMotorsPowerOvveride(double power) {
     this.rightMotor.set(ControlMode.PercentOutput, power);
     this.leftMotor.set(ControlMode.PercentOutput, power);
-  }
-
-  public boolean getBottomSwitch() {
-    return this.bottomSwitch.get();
   }
 
   public double getHeight() {

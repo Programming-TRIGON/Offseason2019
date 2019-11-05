@@ -1,12 +1,8 @@
 
 package frc.robot.commands;
 
-import com.spikes2212.dashboard.ConstantHandler;
-
-import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.InstantCommand;
-import frc.robot.Robot;
 /**
  * this class holds all of the instant commands.
  */
