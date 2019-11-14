@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.command_group.CollectHatchFromFeeder;
+import frc.robot.command_group.PutHatch;
 import frc.robot.commands.*;
 import frc.robot.motionprofiling.PathCreater;
 import frc.robot.subsystems.CargoHolder;
@@ -62,6 +63,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("clearPreferences", Commands.setRunWhenDisabled(Preferences.getInstance()::removeAll));
     SmartDashboard.putData("limelight toggle", Commands.setRunWhenDisabled(limelight::toggleLedMode));
     SmartDashboard.putData("Auto hatch feeder collection", new CollectHatchFromFeeder());
+    SmartDashboard.putData("Auto put hatch", new PutHatch());
     SmartDashboard.putData("Compressor stop", Commands.stopCompressor());
     SmartDashboard.putData("Compressor start", Commands.startCompressor());
 
@@ -69,6 +71,8 @@ public class Robot extends TimedRobot {
     dbc.addNumber("limelight distance", limelight::getDistance);
     dbc.addNumber("robot angle", drivetrain::getAngle);
     dbc.addNumber("lift height", lift::getHeight);
+    dbc.addNumber("right encoder", drivetrain::getRightTicks);
+    dbc.addNumber("left encoder", drivetrain::getLeftTicks);
     dbc.addBoolean("Is Cargo collected ", cargoHolder::isCargoCollected);
 
     limelight.setCamMode(CamMode.vision);

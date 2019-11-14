@@ -9,6 +9,7 @@ import frc.robot.Enums.Target;
 import frc.robot.pidsources.VisionPIDSourceX;
 import frc.robot.pidsources.VisionPIDSourceY;
 import frc.robot.utils.Limelight.CamMode;
+import frc.robot.utils.Limelight.LedMode;
 
 public class FollowTarget extends Command {
     private double lastTimeOnTarget;
@@ -27,17 +28,7 @@ public class FollowTarget extends Command {
         this.target = target;
         this.pidSettingsY = pidSettingsY;
         this.pidSettingsX = pidSettingsX;
-    }
 
-    /**
-     * @param target The target to follow.
-     */
-    public FollowTarget(Target target) {
-        this(target, RobotConstants.RobotPIDSettings.VISION_Y_PID_SETTINGS, RobotConstants.RobotPIDSettings.VISION_X_PID_SETTINGS);
-    }
-
-    @Override
-    protected void initialize() {
         // setting PID X values
         PIDSource visionPIDSourceX = new VisionPIDSourceX();
         PIDSource visionPIDSourceY = new VisionPIDSourceY();
@@ -53,10 +44,23 @@ public class FollowTarget extends Command {
         pidControllerY.setSetpoint(0);
         pidControllerY.setOutputRange(-1, 1);
         pidControllerY.setAbsoluteTolerance(pidSettingsY.getTolerance());
+        System.out.println("henlo!!!!!!!!!!!");
+    }
 
-        // setting limelight settings
-        Robot.limelight.setPipeline(target);
-        Robot.limelight.setCamMode(CamMode.vision);
+    /**
+     * @param target The target to follow.
+     */
+    public FollowTarget(Target target) {
+        this(target, RobotConstants.RobotPIDSettings.VISION_Y_PID_SETTINGS, RobotConstants.RobotPIDSettings.VISION_X_PID_SETTINGS);
+    }
+
+    @Override
+    protected void initialize() {
+        // // setting limelight settings    
+        // Robot.limelight.setPipeline(target);
+        // Robot.limelight.setCamMode(CamMode.vision);
+        // Robot.limelight.setLedMode(3);
+        System.out.println("Henlo 2!!!!!!!!!!");
         pidControllerX.enable();
         pidControllerY.enable();
     }
@@ -65,10 +69,10 @@ public class FollowTarget extends Command {
     protected void execute() {
         // if it sees a target it will do PID on the x axis else it won't move
         if (Robot.limelight.getTv()) {
-            if(Robot.limelight.getDistance() > 5) {
-                Robot.drivetrain.curvatureDrive(xOutput,-0.3,false);
+            if(yOutput >= 0.2) {
+                Robot.drivetrain.curvatureDrive(xOutput,-0.2,false);
             } else {
-                Robot.drivetrain.curvatureDrive(xOutput,0,false);
+                Robot.drivetrain.curvatureDrive(xOutput,yOutput+0.085,false);
             }
             lastTimeOnTarget = Timer.getFPGATimestamp();
         } else {
@@ -82,18 +86,17 @@ public class FollowTarget extends Command {
         // if it does not detect a target for enough time it will return true
         // return Timer.getFPGATimestamp() - lastTimeOnTarget > pidSettingsX.getWaitTime()
         //         || (pidControllerX.onTarget() && pidControllerY.onTarget());
-        
-        return (Robot.limelight.getDistance() < 5 && pidControllerY.onTarget()) 
+        return (Timer.getFPGATimestamp() - lastTimeOnTarget > pidSettingsX.getWaitTime())
+                || (Robot.limelight.getDistance() < 0.35 && pidControllerY.onTarget()) 
                 || (pidControllerX.onTarget() && pidControllerY.onTarget());
     }
 
     @Override
     protected void end() {
+        System.out.println("fin!!!!!!!!!!!!!!!!!");
         pidControllerX.disable();
         pidControllerY.disable();
-        pidControllerX.close();
-        pidControllerY.close();
-        Robot.drivetrain.arcadeDrive(0, 0);
+        Robot.drivetrain.arcadeDrive(0, 0);        
     }
 
     @Override
