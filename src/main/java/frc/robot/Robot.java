@@ -56,23 +56,29 @@ public class Robot extends TimedRobot {
     //autonomousChooser.addOption("Left cargo ship", new AutonomousCommand(true));
 
     SmartDashboard.putData("Auto mode", autonomousChooser);
-    SmartDashboard.putData("CalibrateDistance", new CalibrateDistance(oi.driverXbox::getAButton));
+    SmartDashboard.putData("Calibrate Vision Distance", new CalibrateDistance(oi.driverXbox::getAButton));
     SmartDashboard.putData("Test PID vision", new TestPIDVision());
     SmartDashboard.putData("test PID Turn", new TestPIDGyro());
-    SmartDashboard.putData("test pid Lift", new TestPIDLift());
     SmartDashboard.putData("clearPreferences", Commands.setRunWhenDisabled(Preferences.getInstance()::removeAll));
     SmartDashboard.putData("limelight toggle", Commands.setRunWhenDisabled(limelight::toggleLedMode));
     SmartDashboard.putData("Auto hatch feeder collection", new CollectHatchFromFeeder());
     SmartDashboard.putData("Auto put hatch", new PutHatch());
     SmartDashboard.putData("Compressor stop", Commands.stopCompressor());
     SmartDashboard.putData("Compressor start", Commands.startCompressor());
+    SmartDashboard.putData("resetEncoders", Commands.resetEncoders());
 
     // dbc SmartDashboard values to display
-    dbc.addNumber("limelight distance", limelight::getDistance);
-    dbc.addNumber("robot angle", drivetrain::getAngle);
-    dbc.addNumber("lift height", lift::getHeight);
-    dbc.addNumber("right encoder", drivetrain::getRightTicks);
-    dbc.addNumber("left encoder", drivetrain::getLeftTicks);
+    dbc.addNumber("Limelight distance", limelight::getDistance);
+    dbc.addNumber("Robot angle", drivetrain::getAngle);
+    dbc.addNumber("Lift height", lift::getHeight);
+    dbc.addNumber("Right encoder ticks", drivetrain::getRightTicks);
+    dbc.addNumber("Left encoder ticks", drivetrain::getLeftTicks);
+    dbc.addNumber("Right velocity", drivetrain::getRightVelocity);
+    dbc.addNumber("Left velocity", drivetrain::getLeftVelocity);
+    dbc.addNumber("Right acceleration", drivetrain::getRightAcceleration);
+    dbc.addNumber("Left acceleration", drivetrain::getLeftAcceleration);
+    dbc.addNumber("Right distance", drivetrain::getRightDistance);
+    dbc.addNumber("Left distance", drivetrain::getLeftDistance);
     dbc.addBoolean("Is Cargo collected ", cargoHolder::isCargoCollected);
 
     limelight.setCamMode(CamMode.vision);

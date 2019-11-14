@@ -44,7 +44,6 @@ public class FollowTarget extends Command {
         pidControllerY.setSetpoint(0);
         pidControllerY.setOutputRange(-1, 1);
         pidControllerY.setAbsoluteTolerance(pidSettingsY.getTolerance());
-        System.out.println("henlo!!!!!!!!!!!");
     }
 
     /**
@@ -56,11 +55,10 @@ public class FollowTarget extends Command {
 
     @Override
     protected void initialize() {
-        // // setting limelight settings    
-        // Robot.limelight.setPipeline(target);
-        // Robot.limelight.setCamMode(CamMode.vision);
-        // Robot.limelight.setLedMode(3);
-        System.out.println("Henlo 2!!!!!!!!!!");
+        // setting limelight settings    
+        Robot.limelight.setPipeline(target);
+        Robot.limelight.setCamMode(CamMode.vision);
+        Robot.limelight.setLedMode(LedMode.on);
         pidControllerX.enable();
         pidControllerY.enable();
     }
@@ -93,7 +91,6 @@ public class FollowTarget extends Command {
 
     @Override
     protected void end() {
-        System.out.println("fin!!!!!!!!!!!!!!!!!");
         pidControllerX.disable();
         pidControllerY.disable();
         Robot.drivetrain.arcadeDrive(0, 0);        

@@ -23,7 +23,7 @@ public class RobotConstants {
 
     /** Constants for sensors on the robot */
     public static class Sensors {
-        public static final double DRIVETRAIN_ENCODERS_DISTANCE_PER_TICKS = 4096;
+        public static final double DRIVETRAIN_ENCODERS_DISTANCE_PER_TICKS = 12832;
 
         //we measure the height according to the bottom of the tilt.
         public static final double LIFT_ENCODER_OFFSET = 0;

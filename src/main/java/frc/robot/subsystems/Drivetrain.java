@@ -70,7 +70,7 @@ public class Drivetrain extends Subsystem {
   }
 
   public int getLeftTicks() {
-    return this.leftEncoder.getSelectedSensorPosition();
+    return -this.leftEncoder.getSelectedSensorPosition();
   }
 
   public int getRightTicks() {
@@ -107,7 +107,7 @@ public class Drivetrain extends Subsystem {
    * meter per second
    */
   public double getLeftVelocity() {
-    return this.leftEncoder.getSelectedSensorVelocity() / (TICKS_PER_METER * 0.1);
+    return -this.leftEncoder.getSelectedSensorVelocity() / (TICKS_PER_METER * 0.1);
   }
 
   public double getAverageVelocity() {

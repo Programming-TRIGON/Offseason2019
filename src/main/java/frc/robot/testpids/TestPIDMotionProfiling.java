@@ -30,7 +30,7 @@ public class TestPIDMotionProfiling extends Command {
   @Override
   protected void initialize() {
     updatePID();
-    testCommand = new FollowPath(Enums.Path.SHIP);
+    testCommand = new FollowPath(Enums.Path.RAMP_TO_ROCKET);
     testCommand.start();
   }
 

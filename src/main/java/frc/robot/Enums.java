@@ -14,11 +14,7 @@ import jaci.pathfinder.Waypoint;
  */
 public class Enums {
     public enum Path {
-        SHIP("ship.csv"), PATH2("path2.csv"),
-        PATH2_JACI(new Waypoint[] { new Waypoint(0, 0, 0),
-                new Waypoint(0, RobotConstants.FieldDimensions.PATH2_DISTANCE, 0) }),
-        PATH3("path3.csv"), PATH3_JACI(new Waypoint[] { new Waypoint(0, 0, 0),
-                new Waypoint(0, RobotConstants.FieldDimensions.PATH3_DISTANCE, 0) });
+        RAMP_TO_ROCKET("RampToRocket.csv");
 
         private final Trajectory trajectory;
 
