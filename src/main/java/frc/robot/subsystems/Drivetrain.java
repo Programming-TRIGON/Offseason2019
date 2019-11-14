@@ -67,6 +67,7 @@ public class Drivetrain extends Subsystem {
 
   public void calibrateGyro() {
     this.gyro.calibrate();
+    this.gyro.reset();
   }
 
   public int getLeftTicks() {

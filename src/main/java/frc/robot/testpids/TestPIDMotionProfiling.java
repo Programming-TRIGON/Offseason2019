@@ -4,8 +4,8 @@ import java.util.function.Supplier;
 import com.spikes2212.dashboard.ConstantHandler;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Enums;
 import frc.robot.PidSettings;
+import frc.robot.Enums.Path;
 import frc.robot.motionprofiling.FollowPath;
 
 public class TestPIDMotionProfiling extends Command {
@@ -30,7 +30,7 @@ public class TestPIDMotionProfiling extends Command {
   @Override
   protected void initialize() {
     updatePID();
-    testCommand = new FollowPath(Enums.Path.RAMP_TO_ROCKET);
+    testCommand = new FollowPath(Path.RAMP_TO_ROCKET);
     testCommand.start();
   }
 

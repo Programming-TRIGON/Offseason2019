@@ -59,7 +59,6 @@ public class CalibrateKv extends Command {
       voltage += DELTA_VOLTAGE;
       lastLeftVel = leftVelocity;
       lastRightVel = rightVelocity;
-
     }
 
   }

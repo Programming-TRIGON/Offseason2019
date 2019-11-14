@@ -58,8 +58,8 @@ public class FollowPath extends Command {
         RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_RIGHT.getKD(),
         RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_RIGHT.getKV(),
         RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_RIGHT.getKA());
-    this.left.configurePIDVA(0.3, 0.1, 0.5, 0.1, 0.1);
-    this.right.configurePIDVA(0.3, 0.1, 0.5, 0.1, 0.1);
+    this.left.configurePIDVA(0.5, 0, 0.05, 0.2, 0.05);
+    this.right.configurePIDVA(0.5, 0, 0.05, 0.2, 0.05);
     Robot.drivetrain.resetGyro();
   }
 
@@ -86,8 +86,8 @@ public class FollowPath extends Command {
     }
 
     this.turn = RobotConstants.MotionProfiling.MOTION_PROFILING_KP_TURN * (-1.0 / 80.0) * this.angleDifference;
-    if (isReversed)
-      Robot.drivetrain.tankDrive(-(this.leftCalculate + turn), -(this.rightCalculate - turn));
+    if (!isReversed)
+      Robot.drivetrain.tankDrive(-0.6*(this.leftCalculate + turn), -0.6*(this.rightCalculate - turn));
     else
       Robot.drivetrain.tankDrive(this.leftCalculate + turn, this.rightCalculate - turn);
   }

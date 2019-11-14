@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Enums.Path;
 import frc.robot.command_group.CollectHatchFromFeeder;
 import frc.robot.command_group.PutHatch;
 import frc.robot.commands.*;
@@ -19,6 +20,7 @@ import frc.robot.subsystems.Lift;
 import frc.robot.testpids.TestPIDVision;
 import frc.robot.testpids.TestPIDGyro;
 import frc.robot.testpids.TestPIDLift;
+import frc.robot.testpids.TestPIDMotionProfiling;
 import frc.robot.utils.Limelight;
 import frc.robot.utils.Limelight.CamMode;
 
@@ -34,10 +36,12 @@ public class Robot extends TimedRobot {
   private SendableChooser<Command> autonomousChooser;
   private DashBoardController dbc;
 
+  public static Path path;
+
   @Override
   public void robotInit() {
     // Compressor:
-    RobotComponents.compressor.start();
+    RobotComponents.compressor.stop();
     // Subsystems:
     cargoHolder = new CargoHolder();
     drivetrain = new Drivetrain();
@@ -59,13 +63,16 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Calibrate Vision Distance", new CalibrateDistance(oi.driverXbox::getAButton));
     SmartDashboard.putData("Test PID vision", new TestPIDVision());
     SmartDashboard.putData("test PID Turn", new TestPIDGyro());
+    SmartDashboard.putData("test PID motion prifiling", new TestPIDMotionProfiling());
     SmartDashboard.putData("clearPreferences", Commands.setRunWhenDisabled(Preferences.getInstance()::removeAll));
     SmartDashboard.putData("limelight toggle", Commands.setRunWhenDisabled(limelight::toggleLedMode));
     SmartDashboard.putData("Auto hatch feeder collection", new CollectHatchFromFeeder());
     SmartDashboard.putData("Auto put hatch", new PutHatch());
     SmartDashboard.putData("Compressor stop", Commands.stopCompressor());
     SmartDashboard.putData("Compressor start", Commands.startCompressor());
-    SmartDashboard.putData("resetEncoders", Commands.resetEncoders());
+    SmartDashboard.putData("Reset encoders", Commands.resetEncoders());
+    SmartDashboard.putData("Calibrate gyro", Commands.calibrateGyro());
+    SmartDashboard.putData("Calibrate kV", new CalibrateKv(false, () -> -0.35));
 
     // dbc SmartDashboard values to display
     dbc.addNumber("Limelight distance", limelight::getDistance);
@@ -82,6 +89,8 @@ public class Robot extends TimedRobot {
     dbc.addBoolean("Is Cargo collected ", cargoHolder::isCargoCollected);
 
     limelight.setCamMode(CamMode.vision);
+
+    path = Path.TEST;
   }
 
   @Override

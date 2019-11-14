@@ -40,4 +40,10 @@ public class Commands {
         c.setRunWhenDisabled(true);
         return c;
     }
+
+    public static InstantCommand calibrateGyro() {
+        InstantCommand c = new InstantCommand(Robot.drivetrain::calibrateGyro);
+        c.setRunWhenDisabled(true);
+        return c;
+    }
 }
