@@ -38,7 +38,6 @@ public class Drivetrain extends Subsystem {
       RobotComponents.Drivetrain.RIGHT_MIDDLE_MOTOR, RobotComponents.Drivetrain.RIGHT_REAR_MOTOR); 
 
         this.drivetrain = new DifferentialDrive(this.leftDriveGroup, this.rightDriveGroup);
-
         this.gyro = RobotComponents.Drivetrain.GYRO;
 
         this.rightEncoder = RobotComponents.Drivetrain.ENCODER_RIGHT;
@@ -50,7 +49,7 @@ public class Drivetrain extends Subsystem {
   }
 
   public void tankDrive(double leftSpeed, double rightSpeed) {
-    this.drivetrain.tankDrive(leftSpeed, rightSpeed);
+    this.drivetrain.tankDrive(-leftSpeed, -rightSpeed, false);
   }
 
   public void curvatureDrive(double x, double y, boolean quickTurn) {

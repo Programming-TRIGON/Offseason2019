@@ -5,6 +5,7 @@ import com.spikes2212.dashboard.ConstantHandler;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.PidSettings;
+import frc.robot.RobotConstants;
 import frc.robot.Enums.Path;
 import frc.robot.motionprofiling.FollowPath;
 
@@ -30,7 +31,7 @@ public class TestPIDMotionProfiling extends Command {
   @Override
   protected void initialize() {
     updatePID();
-    testCommand = new FollowPath(Path.RAMP_TO_ROCKET);
+    testCommand = new FollowPath(Path.WEAVER,pidSettings, pidSettings2);
     testCommand.start();
   }
 
@@ -50,9 +51,11 @@ public class TestPIDMotionProfiling extends Command {
   }
 
   public void updatePID(){
-    this.pidSettings = new PidSettings(KP.get(), KI.get(), KD.get(), TOLERANCE.get(), DELTA_TOLERANCE.get());
-    this.pidSettings2 = new PidSettings(KP_ROTATION.get(), KI_ROTATION.get(), KD_ROTATION.get(), TOLERANCE_ROTATION.get(), DELTA_TOLERANCE_ROTATION.get());
-    SmartDashboard.putString("PID setting", "" + KP.get() + KI.get() + KD.get() + TOLERANCE.get() + DELTA_TOLERANCE.get());
+    var left = RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_LEFT;
+    this.pidSettings = new PidSettings(KP.get(), KD.get(), left.getKV(),left.getKA());
+    var right = RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_RIGHT;
+    this.pidSettings2 = new PidSettings(KP_ROTATION.get(),  KD_ROTATION.get(), right.getKV(), right.getKA());
+    //SmartDashboard.putString("PID setting", "" + KP.get() + KI.get() + KD.get() + TOLERANCE.get() + DELTA_TOLERANCE.get());
   }
 
   @Override
