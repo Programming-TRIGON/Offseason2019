@@ -113,6 +113,8 @@ public OI(){
     driverLTrigger = new XboxTrigger(driverXbox, Hand.kLeft);
     driverRTrigger = new XboxTrigger(driverXbox, Hand.kRight);
 
+    driverButtonX.whenPressed(new DriveArcade(() -> Robot.oi.driverXbox.getX(Hand.kLeft), () -> Robot.oi.driverXbox.getTriggerAxis(Hand.kLeft), () -> Robot.oi.driverXbox.getTriggerAxis(Hand.kRight)));
+    driverButtonY.whenPressed(new DriveArcade(() -> Robot.oi.driverXbox.getX(Hand.kLeft), () -> Robot.oi.driverXbox.getY(Hand.kLeft)));
     driverLTrigger.whenActive(new EjectCargo());
     driverRTrigger.whenActive(new HatchHolderLock(false));
     driverRTrigger.whenInactive(new HatchHolderLock(true));

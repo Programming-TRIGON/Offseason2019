@@ -7,14 +7,22 @@ import frc.robot.Robot;
 
 public class DriveArcade extends Command {
   private Supplier<Double> x, y;
-  private final double SENSETIVITY = 0.8;
-  private final double THRESHOLD = 0.5;  
+  private final double SENSETIVITY = 1;
+  private final double THRESHOLD = 0.5;
+  private final double DEAD_BAND = 0.095;  
 
   public DriveArcade(Supplier<Double> x, Supplier<Double> y) {
     requires(Robot.drivetrain);
-    this.x = x;
-    this.y = y;
+    this.x = () -> x.get() - DEAD_BAND;
+    this.y = () -> y.get() - DEAD_BAND;
   }
+
+  public DriveArcade(Supplier<Double> x, Supplier<Double> forward, Supplier<Double> reverse) {
+    requires(Robot.drivetrain);
+    this.x = x;
+    this.y = () -> 1.25 * forward.get() - 1.25 * reverse.get();
+  }
+
 
   @Override
   protected void initialize() {
@@ -24,8 +32,17 @@ public class DriveArcade extends Command {
   protected void execute() {
     double y = this.y.get();
     double x = this.x.get();
-    //Robot.drivetrain.arcadeDrive(x, y);
-    Robot.drivetrain.curvatureDrive(SENSETIVITY * x, SENSETIVITY * y, y <= THRESHOLD);
+    System.out.println("X: " + x + " Y: " + y);
+    Robot.drivetrain.curvatureDrive(SENSETIVITY * x, SENSETIVITY * y, inRange(y, -THRESHOLD, THRESHOLD));
+    /*if (inRange(y, -DEAD_BAND, DEAD_BAND) && inRange(x, -DEAD_BAND, DEAD_BAND)) {
+      Robot.drivetrain.curvatureDrive(0, 0, inRange(y, -THRESHOLD, THRESHOLD));
+    } else if(inRange(y, -DEAD_BAND, DEAD_BAND)) {
+      Robot.drivetrain.curvatureDrive(SENSETIVITY * x, 0, inRange(y, -THRESHOLD, THRESHOLD));
+    } else if(inRange(x, -DEAD_BAND, DEAD_BAND)) {
+      Robot.drivetrain.curvatureDrive(0, SENSETIVITY * y, inRange(y, -THRESHOLD, THRESHOLD));
+    } else {
+      Robot.drivetrain.curvatureDrive(SENSETIVITY * x, SENSETIVITY * y, inRange(y, -THRESHOLD, THRESHOLD));
+    }*/
   }
 
   @Override
@@ -41,5 +58,9 @@ public class DriveArcade extends Command {
   @Override
   protected void interrupted() {
     end();
+  }
+
+  private boolean inRange(double val, double min, double max) {
+    return (val >= min) && (val <= max);
   }
 }
