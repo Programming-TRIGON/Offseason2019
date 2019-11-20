@@ -113,16 +113,18 @@ public OI(){
     driverLTrigger = new XboxTrigger(driverXbox, Hand.kLeft);
     driverRTrigger = new XboxTrigger(driverXbox, Hand.kRight);
 
-    driverButtonX.whenPressed(new DriveArcade(() -> Robot.oi.driverXbox.getX(Hand.kLeft), () -> Robot.oi.driverXbox.getTriggerAxis(Hand.kLeft), () -> Robot.oi.driverXbox.getTriggerAxis(Hand.kRight)));
-    driverButtonY.whenPressed(new DriveArcade(() -> Robot.oi.driverXbox.getX(Hand.kLeft), () -> Robot.oi.driverXbox.getY(Hand.kLeft)));
-    driverLTrigger.whenActive(new EjectCargo());
-    driverRTrigger.whenActive(new HatchHolderLock(false));
-    driverRTrigger.whenInactive(new HatchHolderLock(true));
+    //driverButtonX.whenPressed(new DriveArcade(() -> Robot.oi.driverXbox.getX(Hand.kLeft), () -> Robot.oi.driverXbox.getTriggerAxis(Hand.kLeft), () -> Robot.oi.driverXbox.getTriggerAxis(Hand.kRight)));
+    //driverButtonY.whenPressed(new DriveArcade(() -> Robot.oi.driverXbox.getX(Hand.kLeft), () -> Robot.oi.driverXbox.getY(Hand.kLeft)));
+    driverButtonX.whenPressed(new DriveArcade(() -> Robot.oi.driverXbox.getX(Hand.kLeft), () -> Robot.oi.driverXbox.getY(Hand.kLeft)));
+    driverButtonY.whenPressed(new DriveArcade(() -> Robot.oi.driverXbox.getX(Hand.kLeft), () -> Robot.oi.driverXbox.getTriggerAxis(Hand.kLeft), () -> Robot.oi.driverXbox.getTriggerAxis(Hand.kRight)));
+    driverButtonLB.whenActive(new EjectCargo());
+    driverButtonRB.whenActive(new HatchHolderLock(false));
+    driverButtonRB.whenInactive(new HatchHolderLock(true));
     Command c = new FollowTarget(Target.Feeder);
     driverButtonB.whenPressed(c);
     driverButtonB.whenReleased(Commands.cancelCommand(c));
-    driverButtonA.whileHeld(new FollowTargetWithJoystick(Target.Feeder));
-    driverButtonA.whenReleased(new DriveArcade(() -> Robot.oi.driverXbox.getX(Hand.kLeft), () -> Robot.oi.driverXbox.getY(Hand.kLeft)));
+    //driverButtonA.whileHeld(new FollowTargetWithJoystick(Target.Feeder));
+    //driverButtonA.whenReleased(new DriveArcade(() -> Robot.oi.driverXbox.getX(Hand.kLeft), () -> Robot.oi.driverXbox.getY(Hand.kLeft)));
   }
 
   private void hillelSettings() {

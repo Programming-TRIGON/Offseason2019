@@ -1,26 +1,25 @@
 package frc.robot.commands;
 
-import java.util.function.Supplier;
-
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import java.util.function.Supplier;
 
 public class DriveArcade extends Command {
   private Supplier<Double> x, y;
   private final double SENSETIVITY = 1;
   private final double THRESHOLD = 0.5;
-  private final double DEADBAND = 0.095;
+  private final static double DEADBAND = 0.095;
 
   public DriveArcade(Supplier<Double> x, Supplier<Double> y) {
     requires(Robot.drivetrain);
-    this.x = () -> x.get() - DEADBAND;
-    this.y = () -> y.get() - DEADBAND;
+    this.x = () -> calculateDeadband(x.get());
+    this.y = () -> calculateDeadband(y.get());
   }
 
   public DriveArcade(Supplier<Double> x, Supplier<Double> forward, Supplier<Double> reverse) {
     requires(Robot.drivetrain);
     this.x = x;
-    this.y = () -> 1.25 * forward.get() - 1.25 * reverse.get();
+    this.y = () -> rootFunction(forward.get() - reverse.get());
   }
 
 
@@ -32,8 +31,15 @@ public class DriveArcade extends Command {
   protected void execute() {
     double y = this.y.get();
     double x = this.x.get();
-    //System.out.println("X: " + x + " Y: " + y);
-    Robot.drivetrain.curvatureDrive(SENSETIVITY * x, SENSETIVITY * y, inRange(y, -THRESHOLD, THRESHOLD) && inRange(x, -THRESHOLD, THRESHOLD));
+
+//    System.out.println("X: " + x + " Y: " + y);\][[
+    boolean quickTurn;
+  if (Math.sqrt(y*y + x * x) < THRESHOLD)
+    quickTurn = true;
+  else
+    quickTurn = Math.abs(y) < Math.abs(x);
+
+    Robot.drivetrain.curvatureDrive(SENSETIVITY * x, SENSETIVITY * y, quickTurn);
     /*if (inRange(y, -DEAD_BAND, DEAD_BAND) && inRange(x, -DEAD_BAND, DEAD_BAND)) {
       Robot.drivetrain.curvatureDrive(0, 0, inRange(y, -THRESHOLD, THRESHOLD));
     } else if(inRange(y, -DEAD_BAND, DEAD_BAND)) {
@@ -60,7 +66,17 @@ public class DriveArcade extends Command {
     end();
   }
 
-  private boolean inRange(double val, double min, double max) {
+  private static boolean inRange(double val, double min, double max) {
     return (val >= min) && (val <= max);
   }
+  private static double rootFunction(double value){
+    //value -= Math.signum(0.05);
+    return Math.signum(value) * (2 * Math.sqrt(Math.abs(value)) - Math.abs(value) );
+  }
+  private static double calculateDeadband(double value){
+    if (Math.abs(value) < DEADBAND)
+      return 0;
+    return value;
+  }
+
 }
