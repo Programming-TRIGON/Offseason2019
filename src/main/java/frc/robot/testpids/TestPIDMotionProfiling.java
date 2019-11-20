@@ -31,7 +31,7 @@ public class TestPIDMotionProfiling extends Command {
   @Override
   protected void initialize() {
     updatePID();
-    testCommand = new FollowPath(Path.WEAVER,pidSettings, pidSettings2);
+    testCommand = new FollowPath(Path.TEST,pidSettings, pidSettings2);
     testCommand.start();
   }
 
@@ -51,9 +51,9 @@ public class TestPIDMotionProfiling extends Command {
   }
 
   public void updatePID(){
-    var left = RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_LEFT;
+    PidSettings left = RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_LEFT;
     this.pidSettings = new PidSettings(KP.get(), KD.get(), left.getKV(),left.getKA());
-    var right = RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_RIGHT;
+    PidSettings right = RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_RIGHT;
     this.pidSettings2 = new PidSettings(KP_ROTATION.get(),  KD_ROTATION.get(), right.getKV(), right.getKA());
     //SmartDashboard.putString("PID setting", "" + KP.get() + KI.get() + KD.get() + TOLERANCE.get() + DELTA_TOLERANCE.get());
   }

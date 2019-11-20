@@ -17,8 +17,8 @@ import frc.robot.RobotComponents;
 
 import static frc.robot.Robot.drivetrain;
 
-public class CalibrateChar extends Command {
-  public CalibrateChar() {
+public class CalibrateFeedForward extends Command {
+  public CalibrateFeedForward() {
     requires(drivetrain);
   }
   NetworkTableEntry autoSpeedEntry =

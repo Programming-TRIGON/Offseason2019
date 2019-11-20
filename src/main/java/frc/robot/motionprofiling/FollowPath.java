@@ -1,13 +1,16 @@
 package frc.robot.motionprofiling;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.PidSettings;
 import frc.robot.Robot;
 import frc.robot.RobotConstants;
 import frc.robot.Enums.Path;
+import frc.robot.RobotConstants.MotionProfiling;
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.PathfinderFRC;
 import jaci.pathfinder.followers.EncoderFollower;
@@ -28,15 +31,19 @@ public class FollowPath extends Command {
   /** This command gets the path number and then follows it */
   public FollowPath(Path path) {
     requires(Robot.drivetrain);
-    // this.splitTrajectories = new SplitTrajectories(path); // splits the path to
+    this.splitTrajectories = new SplitTrajectories(Path.TEST); // splits the path to
     // two sides of the robot.
-    try {
-
-      this.right = new EncoderFollower(PathfinderFRC.getTrajectory("output/pathweaver.right"));
-      this.left = new EncoderFollower(PathfinderFRC.getTrajectory("output/pathweaver.left"));
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    right = new EncoderFollower(splitTrajectories.getRightTrajectory());
+    //SmartDashboard.putNumberArray("left trajectory", Arrays.stream(splitTrajectories.getLeftTrajectory().segments).mapToDouble((segment) -> segment.position).toArray());
+    SmartDashboard.putNumberArray("right trajectory", Arrays.stream(splitTrajectories.getRightTrajectory().segments).mapToDouble((segment) -> segment.position).toArray());
+    left = new EncoderFollower(splitTrajectories.getLeftTrajectory());
+//    try {
+//
+//      this.right = new EncoderFollower(PathfinderFRC.getTrajectory("output/pathweaver.right"));
+//      this.left = new EncoderFollower(PathfinderFRC.getTrajectory("output/pathweaver.left"));
+//    } catch (IOException e) {
+//      e.printStackTrace();
+//    }
   }
 
   public FollowPath(Path path, boolean isFlipped) {
@@ -47,7 +54,7 @@ public class FollowPath extends Command {
   rightSettings){
     this(path);
   this.pidSettingsLeft = leftSettings;
-  this.pidSettingsLeft = leftSettings;
+  this.pidSettingsRight = rightSettings;
   }
 
   public FollowPath(Path path, boolean isFlipped, boolean isReversed) {
@@ -102,8 +109,9 @@ public class FollowPath extends Command {
 
     this.turn = RobotConstants.MotionProfiling.MOTION_PROFILING_KP_TURN * (-1.0 / 80.0) * this.angleDifference;
     // if (!isReversed)
-    var left = (this.leftCalculate + turn + 0.152) / RobotController.getBatteryVoltage();
-    var right = (this.rightCalculate - turn + 0.185) / RobotController.getBatteryVoltage();
+
+    double left = (this.leftCalculate /*+ turn + MotionProfiling.KS_LEFT*/) / RobotController.getBatteryVoltage();
+    double right = (this.rightCalculate /*- turn + MotionProfiling.KS_RIGHT*/) / RobotController.getBatteryVoltage();
     System.out.println("left: " + left + " right: " + right);
     Robot.drivetrain.tankDrive(left, right);
     // else
@@ -134,4 +142,7 @@ public class FollowPath extends Command {
   public void setReversed(boolean isReversed) {
     this.isReversed = isReversed;
   }
+//  public double getError(EncoderFollower encoderFollower){
+//    var segment = encoderFollower.getSegment()
+//  }
 }

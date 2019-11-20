@@ -63,7 +63,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Calibrate Vision Distance", new CalibrateDistance(oi.driverXbox::getAButton));
     SmartDashboard.putData("Test PID vision", new TestPIDVision());
     SmartDashboard.putData("test PID Turn", new TestPIDGyro());
-    SmartDashboard.putData("test PID motion prifiling", new TestPIDMotionProfiling());
+    SmartDashboard.putData("test PID motion profiling", new TestPIDMotionProfiling());
     SmartDashboard.putData("clearPreferences", Commands.setRunWhenDisabled(Preferences.getInstance()::removeAll));
     SmartDashboard.putData("limelight toggle", Commands.setRunWhenDisabled(limelight::toggleLedMode));
     SmartDashboard.putData("Auto hatch feeder collection", new CollectHatchFromFeeder());
