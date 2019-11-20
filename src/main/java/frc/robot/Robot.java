@@ -2,10 +2,12 @@ package frc.robot;
 
 import com.spikes2212.dashboard.DashBoardController;
 
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Enums.Path;
@@ -105,6 +107,8 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledPeriodic() {
     Scheduler.getInstance().run();
+    double trigger = Robot.oi.driverXbox.getTriggerAxis(Hand.kLeft) - Robot.oi.driverXbox.getTriggerAxis(Hand.kRight);
+    SmartDashboard.putNumber("trigger", Math.signum(trigger) * (2 * Math.sqrt(Math.abs(trigger)) - Math.abs(trigger)));
   }
 
   @Override

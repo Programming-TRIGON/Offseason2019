@@ -6,9 +6,9 @@ import java.util.function.Supplier;
 
 public class DriveArcade extends Command {
   private Supplier<Double> x, y;
-  private final double SENSETIVITY = 1;
-  private final double THRESHOLD = 0.5;
-  private final static double DEADBAND = 0.095;
+  private static final double SENSETIVITY = 1;
+  private static final double THRESHOLD = 0.5;
+  private static final double DEADBAND = 0.095;
 
   public DriveArcade(Supplier<Double> x, Supplier<Double> y) {
     requires(Robot.drivetrain);
@@ -34,10 +34,10 @@ public class DriveArcade extends Command {
 
 //    System.out.println("X: " + x + " Y: " + y);\][[
     boolean quickTurn;
-  if (Math.sqrt(y*y + x * x) < THRESHOLD)
-    quickTurn = true;
-  else
-    quickTurn = Math.abs(y) < Math.abs(x);
+    if (Math.sqrt(y * y + x * x) < THRESHOLD)
+      quickTurn = true;
+    else
+      quickTurn = Math.abs(y) < Math.abs(x);
 
     Robot.drivetrain.curvatureDrive(SENSETIVITY * x, SENSETIVITY * y, quickTurn);
     /*if (inRange(y, -DEAD_BAND, DEAD_BAND) && inRange(x, -DEAD_BAND, DEAD_BAND)) {
