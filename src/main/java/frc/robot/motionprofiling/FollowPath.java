@@ -1,5 +1,6 @@
 package frc.robot.motionprofiling;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -34,8 +35,6 @@ public class FollowPath extends Command {
     this.splitTrajectories = new SplitTrajectories(Path.TEST); // splits the path to
     // two sides of the robot.
     right = new EncoderFollower(splitTrajectories.getRightTrajectory());
-    //SmartDashboard.putNumberArray("left trajectory", Arrays.stream(splitTrajectories.getLeftTrajectory().segments).mapToDouble((segment) -> segment.position).toArray());
-    SmartDashboard.putNumberArray("right trajectory", Arrays.stream(splitTrajectories.getRightTrajectory().segments).mapToDouble((segment) -> segment.position).toArray());
     left = new EncoderFollower(splitTrajectories.getLeftTrajectory());
 //    try {
 //
@@ -95,7 +94,6 @@ public class FollowPath extends Command {
   protected void execute() {
     this.leftCalculate = this.left.calculate(Robot.drivetrain.getLeftTicks());
     this.rightCalculate = this.right.calculate(Robot.drivetrain.getRightTicks());
-
     this.gyroHeading = Robot.drivetrain.getAngle();
     if (isFlipped)
       this.desiredHeading = -Pathfinder.r2d(this.left.getHeading());
@@ -110,9 +108,9 @@ public class FollowPath extends Command {
     this.turn = RobotConstants.MotionProfiling.MOTION_PROFILING_KP_TURN * (-1.0 / 80.0) * this.angleDifference;
     // if (!isReversed)
 
-    double left = (this.leftCalculate /*+ turn + MotionProfiling.KS_LEFT*/) / RobotController.getBatteryVoltage();
-    double right = (this.rightCalculate /*- turn + MotionProfiling.KS_RIGHT*/) / RobotController.getBatteryVoltage();
-    System.out.println("left: " + left + " right: " + right);
+    double left = (this.leftCalculate /*+ turn + MotionProfiling.KS_LEFT*/) /*/ RobotController.getBatteryVoltage()*/;
+    double right = (this.rightCalculate /*- turn + MotionProfiling.KS_RIGHT*/) /*/ RobotController.getBatteryVoltage()*/;
+    System.out.println("left: " + leftCalculate + " right: " + rightCalculate);
     Robot.drivetrain.tankDrive(left, right);
     // else
     // Robot.drivetrain.tankDrive(this.leftCalculate + turn, this.rightCalculate -
