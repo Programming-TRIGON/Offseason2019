@@ -1,5 +1,6 @@
 package frc.robot.motionprofiling;
 
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Enums.Path;
 import frc.robot.PidSettings;
@@ -14,9 +15,8 @@ import jaci.pathfinder.followers.EncoderFollower;
  * perform the motion profiling
  */
 public class FollowPath extends Command {
-
-  public static final int MULTIPLIER = 10000;
-  private MyEncoderFollower right, left;
+  
+  private EncoderFollower right, left;
   private double leftCalculate, rightCalculate, gyroHeading, desiredHeading, angleDifference, turn, angleDiff;
   private SplitTrajectories splitTrajectories;
   private boolean isFlipped = false, isReversed = false;
@@ -28,15 +28,8 @@ public class FollowPath extends Command {
     requires(Robot.drivetrain);
     this.splitTrajectories = new SplitTrajectories(Path.TEST); // splits the path to
     // two sides of the robot.
-    right = new MyEncoderFollower(splitTrajectories.getRightTrajectory());
-    left = new MyEncoderFollower(splitTrajectories.getLeftTrajectory());
-//    try {
-//
-//      this.right = new EncoderFollower(PathfinderFRC.getTrajectory("output/pathweaver.right"));
-//      this.left = new EncoderFollower(PathfinderFRC.getTrajectory("output/pathweaver.left"));
-//    } catch (IOException e) {
-//      e.printStackTrace();
-//    }
+    right = new EncoderFollower(splitTrajectories.getRightTrajectory());
+    left = new EncoderFollower(splitTrajectories.getLeftTrajectory());
   }
 
   public FollowPath(Path path, boolean isFlipped) {
@@ -64,12 +57,10 @@ public class FollowPath extends Command {
     // this.left = new EncoderFollower(splitTrajectories.getLeftTrajectory());
     // this.right = new EncoderFollower(splitTrajectories.getRightTrajectory());
     // }
-//    this.left.configureEncoder(Robot.drivetrain.getLeftTicks(),
-//        RobotConstants.MotionProfiling.TICKS_PER_REVOLUTION_LEFT, RobotConstants.MotionProfiling.WHEEL_DIAMETER);
-//    this.right.configureEncoder(Robot.drivetrain.getRightTicks(),
-//        RobotConstants.MotionProfiling.TICKS_PER_REVOLUTION_RIGHT, RobotConstants.MotionProfiling.WHEEL_DIAMETER);
-    this.left.configureEncoder(Robot.drivetrain.getLeftDistance());
-    this.right.configureEncoder(Robot.drivetrain.getRightDistance());
+    this.left.configureEncoder(Robot.drivetrain.getLeftTicks(),
+        RobotConstants.MotionProfiling.TICKS_PER_REVOLUTION_LEFT, RobotConstants.MotionProfiling.WHEEL_DIAMETER);
+    this.right.configureEncoder(Robot.drivetrain.getRightTicks(),
+        RobotConstants.MotionProfiling.TICKS_PER_REVOLUTION_RIGHT, RobotConstants.MotionProfiling.WHEEL_DIAMETER);
     this.left.configurePIDVA(pidSettingsLeft.getKP(), 0, pidSettingsLeft.getKD(), pidSettingsLeft.getKV(),
         pidSettingsLeft.getKA());
     this.right.configurePIDVA(RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_RIGHT.getKP(), 0,
@@ -104,9 +95,9 @@ public class FollowPath extends Command {
     this.turn = RobotConstants.MotionProfiling.MOTION_PROFILING_KP_TURN * (-1.0 / 80.0) * this.angleDifference;
     // if (!isReversed)
 
-    double left = (this.leftCalculate /*+ turn + MotionProfiling.KS_LEFT*/) /*/ RobotController.getBatteryVoltage()*/;
-    double right = (this.rightCalculate /*- turn + MotionProfiling.KS_RIGHT*/) /*/ RobotController.getBatteryVoltage()*/;
-    System.out.println("left: " + leftCalculate + " right: " + rightCalculate);
+    double left = (this.leftCalculate /*+ turn + MotionProfiling.KS_LEFT*/) / RobotController.getBatteryVoltage();
+    double right = (this.rightCalculate /*- turn + MotionProfiling.KS_RIGHT*/) / RobotController.getBatteryVoltage();
+    System.out.println("left: " + left + " right: " + right);
     Robot.drivetrain.tankDrive(left, right);
     // else
     // Robot.drivetrain.tankDrive(this.leftCalculate + turn, this.rightCalculate -
@@ -136,7 +127,4 @@ public class FollowPath extends Command {
   public void setReversed(boolean isReversed) {
     this.isReversed = isReversed;
   }
-//  public double getError(EncoderFollower encoderFollower){
-//    var segment = encoderFollower.getSegment()
-//  }
 }
