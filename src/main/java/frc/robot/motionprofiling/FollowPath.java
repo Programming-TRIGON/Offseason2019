@@ -5,6 +5,7 @@ import frc.robot.Enums.Path;
 import frc.robot.PidSettings;
 import frc.robot.Robot;
 import frc.robot.RobotConstants;
+import frc.robot.utils.MyEncoderFollower;
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.followers.EncoderFollower;
 
@@ -15,7 +16,7 @@ import jaci.pathfinder.followers.EncoderFollower;
 public class FollowPath extends Command {
 
   public static final int MULTIPLIER = 10000;
-  private EncoderFollower right, left;
+  private MyEncoderFollower right, left;
   private double leftCalculate, rightCalculate, gyroHeading, desiredHeading, angleDifference, turn, angleDiff;
   private SplitTrajectories splitTrajectories;
   private boolean isFlipped = false, isReversed = false;
@@ -27,8 +28,8 @@ public class FollowPath extends Command {
     requires(Robot.drivetrain);
     this.splitTrajectories = new SplitTrajectories(Path.TEST); // splits the path to
     // two sides of the robot.
-    right = new EncoderFollower(splitTrajectories.getRightTrajectory());
-    left = new EncoderFollower(splitTrajectories.getLeftTrajectory());
+    right = new MyEncoderFollower(splitTrajectories.getRightTrajectory());
+    left = new MyEncoderFollower(splitTrajectories.getLeftTrajectory());
 //    try {
 //
 //      this.right = new EncoderFollower(PathfinderFRC.getTrajectory("output/pathweaver.right"));
@@ -67,8 +68,8 @@ public class FollowPath extends Command {
 //        RobotConstants.MotionProfiling.TICKS_PER_REVOLUTION_LEFT, RobotConstants.MotionProfiling.WHEEL_DIAMETER);
 //    this.right.configureEncoder(Robot.drivetrain.getRightTicks(),
 //        RobotConstants.MotionProfiling.TICKS_PER_REVOLUTION_RIGHT, RobotConstants.MotionProfiling.WHEEL_DIAMETER);
-    this.left.configureEncoder((int) (Robot.drivetrain.getLeftDistance() * MULTIPLIER), MULTIPLIER, 1.0 / Math.PI);
-    this.left.configureEncoder((int) (Robot.drivetrain.getRightDistance() * MULTIPLIER), MULTIPLIER, 1.0 / Math.PI);
+    this.left.configureEncoder(Robot.drivetrain.getLeftDistance());
+    this.right.configureEncoder(Robot.drivetrain.getRightDistance());
     this.left.configurePIDVA(pidSettingsLeft.getKP(), 0, pidSettingsLeft.getKD(), pidSettingsLeft.getKV(),
         pidSettingsLeft.getKA());
     this.right.configurePIDVA(RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_RIGHT.getKP(), 0,
