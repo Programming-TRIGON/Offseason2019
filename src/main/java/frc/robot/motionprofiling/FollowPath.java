@@ -1,19 +1,11 @@
 package frc.robot.motionprofiling;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Arrays;
-
-import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Enums.Path;
 import frc.robot.PidSettings;
 import frc.robot.Robot;
 import frc.robot.RobotConstants;
-import frc.robot.Enums.Path;
-import frc.robot.RobotConstants.MotionProfiling;
 import jaci.pathfinder.Pathfinder;
-import jaci.pathfinder.PathfinderFRC;
 import jaci.pathfinder.followers.EncoderFollower;
 
 /**
@@ -22,6 +14,7 @@ import jaci.pathfinder.followers.EncoderFollower;
  */
 public class FollowPath extends Command {
 
+  public static final int MULTIPLIER = 10000;
   private EncoderFollower right, left;
   private double leftCalculate, rightCalculate, gyroHeading, desiredHeading, angleDifference, turn, angleDiff;
   private SplitTrajectories splitTrajectories;
@@ -70,10 +63,12 @@ public class FollowPath extends Command {
     // this.left = new EncoderFollower(splitTrajectories.getLeftTrajectory());
     // this.right = new EncoderFollower(splitTrajectories.getRightTrajectory());
     // }
-    this.left.configureEncoder(Robot.drivetrain.getLeftTicks(),
-        RobotConstants.MotionProfiling.TICKS_PER_REVOLUTION_LEFT, RobotConstants.MotionProfiling.WHEEL_DIAMETER);
-    this.right.configureEncoder(Robot.drivetrain.getRightTicks(),
-        RobotConstants.MotionProfiling.TICKS_PER_REVOLUTION_RIGHT, RobotConstants.MotionProfiling.WHEEL_DIAMETER);
+//    this.left.configureEncoder(Robot.drivetrain.getLeftTicks(),
+//        RobotConstants.MotionProfiling.TICKS_PER_REVOLUTION_LEFT, RobotConstants.MotionProfiling.WHEEL_DIAMETER);
+//    this.right.configureEncoder(Robot.drivetrain.getRightTicks(),
+//        RobotConstants.MotionProfiling.TICKS_PER_REVOLUTION_RIGHT, RobotConstants.MotionProfiling.WHEEL_DIAMETER);
+    this.left.configureEncoder((int) (Robot.drivetrain.getLeftDistance() * MULTIPLIER), MULTIPLIER, 1.0 / Math.PI);
+    this.left.configureEncoder((int) (Robot.drivetrain.getRightDistance() * MULTIPLIER), MULTIPLIER, 1.0 / Math.PI);
     this.left.configurePIDVA(pidSettingsLeft.getKP(), 0, pidSettingsLeft.getKD(), pidSettingsLeft.getKV(),
         pidSettingsLeft.getKA());
     this.right.configurePIDVA(RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_RIGHT.getKP(), 0,
