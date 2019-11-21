@@ -49,7 +49,7 @@ public class CalibrateFeedForward extends Command {
         priorAutospeed = autospeed;
     
         // command motors to do things
-        Robot.drivetrain.tankDrive(-autospeed, -autospeed);
+        Robot.drivetrain.tankDrive(autospeed, autospeed);
     
         // send telemetry data array back to NT
         numberArray[0] = now;

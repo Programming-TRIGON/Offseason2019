@@ -14,8 +14,8 @@ import jaci.pathfinder.Waypoint;
  */
 public class Enums {
     public enum Path {
-        RAMP_TO_ROCKET("RampToRocket.csv"), TEST(new Waypoint[]{new Waypoint(0,0,0), new Waypoint(3,0,0)})
-        ,WEAVER(new File("/home/lvuser/paths/pathweaver.csv"));
+        RAMP_TO_ROCKET("RampToRocket.csv"), TEST(new Waypoint[]{new Waypoint(0,0,0), new Waypoint(3,2,0)}),
+        TEST2(new Waypoint[]{new Waypoint(0,0,0), new Waypoint(4,0,0), new Waypoint(5.5,1.2,Pathfinder.d2r(-90))});
 
         private final Trajectory trajectory;
 

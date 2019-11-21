@@ -22,6 +22,7 @@ public class FollowPath extends Command {
   private boolean isFlipped = false, isReversed = false;
   private PidSettings pidSettingsLeft;
   private PidSettings pidSettingsRight;
+  private double turnKp;
 
   /**
    * This command gets the path number and then follows it
@@ -34,6 +35,7 @@ public class FollowPath extends Command {
     left = new EncoderFollower(splitTrajectories.getLeftTrajectory());
     pidSettingsLeft = RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_LEFT;
     pidSettingsRight = RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_RIGHT;
+    turnKp = MotionProfiling.MOTION_PROFILING_KP_TURN;
   }
 
   public FollowPath(Path path, boolean isFlipped) {
@@ -42,10 +44,11 @@ public class FollowPath extends Command {
       flip();
   }
 
-  public FollowPath(Path path, PidSettings leftSettings, PidSettings rightSettings) {
+  public FollowPath(Path path, PidSettings leftSettings, PidSettings rightSettings, double turnKp) {
     this(path);
     pidSettingsLeft = leftSettings;
     pidSettingsRight = rightSettings;
+    this.turnKp = turnKp;
   }
 
   public FollowPath(Path path, boolean isFlipped, boolean isReversed) {
@@ -85,11 +88,9 @@ public class FollowPath extends Command {
     if (Math.abs(angleDifference) > 180.0) {
       angleDiff = (angleDifference > 0) ? angleDifference - 360 : angleDiff + 360;
     }
-
-    turn = RobotConstants.MotionProfiling.MOTION_PROFILING_KP_TURN * (-1.0 / 80.0) * angleDifference;
-
-    double left = (leftCalculate /*+ turn*/ + MotionProfiling.KS_LEFT) / RobotController.getBatteryVoltage();
-    double right = (rightCalculate /*- turn*/ + MotionProfiling.KS_RIGHT) / RobotController.getBatteryVoltage();
+    turn = turnKp * (-1.0 / 80.0) * angleDifference;
+    double left = (leftCalculate + turn + MotionProfiling.KS_LEFT) / RobotController.getBatteryVoltage();
+    double right = (rightCalculate - turn + MotionProfiling.KS_RIGHT) / RobotController.getBatteryVoltage();
     System.out.println("left: " + left + " right: " + right);
     if (isReversed)
       Robot.drivetrain.tankDrive(-right, -left);
