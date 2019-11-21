@@ -2,11 +2,12 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+
 import java.util.function.Supplier;
 
 public class DriveArcade extends Command {
   private Supplier<Double> x, y;
-  private static final double SENSETIVITY = 1;
+  private static final double SENSITIVITY = 1;
   private static final double THRESHOLD = 0.5;
   private static final double DEADBAND = 0.095;
 
@@ -32,14 +33,9 @@ public class DriveArcade extends Command {
     double y = this.y.get();
     double x = this.x.get();
 
-//    System.out.println("X: " + x + " Y: " + y);\][[
-    boolean quickTurn;
-    if (Math.sqrt(y * y + x * x) < THRESHOLD)
-      quickTurn = true;
-    else
-      quickTurn = Math.abs(y) < Math.abs(x);
+//    System.out.println("X: " + x + " Y: " + y);
 
-    Robot.drivetrain.curvatureDrive(SENSETIVITY * x, SENSETIVITY * y, quickTurn);
+    Robot.drivetrain.curvatureDrive(SENSITIVITY * x, SENSITIVITY * y, Math.sqrt(y * y + x * x) < THRESHOLD || Math.abs(y) < Math.abs(x));
     /*if (inRange(y, -DEAD_BAND, DEAD_BAND) && inRange(x, -DEAD_BAND, DEAD_BAND)) {
       Robot.drivetrain.curvatureDrive(0, 0, inRange(y, -THRESHOLD, THRESHOLD));
     } else if(inRange(y, -DEAD_BAND, DEAD_BAND)) {
@@ -69,11 +65,13 @@ public class DriveArcade extends Command {
   private static boolean inRange(double val, double min, double max) {
     return (val >= min) && (val <= max);
   }
-  private static double rootFunction(double value){
+
+  private static double rootFunction(double value) {
     //value -= Math.signum(0.05);
-    return Math.signum(value) * (2 * Math.sqrt(Math.abs(value)) - Math.abs(value) );
+    return Math.signum(value) * (2 * Math.sqrt(Math.abs(value)) - Math.abs(value));
   }
-  private static double calculateDeadband(double value){
+
+  private static double calculateDeadband(double value) {
     if (Math.abs(value) < DEADBAND)
       return 0;
     return value;
