@@ -23,7 +23,7 @@ public class TestPIDMotionProfiling extends Command {
 
   private PidSettings pidSettings;
   private PidSettings pidSettings2;
-  private Command testCommand;
+  private FollowPath testCommand;
 
   public TestPIDMotionProfiling() {
   }
@@ -31,7 +31,9 @@ public class TestPIDMotionProfiling extends Command {
   @Override
   protected void initialize() {
     updatePID();
-    testCommand = new FollowPath(Path.TEST,pidSettings, pidSettings2);
+    testCommand = new FollowPath(Path.RAMP_TO_ROCKET,pidSettings, pidSettings2);
+    testCommand.setReversed(true);
+    testCommand.flip();
     testCommand.start();
   }
 

@@ -6,6 +6,7 @@ import frc.robot.Enums.Path;
 import frc.robot.PidSettings;
 import frc.robot.Robot;
 import frc.robot.RobotConstants;
+import frc.robot.RobotConstants.MotionProfiling;
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.followers.EncoderFollower;
 
@@ -37,7 +38,8 @@ public class FollowPath extends Command {
 
   public FollowPath(Path path, boolean isFlipped) {
     this(path);
-    this.isFlipped = isFlipped;
+    if (isFlipped)
+      flip();
   }
 
   public FollowPath(Path path, PidSettings leftSettings, PidSettings rightSettings) {
@@ -74,10 +76,10 @@ public class FollowPath extends Command {
    * calculation in the beginning - / + the KP.
    */
   protected void execute() {
-    leftCalculate = left.calculate(Robot.drivetrain.getLeftTicks());
-    rightCalculate = right.calculate(Robot.drivetrain.getRightTicks());
+    leftCalculate = left.calculate((isReversed? -1 : 1 )*Robot.drivetrain.getLeftTicks());
+    rightCalculate = right.calculate((isReversed? -1 : 1 )*Robot.drivetrain.getRightTicks());
     gyroHeading = Robot.drivetrain.getAngle();
-    desiredHeading = Pathfinder.r2d(left.getHeading());
+    desiredHeading = (isFlipped ? -1 : 1) * Pathfinder.r2d(left.getHeading());
     angleDifference = Pathfinder.boundHalfDegrees(desiredHeading - gyroHeading);
     angleDifference = angleDifference % 360.0;
     if (Math.abs(angleDifference) > 180.0) {
@@ -86,10 +88,13 @@ public class FollowPath extends Command {
 
     turn = RobotConstants.MotionProfiling.MOTION_PROFILING_KP_TURN * (-1.0 / 80.0) * angleDifference;
 
-    double left = (leftCalculate /*+ turn + MotionProfiling.KS_LEFT*/) / RobotController.getBatteryVoltage();
-    double right = (rightCalculate /*- turn + MotionProfiling.KS_RIGHT*/) / RobotController.getBatteryVoltage();
+    double left = (leftCalculate /*+ turn*/ + MotionProfiling.KS_LEFT) / RobotController.getBatteryVoltage();
+    double right = (rightCalculate /*- turn*/ + MotionProfiling.KS_RIGHT) / RobotController.getBatteryVoltage();
     System.out.println("left: " + left + " right: " + right);
-    Robot.drivetrain.tankDrive(left, right);
+    if (isReversed)
+      Robot.drivetrain.tankDrive(-right, -left);
+    else
+      Robot.drivetrain.tankDrive(right, left);
   }
 
   @Override
@@ -107,8 +112,11 @@ public class FollowPath extends Command {
     end();
   }
 
-  public void setFlipped(boolean isFlipped) {
-    this.isFlipped = isFlipped;
+  public void flip() {
+    isFlipped = !isFlipped;
+    var temp = left;
+    left = right;
+    right = temp;
   }
 
   public void setReversed(boolean isReversed) {
