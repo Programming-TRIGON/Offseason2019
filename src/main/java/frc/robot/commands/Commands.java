@@ -46,4 +46,9 @@ public class Commands {
         c.setRunWhenDisabled(true);
         return c;
     }
+
+    public static InstantCommand toggleDrive() {
+        InstantCommand c = new InstantCommand(() -> DriveArcade.toggleDrive());
+        return c;
+    }
 }

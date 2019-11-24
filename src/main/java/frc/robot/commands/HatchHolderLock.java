@@ -11,14 +11,14 @@ public class HatchHolderLock extends Command {
   private static final double DEFAULT_WAIT_TIME = 0.75;
   private double waitTime;
 
-  public HatchHolderLock(boolean lock) {
-    this(lock, DEFAULT_WAIT_TIME);
-  }
-
   public HatchHolderLock(boolean lock, double waitTime) {
     requires(Robot.hatchHolder);
     this.lock = lock;
     this.waitTime = waitTime;
+  }
+  
+  public HatchHolderLock(boolean lock) {
+    this(lock, DEFAULT_WAIT_TIME);
   }
 
   @Override
@@ -29,6 +29,7 @@ public class HatchHolderLock extends Command {
 
   @Override
   protected boolean isFinished() {
-    return waitTime <= Timer.getFPGATimestamp();
+    return true;
+    //return waitTime <= Timer.getFPGATimestamp();
   }
 }

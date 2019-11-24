@@ -32,9 +32,10 @@ import frc.robot.triggers.XboxTrigger;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-  Button driverButtonY, driverButtonA, driverButtonB, driverButtonX, driverButtonLB, driverButtonRB;
+  Button driverButtonY, driverButtonA, driverButtonB, driverButtonX, driverButtonLB, driverButtonRB, driverStartButton;
   Button operatorButtonX, operatorButtonY, operatorButtonLB, operatorButtonRB, operatorButtonA, operatorButtonB, operatorStartButton, operatorButtonAxisRight, operatorButtonAxisLeft;
   POVButton operatorRightPOVButton, operatorLeftPOVButton, operatorBottomPOVButton, operatorTopPOVButton;
+  POVButton driverRightPOVButton, driverLeftPOVButton, driverBottomPOVButton, driverTopPOVButton;
   XboxTrigger driverLTrigger, driverRTrigger, operatorRTrigger, operatorLTrigger;
   public XboxController operatorXbox, driverXbox;
 
@@ -95,11 +96,11 @@ public OI(){
   public OI(boolean isHillel) {
     CameraServer.getInstance().startAutomaticCapture(0);
     yoavSettings();
-    if(isHillel){
+    /*if(isHillel){
       hillelSettings();
     } else {
       grossmanSettings();
-    }
+    }*/
   }
 
   private void yoavSettings() {
@@ -110,13 +111,19 @@ public OI(){
     driverButtonY = new JoystickButton(driverXbox, 4);
     driverButtonLB = new JoystickButton(driverXbox, 5);
     driverButtonRB = new JoystickButton(driverXbox, 6);
+    driverStartButton = new JoystickButton(driverXbox, 8);
     driverLTrigger = new XboxTrigger(driverXbox, Hand.kLeft);
     driverRTrigger = new XboxTrigger(driverXbox, Hand.kRight);
+    driverRightPOVButton = new POVButton(driverXbox, 90);
+    driverLeftPOVButton = new POVButton(driverXbox, 270);
+    driverTopPOVButton = new POVButton(driverXbox, 0);
+    driverBottomPOVButton = new POVButton(driverXbox, 180);
 
     //driverButtonX.whenPressed(new DriveArcade(() -> Robot.oi.driverXbox.getX(Hand.kLeft), () -> Robot.oi.driverXbox.getTriggerAxis(Hand.kLeft), () -> Robot.oi.driverXbox.getTriggerAxis(Hand.kRight)));
     //driverButtonY.whenPressed(new DriveArcade(() -> Robot.oi.driverXbox.getX(Hand.kLeft), () -> Robot.oi.driverXbox.getY(Hand.kLeft)));
     driverButtonX.whenPressed(new DriveArcade(() -> Robot.oi.driverXbox.getX(Hand.kLeft), () -> Robot.oi.driverXbox.getY(Hand.kLeft)));
     driverButtonY.whenPressed(new DriveArcade(() -> Robot.oi.driverXbox.getX(Hand.kLeft), () -> Robot.oi.driverXbox.getTriggerAxis(Hand.kLeft), () -> Robot.oi.driverXbox.getTriggerAxis(Hand.kRight)));
+    driverStartButton.whenPressed(Commands.toggleDrive());
     driverButtonLB.whenActive(new EjectCargo());
     driverButtonRB.whenActive(new HatchHolderLock(false));
     driverButtonRB.whenInactive(new HatchHolderLock(true));

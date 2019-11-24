@@ -10,6 +10,7 @@ public class DriveArcade extends Command {
   private static final double SENSITIVITY = 1;
   private static final double THRESHOLD = 0.5;
   private static final double DEADBAND = 0.095;
+  private static boolean drive = true;
 
   public DriveArcade(Supplier<Double> x, Supplier<Double> y) {
     requires(Robot.drivetrain);
@@ -19,7 +20,7 @@ public class DriveArcade extends Command {
 
   public DriveArcade(Supplier<Double> x, Supplier<Double> forward, Supplier<Double> reverse) {
     requires(Robot.drivetrain);
-    this.x = x;
+    this.x = () -> calculateDeadband(x.get());
     this.y = () -> rootFunction(forward.get() - reverse.get());
   }
 
@@ -33,18 +34,10 @@ public class DriveArcade extends Command {
     double y = this.y.get();
     double x = this.x.get();
 
-//    System.out.println("X: " + x + " Y: " + y);
-
-    Robot.drivetrain.curvatureDrive(SENSITIVITY * x, SENSITIVITY * y, Math.sqrt(y * y + x * x) < THRESHOLD || Math.abs(y) < Math.abs(x));
-    /*if (inRange(y, -DEAD_BAND, DEAD_BAND) && inRange(x, -DEAD_BAND, DEAD_BAND)) {
-      Robot.drivetrain.curvatureDrive(0, 0, inRange(y, -THRESHOLD, THRESHOLD));
-    } else if(inRange(y, -DEAD_BAND, DEAD_BAND)) {
-      Robot.drivetrain.curvatureDrive(SENSETIVITY * x, 0, inRange(y, -THRESHOLD, THRESHOLD));
-    } else if(inRange(x, -DEAD_BAND, DEAD_BAND)) {
-      Robot.drivetrain.curvatureDrive(0, SENSETIVITY * y, inRange(y, -THRESHOLD, THRESHOLD));
-    } else {
-      Robot.drivetrain.curvatureDrive(SENSETIVITY * x, SENSETIVITY * y, inRange(y, -THRESHOLD, THRESHOLD));
-    }*/
+    if(drive)
+      Robot.drivetrain.curvatureDrive(SENSITIVITY * x, SENSITIVITY * y, Math.sqrt(y * y + x * x) < THRESHOLD || Math.abs(y) < Math.abs(x));
+    else 
+      Robot.drivetrain.tankDrive(0, 0);
   }
 
   @Override
@@ -62,18 +55,20 @@ public class DriveArcade extends Command {
     end();
   }
 
-  private static boolean inRange(double val, double min, double max) {
-    return (val >= min) && (val <= max);
-  }
-
-  private static double rootFunction(double value) {
+  private double rootFunction(double value) {
     //value -= Math.signum(0.05);
-    return Math.signum(value) * (2 * Math.sqrt(Math.abs(value)) - Math.abs(value));
+    //return Math.signum(value) * (2 * Math.sqrt(Math.abs(value)) - Math.abs(value));
+    boolean isLiniar = Math.abs(value) <= 0.25;
+    return isLiniar ? 2 * value : Math.signum(value) * Math.sqrt(Math.abs(value));
   }
 
   private static double calculateDeadband(double value) {
     if (Math.abs(value) < DEADBAND)
       return 0;
     return value;
+  }
+
+  public static void toggleDrive() {
+    drive = !drive;
   }
 }
