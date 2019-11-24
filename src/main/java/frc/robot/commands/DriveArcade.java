@@ -76,5 +76,4 @@ public class DriveArcade extends Command {
       return 0;
     return value;
   }
-
 }

@@ -14,8 +14,13 @@ import jaci.pathfinder.Waypoint;
  */
 public class Enums {
     public enum Path {
-        RAMP_TO_ROCKET("RampToRocket.csv"), TEST(new Waypoint[]{new Waypoint(0,0,0), new Waypoint(3,2,0)}),
-        TEST2(new Waypoint[]{new Waypoint(0,0,0), new Waypoint(4,0,0), new Waypoint(5.5,1.2,Pathfinder.d2r(-90))});
+        RAMP_TO_ROCKET("RampToRocket.csv"),
+        BACK_FROM_ROCKET("BackFromRocket.csv"),
+        ROCKET_TO_FEEDER("RocketToFeeder.csv"),
+        FEEDER_TO_ROCKET("FeederToRocket.csv"),
+        PATH_PLANNER_ARC("PathPlannerArc.csv"), 
+        TEST(new Waypoint[]{new Waypoint(0,0,0), new Waypoint(3,2,0)}),
+        JACI_ARC(new Waypoint[]{new Waypoint(0,0,0), new Waypoint(2,4,Pathfinder.d2r(-90))});
 
         private final Trajectory trajectory;
 

@@ -10,10 +10,9 @@ import frc.robot.commands.*;
  * this command puts hatch on the target.
  */
 public class PutHatch extends CommandGroup {
-
-    public PutHatch() {
-        addSequential(new HatchHolderLock(true));
+    public PutHatch(boolean put) {
+        addSequential(new HatchHolderLock(put));
         addSequential(new FollowTarget(Target.Feeder));
-        addSequential(new HatchHolderLock(false));
+        addSequential(new HatchHolderLock(!put));
     }
 }

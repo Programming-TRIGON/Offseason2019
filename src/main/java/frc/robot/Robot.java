@@ -69,7 +69,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("clearPreferences", Commands.setRunWhenDisabled(Preferences.getInstance()::removeAll));
     SmartDashboard.putData("limelight toggle", Commands.setRunWhenDisabled(limelight::toggleLedMode));
     SmartDashboard.putData("Auto hatch feeder collection", new CollectHatchFromFeeder());
-    SmartDashboard.putData("Auto put hatch", new PutHatch());
+    SmartDashboard.putData("Auto put hatch", new PutHatch(true));
     SmartDashboard.putData("Compressor stop", Commands.stopCompressor());
     SmartDashboard.putData("Compressor start", Commands.startCompressor());
     SmartDashboard.putData("Reset encoders", Commands.resetEncoders());
