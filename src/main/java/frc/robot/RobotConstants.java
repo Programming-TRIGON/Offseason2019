@@ -53,9 +53,13 @@ public class RobotConstants {
     public static final double MAX_JERK = 80;
 
     public static final PidSettings MOTION_PROFILING_PID_SETTINGS_LEFT = new PidSettings(/*0.972*/0.742, /*0.335*/0.44, 2.32, 0.27);
-    public static final PidSettings MOTION_PROFILING_PID_SETTINGS_RIGHT = new PidSettings(/*1.14*/0.85, /*0.434*/0, 2.35, 0.239);// 0.1929, 2.5147
+    public static final PidSettings MOTION_PROFILING_PID_SETTINGS_RIGHT = new PidSettings(/*1.14*/0.85, /*0.434*/0.46, 2.35, 0.239);// 0.1929, 2.5147
+    
+    public static final PidSettings MOTION_PROFILING_PID_SETTINGS_LEFT_REVERSE = new PidSettings(0.682, 0.44, 2.2, 0.27);
+    public static final PidSettings MOTION_PROFILING_PID_SETTINGS_RIGHT_REVERSE = new PidSettings(0.79, 0.46, 2.22, 0.239);
 
     public static final double MOTION_PROFILING_KP_TURN = 0.025;
+    public static final double MOTION_PROFILING_KP_TURN_REVERSE = 0.035;
 
     public static final double TICKS_PER_METER_RIGHT = 12832;
     public static final double TICKS_PER_METER_LEFT = 12832;

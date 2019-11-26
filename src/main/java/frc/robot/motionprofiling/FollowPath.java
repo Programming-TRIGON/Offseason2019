@@ -46,14 +46,19 @@ public class FollowPath extends Command {
 
   public FollowPath(Path path, PidSettings leftSettings, PidSettings rightSettings, double turnKp) {
     this(path);
-    pidSettingsLeft = leftSettings;
-    pidSettingsRight = rightSettings;
+    // TODO: change back:
+    pidSettingsLeft = rightSettings;
+    pidSettingsRight = leftSettings;
     this.turnKp = turnKp;
   }
 
   public FollowPath(Path path, boolean isFlipped, boolean isReversed) {
     this(path, isFlipped);
     this.isReversed = isReversed;
+    if(isReversed) {
+      pidSettingsLeft = RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_LEFT_REVERSE;
+      pidSettingsRight = RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_RIGHT_REVERSE;
+    }
   }
 
   @Override
@@ -69,7 +74,6 @@ public class FollowPath extends Command {
             pidSettingsRight.getKD(), pidSettingsRight.getKV(), pidSettingsRight.getKA());
     left.reset();
     right.reset();
-    //Robot.drivetrain.resetGyro();
   }
 
   @Override

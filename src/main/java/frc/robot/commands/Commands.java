@@ -46,6 +46,12 @@ public class Commands {
         c.setRunWhenDisabled(true);
         return c;
     }
+    
+    public static InstantCommand resetGyro() {
+        InstantCommand c = new InstantCommand(Robot.drivetrain::resetGyro);
+        c.setRunWhenDisabled(true);
+        return c;
+    }
 
     public static InstantCommand toggleDrive() {
         InstantCommand c = new InstantCommand(() -> DriveArcade.toggleDrive());

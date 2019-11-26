@@ -71,7 +71,7 @@ public class FollowTarget extends Command {
     protected void execute() {
         // if it sees a target it will do PID on the x axis else it won't move
         if (Robot.limelight.getTv()) {
-            if(yOutput >= 0.1) {
+            if(Math.abs(yOutput) >= 0.1) {
                 Robot.drivetrain.curvatureDrive(xOutput,-0.1,false);
             } else {
                 Robot.drivetrain.curvatureDrive(xOutput,yOutput*(closeToTarget ? 3 : 1.5),false);

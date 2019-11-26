@@ -11,16 +11,18 @@ public class DriveArcade extends Command {
   private static final double THRESHOLD = 0.5;
   private static final double DEADBAND = 0.095;
   private static boolean drive = true;
+  private double lastXValue = 0;
+  private double lastYValue = 0;
 
   public DriveArcade(Supplier<Double> x, Supplier<Double> y) {
     requires(Robot.drivetrain);
-    this.x = () -> calculateDeadband(x.get());
-    this.y = () -> calculateDeadband(y.get());
+    this.x = () -> calculateDeadband(x.get(), lastXValue);
+    this.y = () -> calculateDeadband(y.get(), lastYValue);
   }
 
   public DriveArcade(Supplier<Double> x, Supplier<Double> forward, Supplier<Double> reverse) {
     requires(Robot.drivetrain);
-    this.x = () -> calculateDeadband(x.get());
+    this.x = () -> calculateDeadband(x.get(), lastXValue);
     this.y = () -> rootFunction(forward.get() - reverse.get());
   }
 
@@ -33,6 +35,8 @@ public class DriveArcade extends Command {
   protected void execute() {
     double y = this.y.get();
     double x = this.x.get();
+    lastXValue = this.x.get();
+    lastYValue = this.y.get();
 
     if(drive)
       Robot.drivetrain.curvatureDrive(SENSITIVITY * x, SENSITIVITY * y, Math.sqrt(y * y + x * x) < THRESHOLD || Math.abs(y) < Math.abs(x));
@@ -62,9 +66,11 @@ public class DriveArcade extends Command {
     return isLiniar ? 2 * value : Math.signum(value) * Math.sqrt(Math.abs(value));
   }
 
-  private static double calculateDeadband(double value) {
-    if (Math.abs(value) < DEADBAND)
+  private static double calculateDeadband(double value, double lastValue) {
+    // if(Math.abs((value - lastValue) / 0.02) <= (0.1 / 0.02) && Math.abs(value) < DEADBAND) {
+    if(Math.abs(value) < DEADBAND) {
       return 0;
+    }
     return value;
   }
 
