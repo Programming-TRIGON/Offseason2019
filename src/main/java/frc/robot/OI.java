@@ -127,7 +127,7 @@ public OI(){
     driverButtonLB.whenActive(new EjectCargo());
     driverButtonRB.whenActive(new HatchHolderLock(false));
     driverButtonRB.whenInactive(new HatchHolderLock(true));
-    Command c = new FollowTarget(Target.Feeder);
+    Command c = new PutHatch(true);
     driverButtonB.whenPressed(c);
     driverButtonB.whenReleased(Commands.cancelCommand(c));
     //driverButtonA.whileHeld(new FollowTargetWithJoystick(Target.Feeder));

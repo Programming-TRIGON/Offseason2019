@@ -20,7 +20,7 @@ public class Enums {
         FEEDER_TO_ROCKET("FeederToRocket.csv"),
         PATH_PLANNER_ARC("PathPlannerArc.csv"), 
         TEST(new Waypoint[]{new Waypoint(0,0,0), new Waypoint(3,2,0)}),
-        JACI_ARC(new Waypoint[]{new Waypoint(0,0,0), new Waypoint(2,4,Pathfinder.d2r(-90))});
+        JACI_ARC(new Waypoint[]{new Waypoint(0,0,0), new Waypoint(-1.5,2,Pathfinder.d2r(90))});
 
         private final Trajectory trajectory;
 

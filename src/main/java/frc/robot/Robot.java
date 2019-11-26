@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Enums.Path;
+import frc.robot.autonomous.SideAutonomous;
 import frc.robot.command_group.CollectHatchFromFeeder;
 import frc.robot.command_group.PutHatch;
 import frc.robot.commands.*;
@@ -75,6 +76,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Reset encoders", Commands.resetEncoders());
     SmartDashboard.putData("Calibrate gyro", Commands.calibrateGyro());
     SmartDashboard.putData("Calibrate kV", new CalibrateKv(false, () -> -0.35));
+    SmartDashboard.putData("Side Auto", new SideAutonomous(true));
 
     // dbc SmartDashboard values to display
     dbc.addNumber("Limelight distance", limelight::getDistance);
@@ -89,6 +91,7 @@ public class Robot extends TimedRobot {
     dbc.addNumber("Right distance", drivetrain::getRightDistance);
     dbc.addNumber("Left distance", drivetrain::getLeftDistance);
     dbc.addBoolean("Is Cargo collected ", cargoHolder::isCargoCollected);
+    dbc.addNumber("Target Ts", limelight::getTs);
 
     limelight.setCamMode(CamMode.vision);
 

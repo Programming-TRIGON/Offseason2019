@@ -17,6 +17,7 @@ public class FollowTarget extends Command {
     private PIDController pidControllerY, pidControllerX;
     private PidSettings pidSettingsY, pidSettingsX;
     private double xOutput, yOutput;
+    private boolean closeToTarget;
 
     /**
      * @param target       The target to follow.
@@ -59,6 +60,9 @@ public class FollowTarget extends Command {
         Robot.limelight.setPipeline(target);
         Robot.limelight.setCamMode(CamMode.vision);
         Robot.limelight.setLedMode(LedMode.on);
+        
+        closeToTarget = Robot.limelight.getDistance() < 15;
+        
         pidControllerX.enable();
         pidControllerY.enable();
     }
@@ -67,10 +71,10 @@ public class FollowTarget extends Command {
     protected void execute() {
         // if it sees a target it will do PID on the x axis else it won't move
         if (Robot.limelight.getTv()) {
-            if(yOutput >= 0.2) {
-                Robot.drivetrain.curvatureDrive(xOutput,-0.2,false);
+            if(yOutput >= 0.1) {
+                Robot.drivetrain.curvatureDrive(xOutput,-0.1,false);
             } else {
-                Robot.drivetrain.curvatureDrive(xOutput,yOutput*1.5,false);
+                Robot.drivetrain.curvatureDrive(xOutput,yOutput*(closeToTarget ? 3 : 1.5),false);
             }
             lastTimeOnTarget = Timer.getFPGATimestamp();
         } else {
@@ -81,11 +85,8 @@ public class FollowTarget extends Command {
 
     @Override
     protected boolean isFinished() {
-        // if it does not detect a target for enough time it will return true
-        // return Timer.getFPGATimestamp() - lastTimeOnTarget > pidSettingsX.getWaitTime()
-        //         || (pidControllerX.onTarget() && pidControllerY.onTarget());
         return (Timer.getFPGATimestamp() - lastTimeOnTarget > pidSettingsX.getWaitTime())
-                || (Robot.limelight.getDistance() < 2 && pidControllerY.onTarget()) 
+                || (Robot.limelight.getDistance() < 0.8 && pidControllerY.onTarget()) 
                 || (pidControllerX.onTarget() && pidControllerY.onTarget());
     }
 

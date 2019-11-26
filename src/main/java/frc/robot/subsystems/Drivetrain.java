@@ -58,7 +58,7 @@ public class Drivetrain extends Subsystem {
   }
 
     public double getAngle() {
-        return this.gyro.getAngleZ();
+        return 1.8 * this.gyro.getAngleZ();
     }
 
   public void resetGyro() {

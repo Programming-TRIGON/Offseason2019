@@ -69,7 +69,7 @@ public class FollowPath extends Command {
             pidSettingsRight.getKD(), pidSettingsRight.getKV(), pidSettingsRight.getKA());
     left.reset();
     right.reset();
-    Robot.drivetrain.resetGyro();
+    //Robot.drivetrain.resetGyro();
   }
 
   @Override
@@ -89,9 +89,8 @@ public class FollowPath extends Command {
       angleDiff = (angleDifference > 0) ? angleDifference - 360 : angleDiff + 360;
     }
     turn = turnKp * (-1.0 / 80.0) * angleDifference;
-    double left = (leftCalculate + turn + MotionProfiling.KS_LEFT) / RobotController.getBatteryVoltage();
-    double right = (rightCalculate - turn + MotionProfiling.KS_RIGHT) / RobotController.getBatteryVoltage();
-    System.out.println("left: " + left + " right: " + right);
+    double left = 1*((leftCalculate + turn + MotionProfiling.KS_LEFT) / RobotController.getBatteryVoltage());
+    double right = 1*((rightCalculate - turn + MotionProfiling.KS_RIGHT) / RobotController.getBatteryVoltage());
     if (isReversed)
       Robot.drivetrain.tankDrive(-right, -left);
     else
@@ -105,7 +104,7 @@ public class FollowPath extends Command {
 
   @Override
   protected void end() {
-    Robot.drivetrain.tankDrive(0, 0);
+    //Robot.drivetrain.tankDrive(0, 0);
   }
 
   @Override
