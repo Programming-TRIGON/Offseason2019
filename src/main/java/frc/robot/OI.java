@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Enums.LiftHeights;
 import frc.robot.Enums.ScoreHeight;
-import frc.robot.Enums.Target;
 import frc.robot.command_group.CollectCargoFromFloor;
 import frc.robot.command_group.CollectHatchFromFeeder;
 import frc.robot.command_group.DefenceMode;
@@ -20,8 +19,6 @@ import frc.robot.commands.CollectCargo;
 import frc.robot.commands.Commands;
 import frc.robot.commands.DriveArcade;
 import frc.robot.commands.EjectCargo;
-import frc.robot.commands.FollowTarget;
-import frc.robot.commands.FollowTargetWithJoystick;
 import frc.robot.commands.HatchHolderLock;
 import frc.robot.commands.MoveLiftWithJoystick;
 import frc.robot.commands.SetLiftHeight;
@@ -39,62 +36,16 @@ public class OI {
   XboxTrigger driverLTrigger, driverRTrigger, operatorRTrigger, operatorLTrigger;
   public XboxController operatorXbox, driverXbox;
 
-public OI(){
-    
-//------------------------------DRIVER--------------------------------------
-
-    driverXbox = new XboxController(0);
-    driverButtonA = new JoystickButton(driverXbox, 1);
-    driverButtonB = new JoystickButton(driverXbox, 2);
-    driverButtonX = new JoystickButton(driverXbox, 3);
-    driverButtonY = new JoystickButton(driverXbox, 4);
-    driverButtonLB = new JoystickButton(driverXbox, 5);
-    driverButtonRB = new JoystickButton(driverXbox, 6);
-    driverLTrigger = new XboxTrigger(driverXbox, Hand.kLeft);
-    driverRTrigger = new XboxTrigger(driverXbox, Hand.kRight);
-
-    driverRTrigger.whenActive(new EjectCargo());
-    driverLTrigger.whenActive(new HatchHolderLock(false));
-    driverLTrigger.whenInactive(new HatchHolderLock(true));
-
-//------------------------------OPERATER------------------------------------
-
-    operatorXbox = new XboxController(1);
-    operatorButtonA = new JoystickButton(operatorXbox, 1);
-    operatorButtonB = new JoystickButton(operatorXbox, 2);
-    operatorButtonX = new JoystickButton(operatorXbox, 3);
-    operatorButtonY = new JoystickButton(operatorXbox, 4);
-    operatorButtonLB = new JoystickButton(operatorXbox, 5);
-    operatorButtonRB = new JoystickButton(operatorXbox, 6);
-    operatorStartButton = new JoystickButton(operatorXbox, 8);
-    operatorButtonAxisLeft = new JoystickButton(operatorXbox, 9);
-    operatorButtonAxisRight = new JoystickButton(operatorXbox, 10);
-    operatorRightPOVButton = new POVButton(operatorXbox, 90);
-    operatorLeftPOVButton = new POVButton(operatorXbox, 270);
-    operatorTopPOVButton = new POVButton(operatorXbox, 0);
-    operatorBottomPOVButton = new POVButton(operatorXbox, 180);
-    operatorLTrigger = new XboxTrigger(operatorXbox, Hand.kLeft);
-    operatorRTrigger = new XboxTrigger(operatorXbox, Hand.kRight);
-
-    CommandGroup collectCargoFromFloor = new CollectCargoFromFloor();
-    operatorButtonA.whenPressed(collectCargoFromFloor);
-    operatorButtonA.whenReleased(Commands.cancelCommand(collectCargoFromFloor));
-    
-    operatorButtonB.whenPressed(new CollectHatchFromFeeder()); // move null from double solenoid on robot Components
-    operatorButtonB.whenReleased(new HatchHolderLock(true));
-
-    operatorButtonAxisLeft.whenPressed(new MoveLiftWithJoystick(() -> -operatorXbox.getY(Hand.kLeft))); //ISSUE - not work with other command groups (collectCargoFromFloor, etc.)
-    operatorStartButton.whenPressed(new DefenceMode());
-
-    operatorButtonLB.whenPressed(new PrepareToScore(ScoreHeight.kLow));        
-    operatorButtonRB.whenPressed(new PrepareToScore(ScoreHeight.kMedium));
-    //operatorRTrigger.whenActive(new PrepareToScore(ScoreHeight.kHigh));
-
-    operatorButtonX.whenPressed(new SetLiftHeight(LiftHeights.CargoShip));
+  public OI() {
+    CameraServer.getInstance().startAutomaticCapture(0);
+    setButtons();
+    yoavSettings();
+    hillelSettings();
   }
 
   public OI(boolean isHillel) {
     CameraServer.getInstance().startAutomaticCapture(0);
+    setButtons();
     yoavSettings();
     /*if(isHillel){
       hillelSettings();
@@ -103,7 +54,9 @@ public OI(){
     }*/
   }
 
-  private void yoavSettings() {
+  private void setButtons() {
+    // --------------- Driver -----------------------------
+    
     driverXbox = new XboxController(0);
     driverButtonA = new JoystickButton(driverXbox, 1);
     driverButtonB = new JoystickButton(driverXbox, 2);
@@ -119,22 +72,8 @@ public OI(){
     driverTopPOVButton = new POVButton(driverXbox, 0);
     driverBottomPOVButton = new POVButton(driverXbox, 180);
 
-    //driverButtonX.whenPressed(new DriveArcade(() -> Robot.oi.driverXbox.getX(Hand.kLeft), () -> Robot.oi.driverXbox.getTriggerAxis(Hand.kLeft), () -> Robot.oi.driverXbox.getTriggerAxis(Hand.kRight)));
-    //driverButtonY.whenPressed(new DriveArcade(() -> Robot.oi.driverXbox.getX(Hand.kLeft), () -> Robot.oi.driverXbox.getY(Hand.kLeft)));
-    driverButtonX.whenPressed(new DriveArcade(() -> Robot.oi.driverXbox.getX(Hand.kLeft), () -> Robot.oi.driverXbox.getY(Hand.kLeft)));
-    driverButtonY.whenPressed(new DriveArcade(() -> Robot.oi.driverXbox.getX(Hand.kLeft), () -> Robot.oi.driverXbox.getTriggerAxis(Hand.kLeft), () -> Robot.oi.driverXbox.getTriggerAxis(Hand.kRight)));
-    driverStartButton.whenPressed(Commands.toggleDrive());
-    driverButtonLB.whenActive(new EjectCargo());
-    driverButtonRB.whenActive(new HatchHolderLock(false));
-    driverButtonRB.whenInactive(new HatchHolderLock(true));
-    Command c = new PutHatch(true);
-    driverButtonB.whenPressed(c);
-    driverButtonB.whenReleased(Commands.cancelCommand(c));
-    //driverButtonA.whileHeld(new FollowTargetWithJoystick(Target.Feeder));
-    //driverButtonA.whenReleased(new DriveArcade(() -> Robot.oi.driverXbox.getX(Hand.kLeft), () -> Robot.oi.driverXbox.getY(Hand.kLeft)));
-  }
+    // --------------- Operator ---------------------------
 
-  private void hillelSettings() {
     operatorXbox = new XboxController(1);
     operatorButtonA = new JoystickButton(operatorXbox, 1);
     operatorButtonB = new JoystickButton(operatorXbox, 2);
@@ -151,13 +90,27 @@ public OI(){
     operatorBottomPOVButton = new POVButton(operatorXbox, 180);
     operatorLTrigger = new XboxTrigger(operatorXbox, Hand.kLeft);
     operatorRTrigger = new XboxTrigger(operatorXbox, Hand.kRight);
+  }
 
+  private void yoavSettings() {
+    driverButtonX.whenPressed(new DriveArcade(() -> Robot.oi.driverXbox.getX(Hand.kLeft), () -> Robot.oi.driverXbox.getY(Hand.kLeft)));
+    driverButtonY.whenPressed(new DriveArcade(() -> Robot.oi.driverXbox.getX(Hand.kLeft), () -> Robot.oi.driverXbox.getTriggerAxis(Hand.kLeft), () -> Robot.oi.driverXbox.getTriggerAxis(Hand.kRight)));
+    driverStartButton.whenPressed(Commands.toggleDrive());
+    driverButtonLB.whenActive(new EjectCargo());
+    driverButtonRB.whenActive(new HatchHolderLock(false));
+    driverButtonRB.whenInactive(new HatchHolderLock(true));
+    Command c = new PutHatch(true);
+    driverButtonB.whenPressed(c);
+    driverButtonB.whenReleased(Commands.cancelCommand(c));
+  }
+
+  private void hillelSettings() {
     CommandGroup collectCargoFromFloor = new CollectCargoFromFloor();
     operatorButtonA.whenPressed(collectCargoFromFloor);
     operatorButtonA.whenReleased(Commands.cancelCommand(collectCargoFromFloor));
     
     CommandGroup collectHatchFromFeeder = new CollectHatchFromFeeder();
-    operatorButtonB.whenPressed(collectHatchFromFeeder); // move null from double solenoid on robot Components
+    operatorButtonB.whenPressed(collectHatchFromFeeder);
     operatorButtonB.whenReleased(Commands.cancelCommand(collectHatchFromFeeder));
 
     operatorButtonAxisLeft.whenPressed(new MoveLiftWithJoystick(() -> -operatorXbox.getY(Hand.kLeft))); //ISSUE - not work with other command groups (collectCargoFromFloor, etc.)
@@ -168,32 +121,14 @@ public OI(){
 
     operatorButtonX.whenPressed(new CollectCargo());
     operatorButtonY.whenPressed(new SetLiftHeight(LiftHeights.CargoShip));
-    //operatorButtonX.whenPressed(new SetLiftHeight(LiftHeights.RocketCargoMiddle));    
   }
 
   public void grossmanSettings() {
-    operatorXbox = new XboxController(1);
-    operatorButtonA = new JoystickButton(operatorXbox, 1);
-    operatorButtonB = new JoystickButton(operatorXbox, 2);
-    operatorButtonX = new JoystickButton(operatorXbox, 3);
-    operatorButtonY = new JoystickButton(operatorXbox, 4);
-    operatorButtonLB = new JoystickButton(operatorXbox, 5);
-    operatorButtonRB = new JoystickButton(operatorXbox, 6);
-    operatorStartButton = new JoystickButton(operatorXbox, 8);
-    operatorButtonAxisLeft = new JoystickButton(operatorXbox, 9);
-    operatorButtonAxisRight = new JoystickButton(operatorXbox, 10);
-    operatorRightPOVButton = new POVButton(operatorXbox, 90);
-    operatorLeftPOVButton = new POVButton(operatorXbox, 270);
-    operatorTopPOVButton = new POVButton(operatorXbox, 0);
-    operatorBottomPOVButton = new POVButton(operatorXbox, 180);
-    operatorLTrigger = new XboxTrigger(operatorXbox, Hand.kLeft);
-    operatorRTrigger = new XboxTrigger(operatorXbox, Hand.kRight);
-
     CommandGroup collectCargoFromFloor = new CollectCargoFromFloor();
     operatorButtonA.whenPressed(collectCargoFromFloor);
     operatorButtonA.whenReleased(Commands.cancelCommand(collectCargoFromFloor));
     
-    operatorButtonB.whenPressed(new CollectHatchFromFeeder()); // move null from double solenoid on robot Components
+    operatorButtonB.whenPressed(new CollectHatchFromFeeder());
 
     operatorButtonAxisLeft.whenPressed(new MoveLiftWithJoystick(() -> -operatorXbox.getY(Hand.kLeft))); //ISSUE - not work with other command groups (collectCargoFromFloor, etc.)
     operatorStartButton.whenPressed(new DefenceMode());

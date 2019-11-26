@@ -1,16 +1,12 @@
 package frc.robot;
 
 import com.spikes2212.dashboard.DashBoardController;
-
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Enums.Path;
 import frc.robot.autonomous.SideAutonomous;
 import frc.robot.command_group.CollectHatchFromFeeder;
 import frc.robot.command_group.PutHatch;
@@ -22,10 +18,10 @@ import frc.robot.subsystems.HatchHolder;
 import frc.robot.subsystems.Lift;
 import frc.robot.testpids.TestPIDVision;
 import frc.robot.testpids.TestPIDGyro;
-import frc.robot.testpids.TestPIDLift;
 import frc.robot.testpids.TestPIDMotionProfiling;
 import frc.robot.utils.Limelight;
 import frc.robot.utils.Limelight.CamMode;
+import frc.robot.utils.Limelight.LedMode;
 
 public class Robot extends TimedRobot {
   public static OI oi;
@@ -38,8 +34,6 @@ public class Robot extends TimedRobot {
   private Command autonomousCommand;
   private SendableChooser<Command> autonomousChooser;
   private DashBoardController dbc;
-
-  public static Path path;
 
   @Override
   public void robotInit() {
@@ -58,9 +52,9 @@ public class Robot extends TimedRobot {
 
     autonomousChooser = new SendableChooser<Command>();
     
-    //autonomousChooser.setDefaultOption("Default Auto", null);
-    //autonomousChooser.addOption("Right cargo ship", new AutonomousCommand(false));
-    //autonomousChooser.addOption("Left cargo ship", new AutonomousCommand(true));
+    autonomousChooser.setDefaultOption("Default Auto", null);
+    autonomousChooser.addOption("Right side auto", new SideAutonomous(false));
+    autonomousChooser.addOption("Left side auto", new SideAutonomous(true));
 
     SmartDashboard.putData("Auto mode", autonomousChooser);
     SmartDashboard.putData("Calibrate Vision Distance", new CalibrateDistance(oi.driverXbox::getAButton));
@@ -94,8 +88,7 @@ public class Robot extends TimedRobot {
     dbc.addNumber("Target Ts", limelight::getTs);
 
     limelight.setCamMode(CamMode.vision);
-
-    path = Path.TEST;
+    limelight.setLedMode(LedMode.on);
   }
   
   @Override
@@ -114,11 +107,10 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    // autonomousCommand = autonomousChooser.getSelected();
-    // if (autonomousCommand != null) {
-    //   autonomousCommand.start();
-    // }
-    //new CalibrateFeedForward().start();
+    autonomousCommand = autonomousChooser.getSelected();
+    if (autonomousCommand != null) {
+      autonomousCommand.start();
+    }
   }
 
   @Override
@@ -128,9 +120,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    // if (autonomousCommand != null) {
-    //   autonomousCommand.cancel();
-    // }
+    if (autonomousCommand != null) {
+      autonomousCommand.cancel();
+    }
   }
 
   @Override
