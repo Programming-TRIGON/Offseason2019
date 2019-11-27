@@ -16,13 +16,13 @@ public class DriveArcade extends Command {
 
   public DriveArcade(Supplier<Double> x, Supplier<Double> y) {
     requires(Robot.drivetrain);
-    this.x = () -> calculateDeadband(x.get(), lastXValue);
-    this.y = () -> calculateDeadband(y.get(), lastYValue);
+    this.x = () -> calculateDeadband(x.get());
+    this.y = () -> calculateDeadband(y.get());
   }
 
   public DriveArcade(Supplier<Double> x, Supplier<Double> forward, Supplier<Double> reverse) {
     requires(Robot.drivetrain);
-    this.x = () -> calculateDeadband(x.get(), lastXValue);
+    this.x = () -> xRootFunction(calculateDeadband(x.get()));
     this.y = () -> rootFunction(forward.get() - reverse.get());
   }
 
@@ -66,7 +66,12 @@ public class DriveArcade extends Command {
     return isLiniar ? 2 * value : Math.signum(value) * Math.sqrt(Math.abs(value));
   }
 
-  private static double calculateDeadband(double value, double lastValue) {
+  private double xRootFunction(double value) {
+    boolean isLiniar = Math.abs(value) <= 0.5;
+    return isLiniar ? 0.5 * value : Math.signum(value) * Math.pow(value, 2);
+  }
+
+  private static double calculateDeadband(double value) {
     // if(Math.abs((value - lastValue) / 0.02) <= (0.1 / 0.02) && Math.abs(value) < DEADBAND) {
     if(Math.abs(value) < DEADBAND) {
       return 0;

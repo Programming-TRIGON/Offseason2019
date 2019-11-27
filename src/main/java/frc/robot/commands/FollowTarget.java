@@ -71,10 +71,10 @@ public class FollowTarget extends Command {
     protected void execute() {
         // if it sees a target it will do PID on the x axis else it won't move
         if (Robot.limelight.getTv()) {
-            if(Math.abs(yOutput) >= 0.1) {
-                Robot.drivetrain.curvatureDrive(xOutput,-0.1,false);
+            if(Math.abs(yOutput) >= 0.5) {
+                Robot.drivetrain.curvatureDrive(xOutput,-0.5,false);
             } else {
-                Robot.drivetrain.curvatureDrive(xOutput,yOutput*(closeToTarget ? 3 : 1.5),false);
+                Robot.drivetrain.curvatureDrive(xOutput,yOutput*(closeToTarget ? 3 : 1.725),false);
             }
             lastTimeOnTarget = Timer.getFPGATimestamp();
         } else {
