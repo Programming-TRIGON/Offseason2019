@@ -86,7 +86,6 @@ public class RobotConstants {
   public static class FieldDimensions {
     public static final double PATH2_DISTANCE = 1;
     public static final double PATH3_DISTANCE = 1;
-    //TODO: CALIBRATE ON COMP!
     public static final double HAB_TO_CARGO_SHIP_DISTANCE = 100;
     public static final double AUTO_TURN_ANGLE = 90;
   }

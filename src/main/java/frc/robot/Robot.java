@@ -69,7 +69,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Compressor start", Commands.startCompressor());
     SmartDashboard.putData("Reset encoders", Commands.resetEncoders());
     SmartDashboard.putData("Calibrate gyro", Commands.calibrateGyro());
-    SmartDashboard.putData("Calibrate kV", new CalibrateKv(false, () -> -0.35));
+    SmartDashboard.putData("reset gyro", Commands.resetGyro());
     SmartDashboard.putData("Side Auto", new SideAutonomous(true));
 
     // dbc SmartDashboard values to display

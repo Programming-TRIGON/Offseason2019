@@ -45,8 +45,7 @@ public class FollowPath extends Command {
 
   public FollowPath(Path path, boolean isFlipped) {
     this(path);
-    if (isFlipped)
-      flip();
+    setFlipped(isFlipped);
   }
 
   public FollowPath(Path path, PidSettings leftSettings, PidSettings rightSettings, double turnKp) {
@@ -72,7 +71,7 @@ public class FollowPath extends Command {
             pidSettingsLeft.getKA());
     right.configurePIDVA(pidSettingsRight.getKP(), 0,
             pidSettingsRight.getKD(), pidSettingsRight.getKV(), pidSettingsRight.getKA());
-    startAngle = Robot.drivetrain.getAngle();
+    startAngle = Pathfinder.d2r(Robot.drivetrain.getAngle());
     left.reset();
     right.reset();
   }
@@ -120,8 +119,8 @@ public class FollowPath extends Command {
     end();
   }
 
-  public void flip() {
-    if(isFlipped){
+  public void setFlipped(boolean isFlipped) {
+    if(!isFlipped){
       left.setTrajectory(splitTrajectories.getLeftTrajectory());
       right.setTrajectory(splitTrajectories.getRightTrajectory());
     }
@@ -129,22 +128,22 @@ public class FollowPath extends Command {
       right.setTrajectory(splitTrajectories.getLeftTrajectory());
       left.setTrajectory(splitTrajectories.getRightTrajectory());
     }
-    isFlipped = !isFlipped;
+    this.isFlipped = isFlipped;
   }
 
   public void setReversed(boolean isReversed) {
     this.isReversed = isReversed;
-    if(isReversed) {
-      pidSettingsLeft = RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_LEFT_REVERSE;
-      pidSettingsRight = RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_RIGHT_REVERSE;
-      ksLeft = MotionProfiling.KS_LEFT_REVERSE;
-      ksRight = MotionProfiling.KS_RIGHT_REVERSE;
-    }
-    else{
-      pidSettingsLeft = RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_LEFT;
-      pidSettingsRight = RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_RIGHT;
-      ksLeft = MotionProfiling.KS_LEFT;
-      ksRight = MotionProfiling.KS_RIGHT;
-    }
+    // if(isReversed) {
+    //   pidSettingsLeft = RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_LEFT_REVERSE;
+    //   pidSettingsRight = RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_RIGHT_REVERSE;
+    //   ksLeft = MotionProfiling.KS_LEFT_REVERSE;
+    //   ksRight = MotionProfiling.KS_RIGHT_REVERSE;
+    // }
+    // else{
+    //   pidSettingsLeft = RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_LEFT;
+    //   pidSettingsRight = RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_RIGHT;
+    //   ksLeft = MotionProfiling.KS_LEFT;
+    //   ksRight = MotionProfiling.KS_RIGHT;
+    // }
   }
 }

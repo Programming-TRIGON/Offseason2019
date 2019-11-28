@@ -9,18 +9,18 @@ import frc.robot.motionprofiling.FollowPath;
 
 public class TestPIDMotionProfiling extends Command {
   // TODO: change names 
-  private Supplier<Double> KP = ConstantHandler.addConstantDouble("KP", 0.01);
-  private Supplier<Double> KP_ROTATION = ConstantHandler.addConstantDouble("KP_ROTATION", 0.01);
-  private Supplier<Double> TURN_KP = ConstantHandler.addConstantDouble("TURN_KP", 0);
-  private Supplier<Double> KD = ConstantHandler.addConstantDouble("KD", 0);
-  private Supplier<Double> KD_ROTATION = ConstantHandler.addConstantDouble("KD_ROTATION", 0);
-  private Supplier<Double> KV = ConstantHandler.addConstantDouble("KV", 0);
-  private Supplier<Double> KV2 = ConstantHandler.addConstantDouble("KV2", 0);
-  private Supplier<Double> KA = ConstantHandler.addConstantDouble("KA", 0);
-  private Supplier<Double> KA2 = ConstantHandler.addConstantDouble("KA2", 0);
+  private Supplier<Double> kpLeft = ConstantHandler.addConstantDouble("KP Left", 0.01);
+  private Supplier<Double> kpRight = ConstantHandler.addConstantDouble("KP Right", 0.01);
+  private Supplier<Double> turnKpSupplier = ConstantHandler.addConstantDouble("TURN KP", 0);
+  private Supplier<Double> kdLeft = ConstantHandler.addConstantDouble("KD Left", 0);
+  private Supplier<Double> kdRight = ConstantHandler.addConstantDouble("KD Right", 0);
+  private Supplier<Double> kvLeft = ConstantHandler.addConstantDouble("KV Left", 0);
+  private Supplier<Double> kvRight = ConstantHandler.addConstantDouble("KV Right", 0);
+  private Supplier<Double> kaLeft = ConstantHandler.addConstantDouble("KA Left", 0);
+  private Supplier<Double> kaRight = ConstantHandler.addConstantDouble("KA Right", 0);
 
-  private PidSettings pidSettings;
-  private PidSettings pidSettings2;
+  private PidSettings leftSettings;
+  private PidSettings rightSettings;
   private double turnKp;
   private FollowPath testCommand;
 
@@ -30,8 +30,8 @@ public class TestPIDMotionProfiling extends Command {
   @Override
   protected void initialize() {
     updatePID();
-    testCommand = new FollowPath(Path.BACK_FROM_ROCKET, pidSettings, pidSettings2, turnKp);
-    testCommand.flip();
+    testCommand = new FollowPath(Path.BACK_FROM_ROCKET, leftSettings, rightSettings, turnKp);
+    testCommand.setFlipped(false);
     testCommand.setReversed(true);
     testCommand.start();
   }
@@ -52,9 +52,9 @@ public class TestPIDMotionProfiling extends Command {
   }
 
   public void updatePID(){
-    this.pidSettings = new PidSettings(KP.get(), KD.get(), KV.get(), KA.get());
-    this.pidSettings2 = new PidSettings(KP_ROTATION.get(), KD_ROTATION.get(), KV2.get(), KA2.get());
-    turnKp = TURN_KP.get();
+    this.leftSettings = new PidSettings(kpLeft.get(), kdLeft.get(), kvLeft.get(), kaLeft.get());
+    this.rightSettings = new PidSettings(kpRight.get(), kdRight.get(), kvRight.get(), kaRight.get());
+    turnKp = turnKpSupplier.get();
   }
 
   @Override
