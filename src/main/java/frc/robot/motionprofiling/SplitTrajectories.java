@@ -15,7 +15,7 @@ public class SplitTrajectories {
 
     public SplitTrajectories(Path path) {
         this.path = path;
-        this.modifier = new TankModifier(this.path.getTrajectory()).modify(RobotConstants.MotionProfiling.WHEEL_BASE_WIDTH);
+        //this.modifier = new TankModifier(this.path.getTrajectory()).modify(RobotConstants.MotionProfiling.WHEEL_BASE_WIDTH);
     }
 
     public Trajectory getRightTrajectory() {

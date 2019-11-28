@@ -18,10 +18,10 @@ public class FollowPath extends Command {
 
   private EncoderFollower right, left;
   private double leftCalculate, rightCalculate, gyroHeading, desiredHeading, angleDifference, turn, angleDiff;
-  private SplitTrajectories splitTrajectories;
-  private boolean isFlipped = false, isReversed = false;
+  private boolean isFlipped = false;
   private PidSettings pidSettingsLeft;
   private PidSettings pidSettingsRight;
+  private Path path;
   private double turnKp;
   private double ksLeft;
   private double ksRight;
@@ -32,10 +32,9 @@ public class FollowPath extends Command {
    */
   public FollowPath(Path path) {
     requires(Robot.drivetrain);
-    splitTrajectories = new SplitTrajectories(path); // splits the path to
-    // two sides of the robot.
-    right = new EncoderFollower(splitTrajectories.getRightTrajectory());
-    left = new EncoderFollower(splitTrajectories.getLeftTrajectory());
+    this.path = path;
+    left = new EncoderFollower(path.getRightTrajectory());
+    right = new EncoderFollower(path.getLeftTrajectory());
     pidSettingsLeft = RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_LEFT;
     pidSettingsRight = RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_RIGHT;
     turnKp = MotionProfiling.MOTION_PROFILING_KP_TURN;
@@ -63,14 +62,14 @@ public class FollowPath extends Command {
   @Override
   /** We configure the encoder and the PIDVA */
   protected void initialize() {
-    left.configureEncoder(Robot.drivetrain.getLeftTicks(),
-            RobotConstants.MotionProfiling.TICKS_PER_REVOLUTION_LEFT, RobotConstants.MotionProfiling.WHEEL_DIAMETER);
-    right.configureEncoder(Robot.drivetrain.getRightTicks(),
-            RobotConstants.MotionProfiling.TICKS_PER_REVOLUTION_RIGHT, RobotConstants.MotionProfiling.WHEEL_DIAMETER);
+    left.configureEncoder(Robot.drivetrain.getLeftTicks(), RobotConstants.MotionProfiling.TICKS_PER_REVOLUTION_LEFT,
+        RobotConstants.MotionProfiling.WHEEL_DIAMETER);
+    right.configureEncoder(Robot.drivetrain.getRightTicks(), RobotConstants.MotionProfiling.TICKS_PER_REVOLUTION_RIGHT,
+        RobotConstants.MotionProfiling.WHEEL_DIAMETER);
     left.configurePIDVA(pidSettingsLeft.getKP(), 0, pidSettingsLeft.getKD(), pidSettingsLeft.getKV(),
-            pidSettingsLeft.getKA());
-    right.configurePIDVA(pidSettingsRight.getKP(), 0,
-            pidSettingsRight.getKD(), pidSettingsRight.getKV(), pidSettingsRight.getKA());
+        pidSettingsLeft.getKA());
+    right.configurePIDVA(pidSettingsRight.getKP(), 0, pidSettingsRight.getKD(), pidSettingsRight.getKV(),
+        pidSettingsRight.getKA());
     startAngle = Pathfinder.d2r(Robot.drivetrain.getAngle());
     left.reset();
     right.reset();
@@ -83,10 +82,10 @@ public class FollowPath extends Command {
    * calculation in the beginning - / + the KP.
    */
   protected void execute() {
-    leftCalculate = left.calculate((isReversed? -1 : 1 )*Robot.drivetrain.getLeftTicks());
-    rightCalculate = right.calculate((isReversed? -1 : 1 )*Robot.drivetrain.getRightTicks());
+    leftCalculate = left.calculate(Robot.drivetrain.getLeftTicks());
+    rightCalculate = right.calculate(Robot.drivetrain.getRightTicks());
     gyroHeading = Robot.drivetrain.getAngle();
-    if(isFlipped)
+    if (isFlipped)
       desiredHeading = startAngle - (Pathfinder.r2d(left.getHeading()) - startAngle);
     else
       desiredHeading = Pathfinder.r2d(left.getHeading());
@@ -96,12 +95,9 @@ public class FollowPath extends Command {
       angleDiff = (angleDifference > 0) ? angleDifference - 360 : angleDiff + 360;
     }
     turn = turnKp * (-1.0 / 80.0) * angleDifference;
-    double left = 1*((leftCalculate + turn + ksLeft) / RobotController.getBatteryVoltage());
-    double right = 1*((rightCalculate - turn + ksRight) / RobotController.getBatteryVoltage());
-    if (isReversed)
-      Robot.drivetrain.tankDrive(-right, -left);
-    else
-      Robot.drivetrain.tankDrive(right, left);
+    double left = 1 * ((leftCalculate + turn + ksLeft) / RobotController.getBatteryVoltage());
+    double right = 1 * ((rightCalculate - turn + ksRight) / RobotController.getBatteryVoltage());
+    Robot.drivetrain.tankDrive(right, left);
   }
 
   @Override
@@ -111,7 +107,7 @@ public class FollowPath extends Command {
 
   @Override
   protected void end() {
-    //Robot.drivetrain.tankDrive(0, 0);
+    // Robot.drivetrain.tankDrive(0, 0);
   }
 
   @Override
@@ -120,26 +116,23 @@ public class FollowPath extends Command {
   }
 
   public void setFlipped(boolean isFlipped) {
-    if(!isFlipped){
-      left.setTrajectory(splitTrajectories.getLeftTrajectory());
-      right.setTrajectory(splitTrajectories.getRightTrajectory());
-    }
-    else{
-      right.setTrajectory(splitTrajectories.getLeftTrajectory());
-      left.setTrajectory(splitTrajectories.getRightTrajectory());
+    if (!isFlipped) {
+      left.setTrajectory(path.getLeftTrajectory());
+      right.setTrajectory(path.getRightTrajectory());
+    } else {
+      left.setTrajectory(path.getRightTrajectory());
+      right.setTrajectory(path.getLeftTrajectory());
     }
     this.isFlipped = isFlipped;
   }
 
   public void setReversed(boolean isReversed) {
-    this.isReversed = isReversed;
-    // if(isReversed) {
+    // if (isReversed) {
     //   pidSettingsLeft = RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_LEFT_REVERSE;
     //   pidSettingsRight = RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_RIGHT_REVERSE;
-    //   ksLeft = MotionProfiling.KS_LEFT_REVERSE;
-    //   ksRight = MotionProfiling.KS_RIGHT_REVERSE;
-    // }
-    // else{
+    //   ksLeft = -MotionProfiling.KS_LEFT_REVERSE;
+    //   ksRight = -MotionProfiling.KS_RIGHT_REVERSE;
+    // } else {
     //   pidSettingsLeft = RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_LEFT;
     //   pidSettingsRight = RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_RIGHT;
     //   ksLeft = MotionProfiling.KS_LEFT;

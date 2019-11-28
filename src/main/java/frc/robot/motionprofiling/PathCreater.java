@@ -26,10 +26,10 @@ public class PathCreater {
 
     /** Writes all the paths to csv for quick generation of paths */
     public void writeToCSV_AllPaths() {
-        for (Path path : Path.values()) {
-            String s = "/home/lvuser/Paths " + path.name() + ".csv";
-            Pathfinder.writeToCSV(new File(s), path.getTrajectory());
-        }
+        // for (Path path : Path.values()) {
+        //     String s = "/home/lvuser/Paths " + path.name() + ".csv";
+        //     Pathfinder.writeToCSV(new File(s), path.getLeftTrajectory());
+        // }
     }
 
 }

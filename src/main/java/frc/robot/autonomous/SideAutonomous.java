@@ -15,15 +15,15 @@ public class SideAutonomous extends CommandGroup {
   public SideAutonomous(boolean isLeft) {
     addSequential(Commands.resetGyro());
     addSequential(new HatchHolderLock(true));
-    addSequential(new FollowPath(Path.RAMP_TO_ROCKET, isLeft));
+    addSequential(new FollowPath(Path.RAMP_TO_ROCKET));
     addSequential(new PutHatch(true));
-    addSequential(new FollowPath(Path.BACK_FROM_ROCKET, true, true));
-    addSequential(new FollowPath(Path.ROCKET_TO_FEEDER, isLeft));
-    addSequential(new PutHatch(false));
+    addSequential(new FollowPath(Path.BACK_FROM_ROCKET, false, true));
+    addSequential(new FollowPath(Path.ROCKET_TO_FEEDER));
+    //addSequential(new PutHatch(false));
     addSequential(new WaitCommand(5));
     addSequential(new HatchHolderLock(true));
-    /*addSequential(new FollowPath(Path.FEEDER_TO_ROCKET, !isLeft, true));
+    addSequential(new FollowPath(Path.FEEDER_TO_ROCKET, true, true));
     addSequential(new PutHatch(true));
-    addSequential(new FollowPath(Path.BACK_FROM_ROCKET, isLeft, true));*/
+    addSequential(new FollowPath(Path.BACK_FROM_ROCKET, true, true));
   }
 }

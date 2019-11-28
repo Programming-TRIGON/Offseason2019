@@ -21,7 +21,7 @@ import frc.robot.commands.DriveArcade;
 
 /** This is the susbsystem for the drivetrain of the robot */
 public class Drivetrain extends Subsystem {
-  private static final double ALPHA = 0.99;
+  private static final double ALPHA = 0.8;
   private static final double RAMP_LIMIT = 0; // In seconds, to full speed
   private SpeedControllerGroup leftDriveGroup, rightDriveGroup;
   private WPI_TalonSRX rightEncoder, leftEncoder;
@@ -32,6 +32,7 @@ public class Drivetrain extends Subsystem {
   private double TICKS_PER_METER = RobotConstants.Sensors.DRIVETRAIN_ENCODERS_DISTANCE_PER_TICKS;
   private double gyroAngle;
   private Supplier<Double> angleOffset;
+  private double prevAngle;
 
   public Drivetrain() {
     // Settings for each side of the robot
@@ -146,7 +147,9 @@ public class Drivetrain extends Subsystem {
     this.prevRightVelocity = getRightVelocity();
     // filter the angle using alpha filter
     double currentAngle = gyro.getAngleZ() * 1.8;
-    gyroAngle = currentAngle * (1 - ALPHA) + gyroAngle * ALPHA;
+    
+    gyroAngle = currentAngle * (1 - ALPHA) + prevAngle * ALPHA;
+    prevAngle = currentAngle;
     SmartDashboard.putNumber("unfiltered angle", currentAngle);
   }
 

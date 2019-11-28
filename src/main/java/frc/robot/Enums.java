@@ -14,18 +14,19 @@ import jaci.pathfinder.Waypoint;
  */
 public class Enums {
     public enum Path {
-        RAMP_TO_ROCKET("RampToRocket.csv"),
-        BACK_FROM_ROCKET("BackFromRocket.csv"),
-        ROCKET_TO_FEEDER("RocketToFeeder.csv"),
-        FEEDER_TO_ROCKET("FeederToRocket.csv"),
-        PATH_PLANNER_ARC("PathPlannerArc.csv"), 
-        TEST(new Waypoint[]{new Waypoint(0,0,0), new Waypoint(3,2,0)}),
-        JACI_ARC(new Waypoint[]{new Waypoint(0,0,0), new Waypoint(-1.5,2,Pathfinder.d2r(90))});
+        RAMP_TO_ROCKET("RampToRocket_left.csv", "RampToRocket_right.csv"),
+        BACK_FROM_ROCKET("BackFromRocket_left.csv", "BackFromRocket_right.csv"),
+        ROCKET_TO_FEEDER("RocketToFeeder_left.csv", "RocketToFeeder_right.csv"),
+        FEEDER_TO_ROCKET("FeederToRocket_left.csv", "FeederToRocket_right.csv");
+        //PATH_PLANNER_ARC("PathPlannerArc.csv"), 
+        //TEST(new Waypoint[]{new Waypoint(0,0,0), new Waypoint(3,2,0)}),
+        //JACI_ARC(new Waypoint[]{new Waypoint(0,0,0), new Waypoint(-1.5,2,Pathfinder.d2r(90))});
 
-        private final Trajectory trajectory;
+        private final Trajectory leftTrajectory;
+        private Trajectory rightTrajectory;
 
         Path(Waypoint[] path) {
-            trajectory = Pathfinder.generate(path,
+            leftTrajectory = Pathfinder.generate(path,
                     new Trajectory.Config(Trajectory.FitMethod.HERMITE_QUINTIC, Trajectory.Config.SAMPLES_HIGH,
                             RobotConstants.MotionProfiling.TIMEFRAME, RobotConstants.MotionProfiling.MAX_VELOCITY,
                             RobotConstants.MotionProfiling.MAX_ACCELERATION, RobotConstants.MotionProfiling.MAX_JERK));
@@ -38,7 +39,7 @@ public class Enums {
             } catch (IOException e) {
                 System.err.println("File not existing");
             }
-            this.trajectory = trajectory;
+            this.leftTrajectory = trajectory;
 
         }
 
@@ -47,12 +48,16 @@ public class Enums {
          *
          * @param pathPlannerFile name of the file in the paths folder.
          */
-        Path(String pathPlannerFile) {
-            trajectory = CsvReader.read("/home/lvuser/paths/" + pathPlannerFile);
+        Path(String pathPlannerFileLeft, String pathPlannerFileRight) {
+            leftTrajectory = CsvReader.read("/home/lvuser/paths/" + pathPlannerFileLeft);
+            rightTrajectory = CsvReader.read("/home/lvuser/paths/" + pathPlannerFileRight);
         }
 
-        public Trajectory getTrajectory() {
-            return trajectory;
+        public Trajectory getLeftTrajectory() {
+            return leftTrajectory;
+        }
+        public Trajectory getRightTrajectory() {
+            return rightTrajectory;
         }
     }
     
