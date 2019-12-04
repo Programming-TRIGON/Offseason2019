@@ -107,7 +107,7 @@ public class FollowPath extends Command {
 
   @Override
   protected void end() {
-    // Robot.drivetrain.tankDrive(0, 0);
+    Robot.drivetrain.tankDrive(0, 0);
   }
 
   @Override
@@ -127,12 +127,13 @@ public class FollowPath extends Command {
   }
 
   public void setReversed(boolean isReversed) {
-    // if (isReversed) {
-    //   pidSettingsLeft = RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_LEFT_REVERSE;
-    //   pidSettingsRight = RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_RIGHT_REVERSE;
-    //   ksLeft = -MotionProfiling.KS_LEFT_REVERSE;
-    //   ksRight = -MotionProfiling.KS_RIGHT_REVERSE;
-    // } else {
+    if (isReversed) {
+      pidSettingsLeft = RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_LEFT_REVERSE;
+      pidSettingsRight = RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_RIGHT_REVERSE;
+      ksLeft = -MotionProfiling.KS_LEFT_REVERSE;
+      ksRight = -MotionProfiling.KS_RIGHT_REVERSE;
+    } 
+    // else {
     //   pidSettingsLeft = RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_LEFT;
     //   pidSettingsRight = RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_RIGHT;
     //   ksLeft = MotionProfiling.KS_LEFT;

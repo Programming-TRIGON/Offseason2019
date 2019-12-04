@@ -27,6 +27,10 @@ public class HatchHolder extends Subsystem {
     this.lockerSolenoid.set(Value.kOff);
   }
 
+  public boolean isLock() {
+    return lockerSolenoid.get().equals(Value.kForward);
+  }
+
   /**
    * Convert boolean to DoubleSolenoid Value, true pushes the piston forward and
    * false reverse the piston

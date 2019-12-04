@@ -15,6 +15,7 @@ import frc.robot.command_group.CollectHatchFromFeeder;
 import frc.robot.command_group.DefenceMode;
 import frc.robot.command_group.PrepareToScore;
 import frc.robot.command_group.PutHatch;
+import frc.robot.commands.AfterHatchPlacement;
 import frc.robot.commands.CollectCargo;
 import frc.robot.commands.Commands;
 import frc.robot.commands.DriveArcade;
@@ -101,7 +102,7 @@ public class OI {
     driverButtonRB.whenInactive(new HatchHolderLock(true));
     Command c = new PutHatch(true);
     driverButtonB.whenPressed(c);
-    driverButtonB.whenReleased(Commands.cancelCommand(c));
+    driverButtonB.whenReleased(new AfterHatchPlacement()); // Commands.cancelCommand(c)
   }
 
   private void hillelSettings() {

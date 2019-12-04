@@ -11,6 +11,7 @@ public class DriveArcade extends Command {
   private static final double THRESHOLD = 0.5;
   private static final double DEADBAND = 0.095;
   private static boolean drive = true;
+  private static boolean lockX = false;
   private double lastXValue = 0;
   private double lastYValue = 0;
 
@@ -22,7 +23,7 @@ public class DriveArcade extends Command {
 
   public DriveArcade(Supplier<Double> x, Supplier<Double> forward, Supplier<Double> reverse) {
     requires(Robot.drivetrain);
-    this.x = () -> xRootFunction(calculateDeadband(x.get()));
+    this.x = () -> xRootFunction(x.get());
     this.y = () -> rootFunction(forward.get() - reverse.get());
   }
 
@@ -68,7 +69,7 @@ public class DriveArcade extends Command {
 
   private double xRootFunction(double value) {
     boolean isLiniar = Math.abs(value) <= 0.5;
-    return isLiniar ? 0.5 * value : Math.signum(value) * Math.pow(value, 2);
+    return lockX ? 0 : isLiniar ? 0.5 * value : Math.signum(value) * Math.pow(value, 2);
   }
 
   private static double calculateDeadband(double value) {
@@ -81,5 +82,9 @@ public class DriveArcade extends Command {
 
   public static void toggleDrive() {
     drive = !drive;
+  }
+
+  public static void setLockX() {
+    lockX = !lockX;
   }
 }

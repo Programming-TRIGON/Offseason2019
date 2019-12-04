@@ -27,7 +27,7 @@ public class RobotConstants {
     public static final PidSettings LIFT_PID_SETTINGS = new PidSettings(0.095, 0, 0.085, 5, 0);
     public static final PidSettings DRIVETRAIN_TURN_PID_SETTINGS = new PidSettings(0, 0, 0, 0, 0);
     public static final PidSettings DRIVE_FORWARD_PID_SETTINGS = new PidSettings(0, 0, 0, 0, 0);
-    public static final PidSettings VISION_X_PID_SETTINGS = new PidSettings(0.07, 0, 0.125, 0, 0.5);
+    public static final PidSettings VISION_X_PID_SETTINGS = new PidSettings(0.07, 0, 0.125, 0.1, 0.5);
     public static final PidSettings VISION_Y_PID_SETTINGS = new PidSettings(0.0125, 0, 0, 5, 0.5);
   }
 
@@ -55,8 +55,8 @@ public class RobotConstants {
     public static final PidSettings MOTION_PROFILING_PID_SETTINGS_LEFT = new PidSettings(/*0.972*/0.742, /*0.335*/0.44, 2.32, 0.27);
     public static final PidSettings MOTION_PROFILING_PID_SETTINGS_RIGHT = new PidSettings(/*1.14*/0.85, /*0.434*/0.46, 2.35, 0.239);// 0.1929, 2.5147
     
-    public static final PidSettings MOTION_PROFILING_PID_SETTINGS_LEFT_REVERSE = new PidSettings(0.682, 0.44, 2.34, 0.314);
-    public static final PidSettings MOTION_PROFILING_PID_SETTINGS_RIGHT_REVERSE = new PidSettings(0.79, 0.46, 2.38, 0.288);
+    public static final PidSettings MOTION_PROFILING_PID_SETTINGS_LEFT_REVERSE = new PidSettings(0.682, 0.46, 2.34, 0.314);
+    public static final PidSettings MOTION_PROFILING_PID_SETTINGS_RIGHT_REVERSE = new PidSettings(0.79, 0.48, 2.38, 0.288);
 
     public static final double MOTION_PROFILING_KP_TURN = 0.025;
     public static final double MOTION_PROFILING_KP_TURN_REVERSE = 0.035;
