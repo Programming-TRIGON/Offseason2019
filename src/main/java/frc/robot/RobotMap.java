@@ -18,6 +18,7 @@ public class RobotMap {
         public static final int LIFT_MOTOR_RIGHT = 2;
 
         public static final int ENCODER_RIGHT = 12;
+        public static final int PIGEON = 13;
     }
 
     // Solenoid ports connected to PCM

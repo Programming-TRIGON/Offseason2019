@@ -7,6 +7,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
+import frc.robot.sensors.Pigeon;
 
 public class RobotComponents {
 
@@ -30,7 +31,7 @@ public class RobotComponents {
         public static final CANSparkMax RIGHT_FRONT_MOTOR = new CANSparkMax(RobotMap.CAN.DRIVETRAIN_RIGHT_FRONT_MOTOR,
                 MotorType.kBrushless);
 
-        public static final ADIS16448_IMU GYRO = new ADIS16448_IMU();
+        public static final Pigeon GYRO = new Pigeon(RobotMap.CAN.PIGEON);
 
         public static final WPI_TalonSRX ENCODER_RIGHT = new WPI_TalonSRX(RobotMap.CAN.ENCODER_RIGHT);
     }
