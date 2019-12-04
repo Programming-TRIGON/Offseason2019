@@ -84,7 +84,7 @@ public class DriveArcade extends Command {
     drive = !drive;
   }
 
-  public static void setLockX() {
+  public static void toggleLockX() {
     lockX = !lockX;
   }
 }
