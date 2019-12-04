@@ -59,7 +59,7 @@ public class Drivetrain extends Subsystem {
     this.drivetrain.arcadeDrive(y, x);
   }
 
-  public void tankDrive(double leftSpeed, double rightSpeed) {
+  public void tankDrive(double rightSpeed, double leftSpeed) {
     this.drivetrain.tankDrive(-leftSpeed, -rightSpeed, false);
   }
 
