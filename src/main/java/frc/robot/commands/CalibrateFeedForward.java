@@ -68,6 +68,8 @@ public class CalibrateFeedForward extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    NetworkTableInstance.getDefault().setUpdateRate(0.01);
+    Robot.drivetrain.resetEncoders();
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -91,5 +93,6 @@ public class CalibrateFeedForward extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    Robot.drivetrain.tankDrive(0, 0);
   }
 }
