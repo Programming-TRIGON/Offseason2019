@@ -30,7 +30,7 @@ public class TestPIDMotionProfiling extends Command {
   @Override
   protected void initialize() {
     updatePID();
-    testCommand = new FollowPath(Path.TEST_THREE_METERS, leftSettings, rightSettings, turnKp);
+    testCommand = new FollowPath(Path.RAMP_TO_ROCKET, leftSettings, rightSettings, turnKp);
     testCommand.start();
   }
 
