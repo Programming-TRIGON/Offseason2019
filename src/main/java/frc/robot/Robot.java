@@ -111,6 +111,7 @@ public class Robot extends TimedRobot {
     if (autonomousCommand != null) {
       autonomousCommand.start();
     }
+    //new CalibrateFeedForward().start();
   }
 
   @Override

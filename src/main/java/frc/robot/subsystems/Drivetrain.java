@@ -49,6 +49,8 @@ public class Drivetrain extends Subsystem {
     this.drivetrain = new DifferentialDrive(this.leftDriveGroup, this.rightDriveGroup);
     this.gyro = RobotComponents.Drivetrain.GYRO;
 
+    drivetrain.setSafetyEnabled(false);
+
     this.rightEncoder = RobotComponents.Drivetrain.ENCODER_RIGHT;
     this.leftEncoder = RobotComponents.CargoCollector.HOLDER_MOTOR;
     drivetrain.setDeadband(0.0);

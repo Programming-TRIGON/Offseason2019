@@ -17,8 +17,8 @@ public class Enums {
         RAMP_TO_ROCKET("RampToRocket_left.csv", "RampToRocket_right.csv"),
         BACK_FROM_ROCKET("BackFromRocket_left.csv", "BackFromRocket_right.csv"),
         ROCKET_TO_FEEDER("RocketToFeeder_left.csv", "RocketToFeeder_right.csv"),
-        FEEDER_TO_ROCKET("FeederToRocket_left.csv", "FeederToRocket_right.csv");
-        //TEST_THREE_METERS("threemeters_left.csv","threemeters_right.csv");
+        FEEDER_TO_ROCKET("FeederToRocket_left.csv", "FeederToRocket_right.csv"),
+        TEST_THREE_METERS("three_left.csv","three_right.csv");
         //PATH_PLANNER_ARC("PathPlannerArc.csv"), 
         //TEST(new Waypoint[]{new Waypoint(0,0,0), new Waypoint(3,2,0)}),
         //JACI_ARC(new Waypoint[]{new Waypoint(0,0,0), new Waypoint(-1.5,2,Pathfinder.d2r(90))});

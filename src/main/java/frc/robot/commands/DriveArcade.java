@@ -23,7 +23,7 @@ public class DriveArcade extends Command {
 
   public DriveArcade(Supplier<Double> x, Supplier<Double> forward, Supplier<Double> reverse) {
     requires(Robot.drivetrain);
-    this.x = () -> xRootFunction(x.get());
+    this.x = () -> calculateDeadband(xRootFunction(x.get()));
     this.y = () -> rootFunction(forward.get() - reverse.get());
   }
 
