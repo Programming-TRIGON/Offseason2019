@@ -80,7 +80,7 @@ public class Pigeon extends PigeonIMU implements Gyro, PIDSource {
       case kDisplacement:
         return this.getAngle();
       default:
-        return 0.0D;
+        return 0;
     }
   }
 
