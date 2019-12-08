@@ -102,7 +102,7 @@ public class OI {
     driverButtonRB.whenInactive(new HatchHolderLock(true));
     Command c = new PutHatch(true);
     driverButtonB.whenPressed(c);
-    driverButtonB.whenReleased(new AfterHatchPlacement()); // Commands.cancelCommand(c)
+    //driverButtonB.whenReleased(new AfterHatchPlacement()); // Commands.cancelCommand(c)
   }
 
   private void hillelSettings() {

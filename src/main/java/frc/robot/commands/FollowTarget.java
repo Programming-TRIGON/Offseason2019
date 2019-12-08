@@ -61,8 +61,9 @@ public class FollowTarget extends Command {
         Robot.limelight.setCamMode(CamMode.vision);
         Robot.limelight.setLedMode(LedMode.on);
         
-        closeToTarget = Robot.limelight.getDistance() < 15;
-        
+        // closeToTarget = Robot.limelight.getDistance() < 15;
+        // System.out.println(closeToTarget);
+
         pidControllerX.enable();
         pidControllerY.enable();
     }
@@ -71,10 +72,10 @@ public class FollowTarget extends Command {
     protected void execute() {
         // if it sees a target it will do PID on the x axis else it won't move
         if (Robot.limelight.getTv()) {
-            if(Math.abs(yOutput) >= 0.5 * (closeToTarget ? 3.5 : 1.25)) {
+            if(Math.abs(yOutput) >= 0.5) {
                 Robot.drivetrain.curvatureDrive(xOutput,-0.5,false);
             } else {
-                Robot.drivetrain.curvatureDrive(xOutput*(closeToTarget ? 3 : 1),yOutput*(closeToTarget ? 3.5 : 1.25),false);
+                Robot.drivetrain.curvatureDrive(xOutput,yOutput -0.025,false);
             }
             lastTimeOnTarget = Timer.getFPGATimestamp();
         } else {
@@ -85,9 +86,8 @@ public class FollowTarget extends Command {
 
     @Override
     protected boolean isFinished() {
-        return (Timer.getFPGATimestamp() - lastTimeOnTarget > pidSettingsX.getWaitTime())
-                || (Robot.limelight.getDistance() < 0.8 && pidControllerY.onTarget()) 
-                || (pidControllerX.onTarget() && pidControllerY.onTarget());
+        return (Timer.getFPGATimestamp() - lastTimeOnTarget > pidSettingsX.getWaitTime()) 
+                || pidControllerY.onTarget();
     }
 
     @Override
