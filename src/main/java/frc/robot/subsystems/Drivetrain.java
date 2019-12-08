@@ -1,13 +1,10 @@
 package frc.robot.subsystems;
 
 import java.util.function.Supplier;
-
-import com.analog.adis16448.frc.ADIS16448_IMU;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.spikes2212.dashboard.ConstantHandler;
-
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Timer;
@@ -18,21 +15,19 @@ import frc.robot.Robot;
 import frc.robot.RobotComponents;
 import frc.robot.RobotConstants;
 import frc.robot.commands.DriveArcade;
+import frc.robot.sensors.Pigeon;
 
 /** This is the susbsystem for the drivetrain of the robot */
 public class Drivetrain extends Subsystem {
-  private static final double ALPHA = 0.8;
   private static final double RAMP_LIMIT = 0; // In seconds, to full speed
   private SpeedControllerGroup leftDriveGroup, rightDriveGroup;
   private WPI_TalonSRX rightEncoder, leftEncoder;
   private DifferentialDrive drivetrain;
-  private ADIS16448_IMU gyro;
+  private Pigeon gyro;
   private double prevTime = 0, leftAcceleration = 0, rightAcceleration = 0, currentTime = 0, prevLeftVelocity = 0,
       prevRightVelocity = 0;
   private double TICKS_PER_METER = RobotConstants.Sensors.DRIVETRAIN_ENCODERS_DISTANCE_PER_TICKS;
-  private double gyroAngle;
   private Supplier<Double> angleOffset;
-  private double prevAngle;
 
   public Drivetrain() {
     // Settings for each side of the robot
@@ -48,6 +43,7 @@ public class Drivetrain extends Subsystem {
 
     this.drivetrain = new DifferentialDrive(this.leftDriveGroup, this.rightDriveGroup);
     this.gyro = RobotComponents.Drivetrain.GYRO;
+    gyro.calibrate();
 
     drivetrain.setSafetyEnabled(false);
 
@@ -70,12 +66,11 @@ public class Drivetrain extends Subsystem {
   }
 
   public double getAngle() {
-    return gyroAngle + angleOffset.get();
+    return gyro.getAngle() + angleOffset.get();
   }
 
   public void resetGyro() {
     this.gyro.reset();
-    gyroAngle = 0;
   }
 
   public void calibrateGyro() {
@@ -147,12 +142,6 @@ public class Drivetrain extends Subsystem {
     this.prevTime = currentTime;
     this.prevLeftVelocity = getLeftVelocity();
     this.prevRightVelocity = getRightVelocity();
-    // filter the angle using alpha filter
-    double currentAngle = gyro.getAngleZ() * 1.8;
-    
-    gyroAngle = currentAngle * (1 - ALPHA) + prevAngle * ALPHA;
-    prevAngle = currentAngle;
-    SmartDashboard.putNumber("unfiltered angle", currentAngle);
   }
 
   private void setSparksSettings(CANSparkMax front, CANSparkMax middle, CANSparkMax rear) {
