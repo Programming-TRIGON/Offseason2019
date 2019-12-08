@@ -52,11 +52,11 @@ public class RobotConstants {
     public static final double MAX_ACCELERATION = 1.5;
     public static final double MAX_JERK = 80;
 
-    public static final PidSettings MOTION_PROFILING_PID_SETTINGS_LEFT = new PidSettings(/*0.972*/0.742, /*0.335*/0.44, 2.32, 0.27);
-    public static final PidSettings MOTION_PROFILING_PID_SETTINGS_RIGHT = new PidSettings(/*1.14*/0.85, /*0.434*/0.46, 2.35, 0.239);// 0.1929, 2.5147
+    public static final PidSettings MOTION_PROFILING_PID_SETTINGS_LEFT = new PidSettings(0.15, 0.1, 2.4, 0.166);
+    public static final PidSettings MOTION_PROFILING_PID_SETTINGS_RIGHT = new PidSettings(0.15, 0.1, 2.36, 0.256);
     
-    public static final PidSettings MOTION_PROFILING_PID_SETTINGS_LEFT_REVERSE = new PidSettings(0.682, 0.46, 2.34, 0.314);
-    public static final PidSettings MOTION_PROFILING_PID_SETTINGS_RIGHT_REVERSE = new PidSettings(0.79, 0.48, 2.38, 0.288);
+    public static final PidSettings MOTION_PROFILING_PID_SETTINGS_LEFT_REVERSE = new PidSettings(0.15, 0.1, 2.36, 0.204);
+    public static final PidSettings MOTION_PROFILING_PID_SETTINGS_RIGHT_REVERSE = new PidSettings(0.15, 0.1, 2.36, 0.223);
 
     public static final double MOTION_PROFILING_KP_TURN = 0.025;
     public static final double MOTION_PROFILING_KP_TURN_REVERSE = 0.035;
@@ -65,10 +65,10 @@ public class RobotConstants {
     public static final double TICKS_PER_METER_LEFT = 12832;
     public static final int TICKS_PER_REVOLUTION_RIGHT = 4096;
     public static final int TICKS_PER_REVOLUTION_LEFT = 4096;
-    public static final double KS_LEFT = 0.152;
-    public static final double KS_RIGHT = 0.185;
+    public static final double KS_LEFT = 0.219;
+    public static final double KS_RIGHT = 0.221;
     public static final double KS_LEFT_REVERSE = 0.167;
-    public static final double KS_RIGHT_REVERSE = 0.183;
+    public static final double KS_RIGHT_REVERSE = 0.189;
   }
 
   public static class Vision {
