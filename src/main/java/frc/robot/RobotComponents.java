@@ -30,7 +30,7 @@ public class RobotComponents {
         public static final CANSparkMax RIGHT_FRONT_MOTOR = new CANSparkMax(RobotMap.CAN.DRIVETRAIN_RIGHT_FRONT_MOTOR,
                 MotorType.kBrushless);
 
-        public static final Pigeon GYRO = new Pigeon(RobotMap.CAN.PIGEON);
+        public static final Pigeon GYRO = new Pigeon(Lift.LIFT_MOTOR_LEFT);
 
         public static final WPI_TalonSRX ENCODER_RIGHT = new WPI_TalonSRX(RobotMap.CAN.ENCODER_RIGHT);
     }

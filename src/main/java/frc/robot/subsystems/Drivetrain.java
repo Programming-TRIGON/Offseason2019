@@ -19,7 +19,7 @@ import frc.robot.sensors.Pigeon;
 
 /** This is the susbsystem for the drivetrain of the robot */
 public class Drivetrain extends Subsystem {
-  private static final double ALPHA = 0.5;
+  private static final double ALPHA = 0.0;
   private static final double RAMP_LIMIT = 0; // In seconds, to full speed
   private SpeedControllerGroup leftDriveGroup, rightDriveGroup;
   private WPI_TalonSRX rightEncoder, leftEncoder;
@@ -46,7 +46,7 @@ public class Drivetrain extends Subsystem {
 
     this.drivetrain = new DifferentialDrive(this.leftDriveGroup, this.rightDriveGroup);
     this.gyro = RobotComponents.Drivetrain.GYRO;
-
+    gyro.calibrate();
     this.rightEncoder = RobotComponents.Drivetrain.ENCODER_RIGHT;
     this.leftEncoder = RobotComponents.CargoCollector.HOLDER_MOTOR;
     drivetrain.setDeadband(0.0);
@@ -66,7 +66,8 @@ public class Drivetrain extends Subsystem {
   }
 
   public double getAngle() {
-    return gyroAngle + angleOffset.get();
+    System.out.println(gyro.getAngle());
+    return gyro.getAngle();
   }
 
   public void resetGyro() {
