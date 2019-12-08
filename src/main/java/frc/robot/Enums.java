@@ -23,10 +23,7 @@ public class Enums {
         //TEST(new Waypoint[]{new Waypoint(0,0,0), new Waypoint(3,2,0)}),
         //JACI_ARC(new Waypoint[]{new Waypoint(0,0,0), new Waypoint(-1.5,2,Pathfinder.d2r(90))});
 
-
-        private String rightPathName;
-        private String leftPathName;
-        private Trajectory leftTrajectory;
+        private final Trajectory leftTrajectory;
         private Trajectory rightTrajectory;
 
         Path(Waypoint[] path) {
@@ -50,17 +47,11 @@ public class Enums {
         /**
          * loads path from a PathPlanner formatted csv file.
          *
-         * @param pathPlannerFileLeft name of the file in the paths folder.
+         * @param pathPlannerFile name of the file in the paths folder.
          */
         Path(String pathPlannerFileLeft, String pathPlannerFileRight) {
-            this.leftPathName = pathPlannerFileLeft;
-            this.rightPathName = pathPlannerFileRight;
-            readFromFiles();
-        }
-
-        public void readFromFiles() {
-            leftTrajectory = CsvReader.read("/home/lvuser/paths/" + leftPathName);
-            rightTrajectory = CsvReader.read("/home/lvuser/paths/" + rightPathName);
+            leftTrajectory = CsvReader.read("/home/lvuser/paths/" + pathPlannerFileLeft);
+            rightTrajectory = CsvReader.read("/home/lvuser/paths/" + pathPlannerFileRight);
         }
 
         public Trajectory getLeftTrajectory() {
@@ -68,13 +59,6 @@ public class Enums {
         }
         public Trajectory getRightTrajectory() {
             return rightTrajectory;
-        }
-        public void setLeftTrajectory(Trajectory leftTrajectory) {
-            this.leftTrajectory = leftTrajectory;
-        }
-
-        public void setRightTrajectory(Trajectory rightTrajectory) {
-            this.rightTrajectory = rightTrajectory;
         }
     }
     

@@ -62,9 +62,6 @@ public class FollowPath extends Command {
   @Override
   /** We configure the encoder and the PIDVA */
   protected void initialize() {
-    left.setTrajectory(path.getLeftTrajectory());
-    right.setTrajectory(path.getRightTrajectory());
-    setFlipped(isFlipped);
     left.configureEncoder(Robot.drivetrain.getLeftTicks(), RobotConstants.MotionProfiling.TICKS_PER_REVOLUTION_LEFT,
         RobotConstants.MotionProfiling.WHEEL_DIAMETER);
     right.configureEncoder(Robot.drivetrain.getRightTicks(), RobotConstants.MotionProfiling.TICKS_PER_REVOLUTION_RIGHT,
@@ -135,7 +132,7 @@ public class FollowPath extends Command {
       pidSettingsRight = RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_RIGHT_REVERSE;
       ksLeft = -MotionProfiling.KS_LEFT_REVERSE;
       ksRight = -MotionProfiling.KS_RIGHT_REVERSE;
-    }
+    } 
     // else {
     //   pidSettingsLeft = RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_LEFT;
     //   pidSettingsRight = RobotConstants.MotionProfiling.MOTION_PROFILING_PID_SETTINGS_RIGHT;

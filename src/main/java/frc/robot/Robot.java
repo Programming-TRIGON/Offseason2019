@@ -71,7 +71,6 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Calibrate gyro", Commands.calibrateGyro());
     SmartDashboard.putData("reset gyro", Commands.resetGyro());
     SmartDashboard.putData("Side Auto", new SideAutonomous(true));
-    SmartDashboard.putData("Read Paths From File", Commands.rereadPathFiles());
 
     // dbc SmartDashboard values to display
     dbc.addNumber("Limelight distance", limelight::getDistance);
