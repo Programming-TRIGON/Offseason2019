@@ -58,7 +58,7 @@ public class RobotConstants {
     public static final PidSettings MOTION_PROFILING_PID_SETTINGS_LEFT_REVERSE = new PidSettings(0.15, 0.1, 2.36, 0.204);
     public static final PidSettings MOTION_PROFILING_PID_SETTINGS_RIGHT_REVERSE = new PidSettings(0.15, 0.1, 2.36, 0.223);
 
-    public static final double MOTION_PROFILING_KP_TURN = 0.025;
+    public static final double MOTION_PROFILING_KP_TURN = 0.035;
     public static final double MOTION_PROFILING_KP_TURN_REVERSE = 0.035;
 
     public static final double TICKS_PER_METER_RIGHT = 12832;
