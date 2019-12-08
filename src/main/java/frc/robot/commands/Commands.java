@@ -3,8 +3,10 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.InstantCommand;
+import frc.robot.Enums.Path;
 import frc.robot.Robot;
 import frc.robot.RobotComponents;
+
 /**
  * this class holds all of the instant commands.
  */
@@ -56,5 +58,13 @@ public class Commands {
     public static InstantCommand toggleDrive() {
         InstantCommand c = new InstantCommand(() -> DriveArcade.toggleDrive());
         return c;
+    }
+    public static InstantCommand rereadPathFiles() {
+        var command = new InstantCommand(() -> {
+            for (Path path : Path.values())
+                path.readFromFiles();
+        });
+        command.setRunWhenDisabled(true);
+        return command;
     }
 }
