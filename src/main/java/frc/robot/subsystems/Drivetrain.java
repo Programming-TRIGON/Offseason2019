@@ -19,7 +19,6 @@ import frc.robot.sensors.Pigeon;
 
 /** This is the susbsystem for the drivetrain of the robot */
 public class Drivetrain extends Subsystem {
-  private static final double ALPHA = 0.0;
   private static final double RAMP_LIMIT = 0; // In seconds, to full speed
   private SpeedControllerGroup leftDriveGroup, rightDriveGroup;
   private WPI_TalonSRX rightEncoder, leftEncoder;
@@ -28,9 +27,7 @@ public class Drivetrain extends Subsystem {
   private double prevTime = 0, leftAcceleration = 0, rightAcceleration = 0, currentTime = 0, prevLeftVelocity = 0,
       prevRightVelocity = 0;
   private double TICKS_PER_METER = RobotConstants.Sensors.DRIVETRAIN_ENCODERS_DISTANCE_PER_TICKS;
-  private double gyroAngle;
   private Supplier<Double> angleOffset;
-  private double prevAngle;
 
   public Drivetrain() {
     // Settings for each side of the robot
@@ -69,13 +66,11 @@ public class Drivetrain extends Subsystem {
   }
 
   public double getAngle() {
-    System.out.println(gyro.getAngle());
-    return gyro.getAngle();
+    return gyro.getAngle() + angleOffset.get();
   }
 
   public void resetGyro() {
     this.gyro.reset();
-    gyroAngle = 0;
   }
 
   public void calibrateGyro() {
@@ -147,14 +142,6 @@ public class Drivetrain extends Subsystem {
     this.prevTime = currentTime;
     this.prevLeftVelocity = getLeftVelocity();
     this.prevRightVelocity = getRightVelocity();
-    if(gyro.isReady()){
-    // filter the angle using alpha filter
-      double currentAngle = gyro.getAngle() * 1.8;
-    
-      gyroAngle = currentAngle * (1 - ALPHA) + prevAngle * ALPHA;
-      prevAngle = currentAngle;
-      SmartDashboard.putNumber("unfiltered angle", currentAngle);
-    }
   }
 
   private void setSparksSettings(CANSparkMax front, CANSparkMax middle, CANSparkMax rear) {

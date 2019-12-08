@@ -7,6 +7,9 @@ import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 
+/**
+ * this class extends the PigeonIMU class for convenient API that implements Gyro and PIDSource.
+ */
 public class Pigeon extends PigeonIMU implements Gyro, PIDSource {
   private double[] yawPitchRoll;
   private double[] accelerometerAngles;
