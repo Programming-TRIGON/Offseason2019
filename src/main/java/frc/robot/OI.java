@@ -49,7 +49,7 @@ public class OI {
     setButtons();
     yoavSettings();
     /*if(isHillel){
-      hillelSettings();
+      hillelSettings(); 
     } else {
       grossmanSettings();
     }*/
@@ -102,7 +102,12 @@ public class OI {
     driverButtonRB.whenInactive(new HatchHolderLock(true));
     Command c = new PutHatch(true);
     driverButtonB.whenPressed(c);
+    driverButtonB.whenReleased(Commands.cancelCommand(c));
     //driverButtonB.whenReleased(new AfterHatchPlacement()); // Commands.cancelCommand(c)
+    
+    Command c2 = new PutHatch(false);
+    driverButtonA.whenPressed(c2);
+    driverButtonA.whenReleased(Commands.cancelCommand(c2));
   }
 
   private void hillelSettings() {

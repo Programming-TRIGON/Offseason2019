@@ -75,7 +75,7 @@ public class FollowTarget extends Command {
             if(Math.abs(yOutput) >= 0.5) {
                 Robot.drivetrain.curvatureDrive(xOutput,-0.5,false);
             } else {
-                Robot.drivetrain.curvatureDrive(xOutput,yOutput -0.025,false);
+                Robot.drivetrain.curvatureDrive(xOutput,yOutput -0.0225,false);
             }
             lastTimeOnTarget = Timer.getFPGATimestamp();
         } else {

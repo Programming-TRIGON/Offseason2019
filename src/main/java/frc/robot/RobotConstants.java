@@ -27,8 +27,8 @@ public class RobotConstants {
     public static final PidSettings LIFT_PID_SETTINGS = new PidSettings(0.095, 0, 0.085, 5, 0);
     public static final PidSettings DRIVETRAIN_TURN_PID_SETTINGS = new PidSettings(0, 0, 0, 0, 0);
     public static final PidSettings DRIVE_FORWARD_PID_SETTINGS = new PidSettings(0, 0, 0, 0, 0);
-    public static final PidSettings VISION_X_PID_SETTINGS = new PidSettings(0.0455, 0.00015, 0.14, 0, 0.5);
-    public static final PidSettings VISION_Y_PID_SETTINGS = new PidSettings(0.0125, 0, 0, 1, 0.5); //0.0125
+    public static final PidSettings VISION_X_PID_SETTINGS = new PidSettings(0.04575, 0.00015, 0.14, 0, 0.5);
+    public static final PidSettings VISION_Y_PID_SETTINGS = new PidSettings(0.0165, 0, 0, 0.9, 0.5); //0.0125
   }
 
   /**
@@ -39,7 +39,7 @@ public class RobotConstants {
 
     //we measure the height according to the bottom of the tilt.
     public static final double LIFT_ENCODER_OFFSET = 0;
-    public static final double LIFT_ENCODER_DISTANCE_PER_TICKS = (17928.0 * 2.0) / 100.0;
+    public static final double LIFT_ENCODER_DISTANCE_PER_TICKS = (18705.0 * 2.0) / 100.0;
   }
 
   public static class MotionProfiling {

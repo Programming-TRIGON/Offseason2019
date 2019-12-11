@@ -17,13 +17,13 @@ public class DriveArcade extends Command {
 
   public DriveArcade(Supplier<Double> x, Supplier<Double> y) {
     requires(Robot.drivetrain);
-    this.x = () -> calculateDeadband(x.get());
-    this.y = () -> calculateDeadband(y.get());
+    this.x = () -> x.get();
+    this.y = () -> y.get();
   }
 
   public DriveArcade(Supplier<Double> x, Supplier<Double> forward, Supplier<Double> reverse) {
     requires(Robot.drivetrain);
-    this.x = () -> calculateDeadband(xRootFunction(x.get()));
+    this.x = () -> xRootFunction(x.get());
     this.y = () -> rootFunction(forward.get() - reverse.get());
   }
 
