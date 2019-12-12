@@ -8,14 +8,12 @@ public class AfterHatchPlacement extends Command {
 
   public AfterHatchPlacement() {
     requires(Robot.hatchHolder);
-    requires(Robot.drivetrain);
   }
 
   @Override
   protected void initialize() {
-    //Robot.drivetrain.getCurrentCommand().cancel();
     isLock = Robot.hatchHolder.isLock();
-    DriveArcade.toggleLockX();
+    Robot.drivetrain.setXLock(true);
   }
 
   @Override
@@ -29,7 +27,7 @@ public class AfterHatchPlacement extends Command {
 
   @Override
   protected void end() {
-    DriveArcade.toggleLockX();
+    Robot.drivetrain.setXLock(false);
     Robot.hatchHolder.setLock(true);
   }
 

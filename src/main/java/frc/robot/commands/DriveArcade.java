@@ -10,10 +10,6 @@ public class DriveArcade extends Command {
   private static final double SENSITIVITY = 1;
   private static final double THRESHOLD = 0.5;
   private static final double DEADBAND = 0.095;
-  private static boolean drive = true;
-  private static boolean lockX = false;
-  private double lastXValue = 0;
-  private double lastYValue = 0;
 
   public DriveArcade(Supplier<Double> x, Supplier<Double> y) {
     requires(Robot.drivetrain);
@@ -36,10 +32,8 @@ public class DriveArcade extends Command {
   protected void execute() {
     double y = this.y.get();
     double x = this.x.get();
-    lastXValue = this.x.get();
-    lastYValue = this.y.get();
 
-    if(drive)
+    if(Robot.drivetrain.getCanDrive())
       Robot.drivetrain.curvatureDrive(SENSITIVITY * x, SENSITIVITY * y, Math.sqrt(y * y + x * x) < THRESHOLD || Math.abs(y) < Math.abs(x));
     else 
       Robot.drivetrain.tankDrive(0, 0);
@@ -61,30 +55,19 @@ public class DriveArcade extends Command {
   }
 
   private double rootFunction(double value) {
-    //value -= Math.signum(0.05);
-    //return Math.signum(value) * (2 * Math.sqrt(Math.abs(value)) - Math.abs(value));
     boolean isLiniar = Math.abs(value) <= 0.25;
     return isLiniar ? 2 * value : Math.signum(value) * Math.sqrt(Math.abs(value));
   }
 
   private double xRootFunction(double value) {
-    boolean isLiniar = Math.abs(value) <= 0.5;
-    return lockX ? 0 : isLiniar ? 0.5 * value : Math.signum(value) * Math.pow(value, 2);
+    boolean isLinear = Math.abs(value) <= 0.5;
+    return Robot.drivetrain.getIsXLock() ? 0 : isLinear ? 0.5 * value : Math.signum(value) * Math.pow(value, 2);
   }
 
   private static double calculateDeadband(double value) {
-    // if(Math.abs((value - lastValue) / 0.02) <= (0.1 / 0.02) && Math.abs(value) < DEADBAND) {
     if(Math.abs(value) < DEADBAND) {
       return 0;
     }
     return value;
-  }
-
-  public static void toggleDrive() {
-    drive = !drive;
-  }
-
-  public static void toggleLockX() {
-    lockX = !lockX;
   }
 }

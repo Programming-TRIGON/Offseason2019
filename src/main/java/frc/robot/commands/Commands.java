@@ -54,7 +54,7 @@ public class Commands {
     }
 
     public static InstantCommand toggleDrive() {
-        InstantCommand c = new InstantCommand(() -> DriveArcade.toggleDrive());
+        InstantCommand c = new InstantCommand(() -> Robot.drivetrain.toggleCanDrive());
         return c;
     }
 }

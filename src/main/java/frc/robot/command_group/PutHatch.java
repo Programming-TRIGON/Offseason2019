@@ -12,5 +12,6 @@ public class PutHatch extends CommandGroup {
         addSequential(new HatchHolderLock(put));
         addSequential(new FollowTarget(Target.Feeder));
         addSequential(new HatchHolderLock(!put));
+        addSequential(new AfterHatchPlacement());
     }
 }
