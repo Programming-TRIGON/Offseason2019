@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.buttons.Trigger;
 public class XboxTrigger extends Trigger {
   private XboxController xbox;
   private Hand hand;
+  
   public XboxTrigger(XboxController xbox, Hand hand){
     this.xbox = xbox;
     this.hand = hand;
