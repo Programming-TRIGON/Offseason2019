@@ -56,12 +56,12 @@ public class DriveArcade extends Command {
 
   private double rootFunction(double value) {
     boolean isLinear = Math.abs(value) <= 0.25;
-    return Robot.drivetrain.getIsXLock() ? 0 : isLinear ? 2 * value : Math.signum(value) * Math.sqrt(Math.abs(value));
+    return isLinear ? 2 * value : Math.signum(value) * Math.sqrt(Math.abs(value));
   }
 
   private double xRootFunction(double value) {
     boolean isLinear = Math.abs(value) <= 0.5;
-    return isLinear ? 0.5 * value : Math.signum(value) * Math.pow(value, 2);
+    return Robot.drivetrain.getIsXLock() ? 0 : isLinear ? 0.5 * value : Math.signum(value) * Math.pow(value, 2);
   }
 
   private static double calculateDeadband(double value) {

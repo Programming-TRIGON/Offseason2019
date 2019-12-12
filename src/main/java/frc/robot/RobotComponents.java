@@ -1,5 +1,6 @@
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -40,7 +41,7 @@ public class RobotComponents {
     }
     
     public static class Lift {
-        public static final Encoder encoder = new Encoder(RobotMap.DIO.LIFT_ENCODER_CHANNEL_A, RobotMap.DIO.LIFT_ENCODER_CHANNEL_B);
+        public static final WPI_TalonSRX LIFT_ENCODER = new WPI_TalonSRX(RobotMap.CAN.LIFT_ENCODER);
         public static final WPI_TalonSRX LIFT_MOTOR_LEFT = new WPI_TalonSRX(RobotMap.CAN.LIFT_MOTOR_LEFT);
         public static final WPI_TalonSRX LIFT_MOTOR_RIGHT = new WPI_TalonSRX(RobotMap.CAN.LIFT_MOTOR_RIGHT);
     }

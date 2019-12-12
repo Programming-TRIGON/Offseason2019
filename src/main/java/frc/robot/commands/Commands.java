@@ -40,6 +40,11 @@ public class Commands {
         c.setRunWhenDisabled(true);
         return c;
     }
+    public static InstantCommand resetHeight() {
+        InstantCommand c = new InstantCommand(Robot.lift::resetEncoderHeight);
+        c.setRunWhenDisabled(true);
+        return c;
+    }
 
     public static InstantCommand calibrateGyro() {
         InstantCommand c = new InstantCommand(Robot.drivetrain::calibrateGyro);
