@@ -15,6 +15,6 @@ public class PutHatch extends CommandGroup {
         addSequential(new HatchHolderLock(put));
         addSequential(new FollowTarget(Target.Feeder));
         addSequential(new HatchHolderLock(!put));
-        addSequential(new AfterHatchPlacement(() -> Robot.oi.driverXbox.getTriggerAxis(Hand.kLeft), () -> Robot.oi.driverXbox.getTriggerAxis(Hand.kRight)));
+        //addSequential(new AfterHatchPlacement(() -> Robot.oi.driverXbox.getTriggerAxis(Hand.kLeft), () -> Robot.oi.driverXbox.getTriggerAxis(Hand.kRight)));
     }
 }
