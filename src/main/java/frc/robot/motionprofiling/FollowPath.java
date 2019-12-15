@@ -1,5 +1,6 @@
 package frc.robot.motionprofiling;
 
+import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Enums.Path;
@@ -26,6 +27,7 @@ public class FollowPath extends Command {
   private double ksLeft;
   private double ksRight;
   private double startAngle;
+  private Notifier notifier;
 
   /**
    * This command gets the path number and then follows it
@@ -40,6 +42,7 @@ public class FollowPath extends Command {
     turnKp = MotionProfiling.MOTION_PROFILING_KP_TURN;
     ksLeft = MotionProfiling.KS_LEFT;
     ksRight = MotionProfiling.KS_RIGHT;
+    notifier = new Notifier(this::executeFollow);
   }
 
   public FollowPath(Path path, boolean isFlipped) {
@@ -73,15 +76,16 @@ public class FollowPath extends Command {
     startAngle = Pathfinder.d2r(Robot.drivetrain.getAngle());
     left.reset();
     right.reset();
+    notifier.startPeriodic(MotionProfiling.TIMEFRAME);
   }
 
-  @Override
   /**
    * We calculate the needed power , then we calculate the heading of the gyro to
    * acount for the heading of the robot. The power we give to the motors is the
    * calculation in the beginning - / + the KP.
    */
-  protected void execute() {
+
+  private void executeFollow() {
     leftCalculate = left.calculate(Robot.drivetrain.getLeftTicks());
     rightCalculate = right.calculate(Robot.drivetrain.getRightTicks());
     gyroHeading = Robot.drivetrain.getAngle();
@@ -102,6 +106,7 @@ public class FollowPath extends Command {
 
   @Override
   protected boolean isFinished() {
+    notifier.stop();
     return left.isFinished() && right.isFinished();
   }
 
