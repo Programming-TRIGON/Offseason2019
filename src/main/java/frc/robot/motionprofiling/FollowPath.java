@@ -106,12 +106,12 @@ public class FollowPath extends Command {
 
   @Override
   protected boolean isFinished() {
-    notifier.stop();
     return left.isFinished() && right.isFinished();
   }
 
   @Override
   protected void end() {
+    notifier.stop();
     Robot.drivetrain.tankDrive(0, 0);
   }
 
