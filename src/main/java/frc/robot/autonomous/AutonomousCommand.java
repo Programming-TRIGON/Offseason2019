@@ -15,7 +15,7 @@ public class AutonomousCommand extends CommandGroup {
     addParallel(setLiftHeight);
     addSequential(new TurnWithGyro(isLeft ?1:-1 * FieldDimensions.AUTO_TURN_ANGLE));
     addSequential(new WaitUntil(setLiftHeight::isOnTarget));
-    addSequential(new VisionPID(Target.CargoShip, true));
+    //addSequential(new VisionPID(Target.CargoShip, true));
     addSequential(new EjectCargo());
   }
 }

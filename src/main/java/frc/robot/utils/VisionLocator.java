@@ -15,7 +15,10 @@ public class VisionLocator {
 
   public double calculateXDisplacement() {
     //calculations are from CAV conference.
-    double betaAngle = Robot.drivetrain.getAngle() - target.getAbsoluteAngle() - 180 + Robot.limelight.getTx();
-    return Robot.limelight.getDistance() * Math.sin(betaAngle);
+    if (Robot.limelight.getTv()) {
+      double betaAngle = Robot.drivetrain.getAngle() - target.getAbsoluteAngle() - 180 + Robot.limelight.getTx();
+      return Robot.limelight.getDistance() * Math.sin(betaAngle);
+    }
+    return 0;
   }
 }

@@ -30,7 +30,7 @@ public class TestPIDVision extends Command {
   @Override
   protected void initialize() {
     updatePID();
-    testCommand = new FollowTarget(Target.RocketSide, pidSettings, pidSettings2);
+    testCommand = new FollowTarget(Target.CLOSE_LEFT_ROCKET, pidSettings, pidSettings2);
     testCommand.start();
   }
 

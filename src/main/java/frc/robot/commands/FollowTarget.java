@@ -89,12 +89,17 @@ public class FollowTarget extends Command {
   }
 
   private void executeMinimizeX() {
-    double xDisplacement = visionLocator.calculateXDisplacement();
-    double rotationPower = RobotPIDSettings.KP_X_DISPLACEMENT * xDisplacement;
-    Robot.drivetrain.arcadeDrive(rotationPower, DEFAULT_Y_POWER);
-    if (Math.abs(xDisplacement) < MIN_X_DISPLACEMENT_TO_CHASE) {
-      isChasing = true;
+    if (!Robot.limelight.getTv()) {
+      double xDisplacement = visionLocator.calculateXDisplacement();
+      double rotationPower = RobotPIDSettings.KP_X_DISPLACEMENT * xDisplacement;
+      Robot.drivetrain.arcadeDrive(rotationPower, DEFAULT_Y_POWER);
+      if (Math.abs(xDisplacement) < MIN_X_DISPLACEMENT_TO_CHASE) {
+        isChasing = true;
+      }
     }
+    else
+      // the target hasn't been found.
+      Robot.drivetrain.arcadeDrive(0,0);
   }
 
   private void executeChase() {
