@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.POVButton;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Enums.LiftHeights;
 import frc.robot.Enums.ScoreHeight;
@@ -15,7 +14,6 @@ import frc.robot.command_group.CollectHatchFromFeeder;
 import frc.robot.command_group.DefenceMode;
 import frc.robot.command_group.PrepareToScore;
 import frc.robot.command_group.PutHatch;
-import frc.robot.commands.AfterHatchPlacement;
 import frc.robot.commands.CollectCargo;
 import frc.robot.commands.Commands;
 import frc.robot.commands.DriveArcade;
@@ -100,14 +98,8 @@ public class OI {
     driverButtonLB.whenActive(new EjectCargo());
     driverButtonRB.whenActive(new HatchHolderLock(false));
     driverButtonRB.whenInactive(new HatchHolderLock(true));
-    Command c = new PutHatch(true);
-    driverButtonB.whenPressed(c);
-    driverButtonB.whenReleased(Commands.cancelCommand(c));
-    //driverButtonB.whenReleased(new AfterHatchPlacement()); // Commands.cancelCommand(c)
-    
-    Command c2 = new PutHatch(false);
-    driverButtonA.whenPressed(c2);
-    driverButtonA.whenReleased(Commands.cancelCommand(c2));
+    driverButtonB.whenPressed(new PutHatch(true));
+    driverButtonA.whenPressed(new PutHatch(false));
   }
 
   private void hillelSettings() {

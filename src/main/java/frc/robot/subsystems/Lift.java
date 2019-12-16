@@ -12,13 +12,13 @@ import frc.robot.RobotConstants;
 /** This is the subsystem of the lift */
 public class Lift extends Subsystem {
   private WPI_TalonSRX leftMotor, rightMotor;
-  private Encoder encoder;
+  private WPI_TalonSRX encoder;
 
   public Lift() {
     this.leftMotor = RobotComponents.Lift.LIFT_MOTOR_LEFT;
     this.rightMotor = RobotComponents.Lift.LIFT_MOTOR_RIGHT;
 
-    this.encoder = RobotComponents.Lift.encoder;
+    this.encoder = RobotComponents.Lift.LIFT_ENCODER;
     
     this.leftMotor.setInverted(true);
     
@@ -52,12 +52,12 @@ public class Lift extends Subsystem {
   }
 
   public double getHeight() {
-    return this.encoder.get() / RobotConstants.Sensors.LIFT_ENCODER_DISTANCE_PER_TICKS
+    return this.encoder.getSelectedSensorPosition() / RobotConstants.Sensors.LIFT_ENCODER_DISTANCE_PER_TICKS
         + RobotConstants.Sensors.LIFT_ENCODER_OFFSET;
   }
 
   public void resetEncoderHeight() {
-    this.encoder.reset();
+    this.encoder.setSelectedSensorPosition(0);
   }
 
   @Override
