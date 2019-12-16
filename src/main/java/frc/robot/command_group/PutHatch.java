@@ -13,7 +13,7 @@ import frc.robot.commands.*;
 public class PutHatch extends CommandGroup {
     public PutHatch(boolean put) {
         addSequential(new HatchHolderLock(put));
-        addSequential(new FollowTarget(Target.Feeder));
+        addSequential(new FollowTarget(Target.FEEDER));
         addSequential(new HatchHolderLock(!put));
         //addSequential(new AfterHatchPlacement(() -> Robot.oi.driverXbox.getTriggerAxis(Hand.kLeft), () -> Robot.oi.driverXbox.getTriggerAxis(Hand.kRight)));
     }

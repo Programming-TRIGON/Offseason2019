@@ -16,7 +16,7 @@ public class CollectHatchFromFeeder extends CommandGroup {
         SetLiftHeight lowerLiftCommand = new SetLiftHeight(LiftHeights.Floor);
         addParallel(lowerLiftCommand);
         addSequential(new WaitCommand(0.02));
-        addSequential(new FollowTarget(Target.Feeder));
+        addSequential(new FollowTarget(Target.FEEDER));
         addSequential(new WaitUntil(lowerLiftCommand::isOnTarget));
         addSequential(new HatchHolderLock(true));
     }

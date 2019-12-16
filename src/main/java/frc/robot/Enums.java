@@ -63,19 +63,24 @@ public class Enums {
     }
     
     public enum Target {
-        RocketMiddle(1), RocketSide(0), Feeder(0), CargoShip(0);
-    
-        private final int index;
+        RIGHT_CARGOSHIP(90.0), LEFT_CARGOSHIP(-90.0), LEFT_ROCKET_CARGO(90), RIGHT_ROCKET_CARGO(-90),
+        CLOSE_LEFT_ROCKET(28.75), FAR_LEFT_ROCKET(151.25), CLOSE_RIGHT_ROCKET(-28.75), FAR_RIGHT_ROCKET(-151.25),
+        CARGO_SHIP_FRONT(0), FEEDER(180);
 
-        Target(int index) {
-            this.index = index;
+        private double absoluteAngle;
+
+        Target(double absoluteAngle) {
+            this.absoluteAngle = absoluteAngle;
 
         }
     
         public int getIndex() {
-            return index;
+            return 0;
         }
 
+        public double getAbsoluteAngle() {
+            return absoluteAngle;
+        }
     }
 
     private static double cargoOffset = RobotConstants.RobotDimensions.CARGO_LIFT_OFFSET;
