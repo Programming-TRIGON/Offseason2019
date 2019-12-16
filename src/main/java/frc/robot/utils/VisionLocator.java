@@ -9,11 +9,11 @@ import frc.robot.Robot;
 public class VisionLocator {
   private final Target target;
 
-  private VisionLocator(Target target) {
+  public VisionLocator(Target target) {
     this.target = target;
   }
 
-  public double calculateXDifference() {
+  public double calculateXDisplacement() {
     //calculations are from CAV conference.
     double betaAngle = Robot.drivetrain.getAngle() - target.getAbsoluteAngle() - 180 + Robot.limelight.getTx();
     return Robot.limelight.getDistance() * Math.sin(betaAngle);
