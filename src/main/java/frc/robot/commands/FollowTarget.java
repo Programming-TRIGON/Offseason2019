@@ -53,7 +53,7 @@ public class FollowTarget extends Command {
         this.pidControllerY = new PIDController(pidSettingsY.getKP(), pidSettingsY.getKI(), pidSettingsY.getKD(), 
         visionPIDSourceY, y -> yOutput = -y);
         pidControllerY.setSetpoint(0);
-        pidControllerY.setOutputRange(-1, 1);
+        pidControllerY.setOutputRange(-0.5, 0.5);
         pidControllerY.setAbsoluteTolerance(pidSettingsY.getTolerance());
 
         // setting limelight settings
@@ -71,12 +71,8 @@ public class FollowTarget extends Command {
     @Override
     protected void execute() {
         // if it sees a target it will do PID on the x axis else it won't move
-        if (Robot.limelight.getTv()) {
-            if(Math.abs(yOutput) >= 0.5) {
-                Robot.drivetrain.curvatureDrive(xOutput,-0.5,false);
-            } else {
-                Robot.drivetrain.curvatureDrive(xOutput,yOutput -0.0225,false);
-            }
+        if(Robot.limelight.getTv()) {
+            Robot.drivetrain.curvatureDrive(xOutput,yOutput -0.025,false);
             lastTimeOnTarget = Timer.getFPGATimestamp();
         } else {
             // the target hasn't been found.
@@ -87,7 +83,7 @@ public class FollowTarget extends Command {
     @Override
     protected boolean isFinished() {
         return (Timer.getFPGATimestamp() - lastTimeOnTarget > pidSettingsX.getWaitTime()) 
-                || pidControllerY.onTarget();
+                || Robot.limelight.getDistance() < pidSettingsY.getTolerance();
     }
 
     @Override

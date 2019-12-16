@@ -22,6 +22,6 @@ public class SideAutonomous extends CommandGroup {
     addSequential(new PutHatch(false));
     addSequential(new FollowPath(Path.FEEDER_TO_ROCKET, true, true));
     addSequential(new PutHatch(true));
-    addSequential(new FollowPath(Path.BACK_FROM_ROCKET, true, true));
+    //addSequential(new FollowPath(Path.BACK_FROM_ROCKET, true, true));
   }
 }

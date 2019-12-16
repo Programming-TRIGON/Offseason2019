@@ -28,6 +28,8 @@ public class Drivetrain extends Subsystem {
       prevRightVelocity = 0;
   private double TICKS_PER_METER = RobotConstants.Sensors.DRIVETRAIN_ENCODERS_DISTANCE_PER_TICKS;
   private Supplier<Double> angleOffset;
+  private boolean isXLock, canDrive = true;
+
 
   public Drivetrain() {
     // Settings for each side of the robot
@@ -166,10 +168,28 @@ public class Drivetrain extends Subsystem {
     rear.burnFlash();
   }
 
+  public boolean getIsXLock() {
+    return isXLock;
+  }
+
+  public void setXLock(boolean isXLock) {
+    this.isXLock = isXLock;
+  }
+
+  public boolean getCanDrive() {
+    return canDrive;
+  }
+
+  public void setCanDrive(boolean canDrive) {
+    this.canDrive = canDrive;
+  }
+
+  public void toggleCanDrive() {
+    canDrive = !canDrive;
+  }
+
   @Override
   public void initDefaultCommand() {
-    // setDefaultCommand(new DriveArcade(() -> Robot.oi.driverXbox.getX(Hand.kLeft),
-    // () -> Robot.oi.driverXbox.getY(Hand.kLeft)));
     setDefaultCommand(new DriveArcade(() -> Robot.oi.driverXbox.getX(Hand.kLeft),
         () -> Robot.oi.driverXbox.getTriggerAxis(Hand.kLeft), () -> Robot.oi.driverXbox.getTriggerAxis(Hand.kRight)));
   }
