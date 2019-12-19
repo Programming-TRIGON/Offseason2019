@@ -28,7 +28,7 @@ public class RobotConstants {
     public static final PidSettings DRIVETRAIN_TURN_PID_SETTINGS = new PidSettings(0, 0, 0, 0, 0);
     public static final PidSettings DRIVE_FORWARD_PID_SETTINGS = new PidSettings(0, 0, 0, 0, 0);
     public static final PidSettings VISION_X_PID_SETTINGS = new PidSettings(0.04575, 0.00015, 0.14, 0, 0.5);
-    public static final PidSettings VISION_Y_PID_SETTINGS = new PidSettings(0.0165, 0, 0, 1, 0.5); //0.0125
+    public static final PidSettings VISION_Y_PID_SETTINGS = new PidSettings(0.0165, 0, 0, 1.15, 0.5); //0.0125
   }
 
   /**

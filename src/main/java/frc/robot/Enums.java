@@ -41,7 +41,6 @@ public class Enums {
                 System.err.println("File not existing");
             }
             this.leftTrajectory = trajectory;
-
         }
 
         /**

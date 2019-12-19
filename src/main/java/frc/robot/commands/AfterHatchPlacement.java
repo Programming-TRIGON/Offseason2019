@@ -33,7 +33,7 @@ public class AfterHatchPlacement extends Command {
 
   @Override
   protected boolean isFinished() {
-    return Robot.limelight.getDistance() >= 35 || !Robot.limelight.getTv() || !isLock;
+    return Robot.limelight.getDistance() >= 8 || !Robot.limelight.getTv() || !isLock;
   }
 
   @Override

@@ -1,7 +1,6 @@
 package frc.robot.command_group;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
 import frc.robot.Enums.Target;
@@ -15,6 +14,6 @@ public class PutHatch extends CommandGroup {
         addSequential(new HatchHolderLock(put));
         addSequential(new FollowTarget(Target.Feeder));
         addSequential(new HatchHolderLock(!put));
-        //addSequential(new AfterHatchPlacement(() -> Robot.oi.driverXbox.getTriggerAxis(Hand.kLeft), () -> Robot.oi.driverXbox.getTriggerAxis(Hand.kRight)));
+        addSequential(new AfterHatchPlacement(() -> Robot.oi.driverXbox.getTriggerAxis(Hand.kLeft), () -> Robot.oi.driverXbox.getTriggerAxis(Hand.kRight)));
     }
 }
