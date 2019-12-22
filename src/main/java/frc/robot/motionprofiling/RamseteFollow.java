@@ -85,7 +85,7 @@ public class RamseteFollow extends Command {
     requires(requirement);
   }
 
-  RamseteFollow(RamsetePath path) {
+  public RamseteFollow(RamsetePath path) {
     this(path.getTrajectory(),
             drivetrain::getPose,
             new RamseteController(),

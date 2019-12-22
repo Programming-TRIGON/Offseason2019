@@ -8,11 +8,13 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Enums.RamsetePath;
 import frc.robot.autonomous.SideAutonomous;
 import frc.robot.command_group.CollectHatchFromFeeder;
 import frc.robot.command_group.PutHatch;
 import frc.robot.commands.*;
 import frc.robot.motionprofiling.PathCreator;
+import frc.robot.motionprofiling.RamseteFollow;
 import frc.robot.subsystems.CargoHolder;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.HatchHolder;
@@ -70,6 +72,9 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Calibrate gyro", Commands.calibrateGyro());
     SmartDashboard.putData("reset gyro", Commands.resetGyro());
     SmartDashboard.putData("Side Auto", new SideAutonomous(true));
+    RamseteFollow ramseteFollow = new RamseteFollow(RamsetePath.THREE_METERS);
+    ramseteFollow.enableTuning();
+    SmartDashboard.putData("test Ramsete", ramseteFollow);
     SmartDashboard.putData("move lift", new MoveLiftWithJoystick(()->oi.driverXbox.getY(Hand.kLeft)));
     SmartDashboard.putData("reset height", Commands.resetHeight());
 
