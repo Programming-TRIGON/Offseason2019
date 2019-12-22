@@ -3,10 +3,13 @@ package frc.robot;
 import java.io.IOException;
 import java.io.File;
 
+import frc.robot.motionprofiling.PathCreator;
 import frc.robot.utils.CsvReader;
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.Waypoint;
+import wpilibj.geometry.Pose2d;
+import wpilibj.geometry.Rotation2d;
 
 /**
  * This class contains enums for the robot, we convert human readable language
@@ -100,5 +103,18 @@ public class Enums {
     
     public enum ScoreHeight {
         kLow, kMedium, kHigh, kMediumGrossman
+    }
+
+    public enum RamsetePath{
+        THREE_METERS(new Pose2d(0,0, Rotation2d.fromDegrees(0)),new Pose2d(3,0, Rotation2d.fromDegrees(0)));
+        private final wpilibj.trajectory.Trajectory trajectory;
+        RamsetePath( Pose2d... waypoints){
+            var creator = new PathCreator();
+            trajectory = creator.generatePath(waypoints);
+        }
+
+        public wpilibj.trajectory.Trajectory getTrajectory() {
+            return trajectory;
+        }
     }
 }

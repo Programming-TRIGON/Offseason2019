@@ -6,6 +6,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.spikes2212.dashboard.ConstantHandler;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -14,12 +15,19 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotComponents;
 import frc.robot.RobotConstants;
+import frc.robot.RobotConstants.MotionProfiling;
 import frc.robot.commands.DriveArcade;
 import frc.robot.sensors.Pigeon;
+import wpilibj.geometry.Pose2d;
+import wpilibj.geometry.Rotation2d;
+import wpilibj.kinematics.DifferentialDriveKinematics;
+import wpilibj.kinematics.DifferentialDriveOdometry;
+import wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 
 /** This is the susbsystem for the drivetrain of the robot */
 public class Drivetrain extends Subsystem {
   private static final double RAMP_LIMIT = 0; // In seconds, to full speed
+  private final DifferentialDriveOdometry odometry;
   private SpeedControllerGroup leftDriveGroup, rightDriveGroup;
   private WPI_TalonSRX rightEncoder, leftEncoder;
   private DifferentialDrive drivetrain;
@@ -29,6 +37,7 @@ public class Drivetrain extends Subsystem {
   private double TICKS_PER_METER = RobotConstants.Sensors.DRIVETRAIN_ENCODERS_DISTANCE_PER_TICKS;
   private Supplier<Double> angleOffset;
   private boolean isXLock, canDrive = true;
+  private DifferentialDriveKinematics kinematics;
 
 
   public Drivetrain() {
@@ -53,6 +62,8 @@ public class Drivetrain extends Subsystem {
     this.leftEncoder = RobotComponents.CargoCollector.HOLDER_MOTOR;
     drivetrain.setDeadband(0.0);
     angleOffset = ConstantHandler.addConstantDouble("angle offset", 0);
+    kinematics = new DifferentialDriveKinematics(MotionProfiling.WHEEL_BASE_WIDTH);
+    odometry = new DifferentialDriveOdometry(new Rotation2d(Math.toRadians(getAngle())));
   }
 
   public void arcadeDrive(double x, double y) {
@@ -144,6 +155,7 @@ public class Drivetrain extends Subsystem {
     this.prevTime = currentTime;
     this.prevLeftVelocity = getLeftVelocity();
     this.prevRightVelocity = getRightVelocity();
+    odometry.update(Rotation2d.fromDegrees(getAngle()), getLeftDistance(), getRightDistance());
   }
 
   private void setSparksSettings(CANSparkMax front, CANSparkMax middle, CANSparkMax rear) {
@@ -188,9 +200,30 @@ public class Drivetrain extends Subsystem {
     canDrive = !canDrive;
   }
 
+  public DifferentialDriveKinematics getKinematics() {
+    return kinematics;
+  }
+
+  public DifferentialDriveWheelSpeeds getWheelSpeeds() {
+    return new DifferentialDriveWheelSpeeds(getLeftVelocity(), getRightVelocity());
+  }
+
+  /**
+   * Returns the currently-estimated pose of the robot.
+   *
+   * @return The pose.
+   */
+  public Pose2d getPose() {
+    return odometry.getPoseMeters();
+  }
+
+  public void voltageTankDrive(double left, double right) {
+    tankDrive(left / RobotController.getBatteryVoltage(), right / RobotController.getBatteryVoltage());
+  }
+
   @Override
   public void initDefaultCommand() {
     setDefaultCommand(new DriveArcade(() -> Robot.oi.driverXbox.getX(Hand.kLeft),
-        () -> Robot.oi.driverXbox.getTriggerAxis(Hand.kLeft), () -> Robot.oi.driverXbox.getTriggerAxis(Hand.kRight)));
+            () -> Robot.oi.driverXbox.getTriggerAxis(Hand.kLeft), () -> Robot.oi.driverXbox.getTriggerAxis(Hand.kRight)));
   }
 }

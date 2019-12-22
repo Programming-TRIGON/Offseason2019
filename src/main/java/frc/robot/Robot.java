@@ -12,7 +12,7 @@ import frc.robot.autonomous.SideAutonomous;
 import frc.robot.command_group.CollectHatchFromFeeder;
 import frc.robot.command_group.PutHatch;
 import frc.robot.commands.*;
-import frc.robot.motionprofiling.PathCreater;
+import frc.robot.motionprofiling.PathCreator;
 import frc.robot.subsystems.CargoHolder;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.HatchHolder;
@@ -26,7 +26,6 @@ import frc.robot.utils.Limelight.LedMode;
 
 public class Robot extends TimedRobot {
   public static OI oi;
-  public static PathCreater pathCreater;
   public static CargoHolder cargoHolder;
   public static Drivetrain drivetrain;
   public static Lift lift;
@@ -47,7 +46,6 @@ public class Robot extends TimedRobot {
     hatchHolder = new HatchHolder();
     // Utils:
     oi = new OI(true);
-    pathCreater = new PathCreater();
     limelight = new Limelight();
     dbc = new DashBoardController();
 
