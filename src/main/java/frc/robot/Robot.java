@@ -92,6 +92,8 @@ public class Robot extends TimedRobot {
     dbc.addNumber("Left distance", drivetrain::getLeftDistance);
     dbc.addBoolean("Is Cargo collected ", cargoHolder::isCargoCollected);
     dbc.addNumber("Target Ts", limelight::getTs);
+    dbc.addNumber("Odometry x", drivetrain.getPose().getTranslation()::getX);
+    dbc.addNumber("Odometry y", drivetrain.getPose().getTranslation()::getY);
 
     limelight.setCamMode(CamMode.vision);
     limelight.setLedMode(LedMode.on);
