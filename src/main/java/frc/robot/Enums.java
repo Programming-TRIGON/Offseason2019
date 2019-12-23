@@ -106,7 +106,9 @@ public class Enums {
     }
 
     public enum RamsetePath {
-        THREE_METERS(new Pose2d(0, 0, Rotation2d.fromDegrees(0)), new Pose2d(3, 0, Rotation2d.fromDegrees(0)));
+        THREE_METERS(new Pose2d(0, 0, Rotation2d.fromDegrees(0)), new Pose2d(3, 0, Rotation2d.fromDegrees(0))),
+        ARC(new Pose2d(0, 0, Rotation2d.fromDegrees(0)), new Pose2d(2.5, -1, Rotation2d.fromDegrees(-90))),
+        RAMP_TO_ROCKET(new Pose2d(1.74,-2.81,Rotation2d.fromDegrees(0)), new Pose2d(4.7951,-0.8622,Rotation2d.fromDegrees(30.1065)));
         private final wpilibj.trajectory.Trajectory trajectory;
 
         RamsetePath(Pose2d... waypoints) {

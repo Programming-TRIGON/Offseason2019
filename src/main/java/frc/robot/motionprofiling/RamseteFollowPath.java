@@ -34,7 +34,8 @@ public class RamseteFollowPath extends Command {
   private final BiConsumer<Double, Double> m_output;
   private DifferentialDriveWheelSpeeds m_prevSpeeds;
   private double m_prevTime;
-  private Supplier<Double> kpSupplier = ConstantHandler.addConstantDouble("Ramsete kp", 0);
+  private Supplier<Double> kpSupplierLeft = ConstantHandler.addConstantDouble("Ramsete kp left", 0);
+  private Supplier<Double> kpSupplierRight = ConstantHandler.addConstantDouble("Ramsete kp right", 0);
   private boolean isTuning;
 
   /**
@@ -104,9 +105,9 @@ public class RamseteFollowPath extends Command {
   @Override
   public void initialize() {
     if(isTuning){
-      m_leftController.setP(kpSupplier.get());
-      m_rightController.setP(kpSupplier.get());
-      drivetrain.resetOdometry();
+      m_leftController.setP(kpSupplierLeft.get());
+      m_rightController.setP(kpSupplierRight.get());
+      drivetrain.resetOdometry(m_trajectory.getInitialPose());
     }
     m_prevTime = 0;
     var initialState = m_trajectory.sample(0);

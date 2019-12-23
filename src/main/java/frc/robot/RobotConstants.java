@@ -16,6 +16,8 @@ public class RobotConstants {
      */
     public static final double CARGO_LIFT_OFFSET = 0;
     public static final double HATCH_LIFT_OFFSET = 48;
+    public static final double RIGHT_TICKS_PER_METER = 13484.0;
+    public static final double LEFT_TICKS_PER_METER = 13318.0;
   }
 
   // TODO: set configure pid settings
@@ -70,10 +72,10 @@ public class RobotConstants {
     public static final double KS_LEFT_REVERSE = 0.167;
     public static final double KS_RIGHT_REVERSE = 0.189;
     //TODO: calibrate using frc characterization.
-    public static final double KS = 0;
-    public static final double KV = 0;
-    public static final double KA = 0;
-    public static final double KP = 0;
+    public static final double KS = 0.153;
+    public static final double KV = 2.41;
+    public static final double KA = 0.205;
+    public static final double KP = 08.25;
     public static final double KS_REVERSE = 0;
     public static final double KV_REVERSE = 0;
     public static final double KA_REVERSE = 0;

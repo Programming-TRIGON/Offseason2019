@@ -6,6 +6,7 @@ import wpilibj.geometry.Pose2d;
 import wpilibj.trajectory.Trajectory;
 import wpilibj.trajectory.TrajectoryConfig;
 import wpilibj.trajectory.TrajectoryGenerator;
+import wpilibj.trajectory.constraint.CentripetalAccelerationConstraint;
 
 import java.util.Arrays;
 
@@ -22,7 +23,8 @@ public class PathCreator {
    */
   public PathCreator() {
     config = new TrajectoryConfig(MotionProfiling.MAX_VELOCITY, MotionProfiling.MAX_ACCELERATION)
-            .setKinematics(Robot.drivetrain.getKinematics());
+            .setKinematics(Robot.drivetrain.getKinematics())
+            .addConstraint(new CentripetalAccelerationConstraint(1.5));
   }
 
   /**

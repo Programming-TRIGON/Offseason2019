@@ -11,11 +11,11 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotComponents;
 import frc.robot.RobotConstants;
 import frc.robot.RobotConstants.MotionProfiling;
+import frc.robot.RobotConstants.RobotDimensions;
 import frc.robot.commands.DriveArcade;
 import frc.robot.sensors.Pigeon;
 import wpilibj.geometry.Pose2d;
@@ -105,11 +105,11 @@ public class Drivetrain extends Subsystem {
   }
 
   public double getRightDistance() {
-    return getRightTicks() / TICKS_PER_METER;
+    return getRightTicks() / RobotDimensions.RIGHT_TICKS_PER_METER;
   }
 
   public double getLeftDistance() {
-    return getLeftTicks() / TICKS_PER_METER;
+    return getLeftTicks() / RobotDimensions.LEFT_TICKS_PER_METER;
   }
 
   public double getAverageDistance() {
@@ -209,9 +209,12 @@ public class Drivetrain extends Subsystem {
   }
 
   public void resetOdometry(){
+    resetOdometry(new Pose2d(0,0, Rotation2d.fromDegrees(0)));
+  }
+  public void resetOdometry(Pose2d pose){
     resetEncoders();
     Rotation2d gyroAngle = Rotation2d.fromDegrees(getAngle());
-    odometry.resetPosition(new Pose2d(0,0, gyroAngle), gyroAngle);
+    odometry.resetPosition(pose, gyroAngle);
   }
 
   /**

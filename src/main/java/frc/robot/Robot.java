@@ -55,6 +55,7 @@ public class Robot extends TimedRobot {
     autonomousChooser.setDefaultOption("Default Auto", null);
     autonomousChooser.addOption("Right side auto", new SideAutonomous(false));
     autonomousChooser.addOption("Left side auto", new SideAutonomous(true));
+    autonomousChooser.addOption("Calibrate Feedforward", new CalibrateFeedForward());
 
     SmartDashboard.putData("Auto mode", autonomousChooser);
     SmartDashboard.putData("Calibrate Vision Distance", new CalibrateDistance(oi.driverXbox::getAButton));
@@ -71,7 +72,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Calibrate gyro", Commands.calibrateGyro());
     SmartDashboard.putData("reset gyro", Commands.resetGyro());
     SmartDashboard.putData("Side Auto", new SideAutonomous(true));
-    RamseteFollowPath ramseteFollowPath = new RamseteFollowPath(RamsetePath.THREE_METERS);
+    RamseteFollowPath ramseteFollowPath = new RamseteFollowPath(RamsetePath.RAMP_TO_ROCKET);
     ramseteFollowPath.enableTuning();
     SmartDashboard.putData("test Ramsete", ramseteFollowPath);
     SmartDashboard.putData("move lift", new MoveLiftWithJoystick(()->oi.driverXbox.getY(Hand.kLeft)));
@@ -92,8 +93,9 @@ public class Robot extends TimedRobot {
     dbc.addNumber("Left distance", drivetrain::getLeftDistance);
     dbc.addBoolean("Is Cargo collected ", cargoHolder::isCargoCollected);
     dbc.addNumber("Target Ts", limelight::getTs);
-    dbc.addNumber("Odometry x", drivetrain.getPose().getTranslation()::getX);
-    dbc.addNumber("Odometry y", drivetrain.getPose().getTranslation()::getY);
+    dbc.addNumber("Odometry x", ()->drivetrain.getPose().getTranslation().getX());
+    dbc.addNumber("Odometry y", ()->drivetrain.getPose().getTranslation().getY());
+    dbc.addNumber("Odometry omega", ()->drivetrain.getPose().getRotation().getDegrees());
 
     limelight.setCamMode(CamMode.vision);
     limelight.setLedMode(LedMode.on);
