@@ -20,7 +20,7 @@ import java.util.function.Supplier;
 
 import static frc.robot.Robot.drivetrain;
 
-public class RamseteFollow extends Command {
+public class RamseteFollowPath extends Command {
   private final Timer m_timer = new Timer();
   private final boolean m_usePID;
   private final Trajectory m_trajectory;
@@ -60,16 +60,16 @@ public class RamseteFollow extends Command {
    *                        outputs (in volts) for the robot drive.
    * @param requirement     The subsystems to require.
    */
-  public RamseteFollow(Trajectory trajectory,
-                       Supplier<Pose2d> pose,
-                       RamseteController controller,
-                       SimpleMotorFeedforward feedforward,
-                       DifferentialDriveKinematics kinematics,
-                       Supplier<DifferentialDriveWheelSpeeds> wheelSpeeds,
-                       PIDController leftController,
-                       PIDController rightController,
-                       BiConsumer<Double, Double> outputVolts,
-                       Subsystem requirement) {
+  public RamseteFollowPath(Trajectory trajectory,
+                           Supplier<Pose2d> pose,
+                           RamseteController controller,
+                           SimpleMotorFeedforward feedforward,
+                           DifferentialDriveKinematics kinematics,
+                           Supplier<DifferentialDriveWheelSpeeds> wheelSpeeds,
+                           PIDController leftController,
+                           PIDController rightController,
+                           BiConsumer<Double, Double> outputVolts,
+                           Subsystem requirement) {
     m_trajectory = trajectory;
     m_pose = pose;
     m_follower = controller;
@@ -85,7 +85,7 @@ public class RamseteFollow extends Command {
     requires(requirement);
   }
 
-  public RamseteFollow(RamsetePath path) {
+  public RamseteFollowPath(RamsetePath path) {
     this(path.getTrajectory(),
             drivetrain::getPose,
             new RamseteController(),
@@ -106,6 +106,7 @@ public class RamseteFollow extends Command {
     if(isTuning){
       m_leftController.setP(kpSupplier.get());
       m_rightController.setP(kpSupplier.get());
+      drivetrain.resetOdometry();
     }
     m_prevTime = 0;
     var initialState = m_trajectory.sample(0);

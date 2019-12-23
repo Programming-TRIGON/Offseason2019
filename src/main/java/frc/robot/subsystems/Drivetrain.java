@@ -208,6 +208,12 @@ public class Drivetrain extends Subsystem {
     return new DifferentialDriveWheelSpeeds(getLeftVelocity(), getRightVelocity());
   }
 
+  public void resetOdometry(){
+    resetEncoders();
+    Rotation2d gyroAngle = Rotation2d.fromDegrees(getAngle());
+    odometry.resetPosition(new Pose2d(0,0, gyroAngle), gyroAngle);
+  }
+
   /**
    * Returns the currently-estimated pose of the robot.
    *

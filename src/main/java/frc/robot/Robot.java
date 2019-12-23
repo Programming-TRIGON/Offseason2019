@@ -13,8 +13,7 @@ import frc.robot.autonomous.SideAutonomous;
 import frc.robot.command_group.CollectHatchFromFeeder;
 import frc.robot.command_group.PutHatch;
 import frc.robot.commands.*;
-import frc.robot.motionprofiling.PathCreator;
-import frc.robot.motionprofiling.RamseteFollow;
+import frc.robot.motionprofiling.RamseteFollowPath;
 import frc.robot.subsystems.CargoHolder;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.HatchHolder;
@@ -72,11 +71,12 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Calibrate gyro", Commands.calibrateGyro());
     SmartDashboard.putData("reset gyro", Commands.resetGyro());
     SmartDashboard.putData("Side Auto", new SideAutonomous(true));
-    RamseteFollow ramseteFollow = new RamseteFollow(RamsetePath.THREE_METERS);
-    ramseteFollow.enableTuning();
-    SmartDashboard.putData("test Ramsete", ramseteFollow);
+    RamseteFollowPath ramseteFollowPath = new RamseteFollowPath(RamsetePath.THREE_METERS);
+    ramseteFollowPath.enableTuning();
+    SmartDashboard.putData("test Ramsete", ramseteFollowPath);
     SmartDashboard.putData("move lift", new MoveLiftWithJoystick(()->oi.driverXbox.getY(Hand.kLeft)));
     SmartDashboard.putData("reset height", Commands.resetHeight());
+    SmartDashboard.putData("reset odometry", Commands.setRunWhenDisabled(drivetrain::resetOdometry));
 
     // dbc SmartDashboard values to display
     dbc.addNumber("Limelight distance", limelight::getDistance);
