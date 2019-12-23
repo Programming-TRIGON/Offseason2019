@@ -32,6 +32,7 @@ public class RamseteFollowPath extends Command {
   private final PIDController m_leftController;
   private final PIDController m_rightController;
   private final BiConsumer<Double, Double> m_output;
+  private boolean reversed;
   private DifferentialDriveWheelSpeeds m_prevSpeeds;
   private double m_prevTime;
   private Supplier<Double> kpSupplierLeft = ConstantHandler.addConstantDouble("Ramsete kp left", 0);
@@ -87,24 +88,31 @@ public class RamseteFollowPath extends Command {
   }
 
   public RamseteFollowPath(RamsetePath path) {
+    this(path, false);
+  }
+
+  public RamseteFollowPath(RamsetePath path, boolean isReversed) {
     this(path.getTrajectory(),
             drivetrain::getPose,
             new RamseteController(),
-            new SimpleMotorFeedforward(MotionProfiling.KS, MotionProfiling.KV, MotionProfiling.KA),
+            isReversed ?
+                    new SimpleMotorFeedforward(MotionProfiling.KS, MotionProfiling.KV, MotionProfiling.KA) :
+                    new SimpleMotorFeedforward(MotionProfiling.KS_REVERSE, MotionProfiling.KV_REVERSE, MotionProfiling.KA_REVERSE),
             drivetrain.getKinematics(),
             drivetrain::getWheelSpeeds,
-            new PIDController(MotionProfiling.MOTION_PROFILING_KP_TURN,0,0),
-            new PIDController(0,0,0),
+            new PIDController(isReversed ? MotionProfiling.KP : MotionProfiling.KP_REVERSE, 0, 0),
+            new PIDController(0, 0, 0),
             drivetrain::voltageTankDrive,
             drivetrain);
   }
-  public void enableTuning(){
+
+  public void enableTuning() {
     isTuning = true;
   }
 
   @Override
   public void initialize() {
-    if(isTuning){
+    if (isTuning) {
       m_leftController.setP(kpSupplierLeft.get());
       m_rightController.setP(kpSupplierRight.get());
       drivetrain.resetOdometry(m_trajectory.getInitialPose());

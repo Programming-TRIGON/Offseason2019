@@ -71,15 +71,14 @@ public class RobotConstants {
     public static final double KS_RIGHT = 0.221;
     public static final double KS_LEFT_REVERSE = 0.167;
     public static final double KS_RIGHT_REVERSE = 0.189;
-    //TODO: calibrate using frc characterization.
     public static final double KS = 0.153;
     public static final double KV = 2.41;
     public static final double KA = 0.205;
-    public static final double KP = 08.25;
-    public static final double KS_REVERSE = 0;
-    public static final double KV_REVERSE = 0;
-    public static final double KA_REVERSE = 0;
-    public static final double KP_REVERSE = 0;
+    public static final double KP = 1.717;
+    public static final double KS_REVERSE = 0.165;
+    public static final double KV_REVERSE = 2.37;
+    public static final double KA_REVERSE = 0.251;
+    public static final double KP_REVERSE = 1.717;
 
   }
 

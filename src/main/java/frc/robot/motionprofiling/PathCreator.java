@@ -1,5 +1,6 @@
 package frc.robot.motionprofiling;
 
+import frc.robot.Enums.Path;
 import frc.robot.Robot;
 import frc.robot.RobotConstants.MotionProfiling;
 import wpilibj.geometry.Pose2d;
@@ -25,6 +26,10 @@ public class PathCreator {
     config = new TrajectoryConfig(MotionProfiling.MAX_VELOCITY, MotionProfiling.MAX_ACCELERATION)
             .setKinematics(Robot.drivetrain.getKinematics())
             .addConstraint(new CentripetalAccelerationConstraint(1.5));
+  }
+  public PathCreator(boolean isReversed){
+    this();
+    config.setReversed(isReversed);
   }
 
   /**

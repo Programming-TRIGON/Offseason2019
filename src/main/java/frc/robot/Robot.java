@@ -72,7 +72,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Calibrate gyro", Commands.calibrateGyro());
     SmartDashboard.putData("reset gyro", Commands.resetGyro());
     SmartDashboard.putData("Side Auto", new SideAutonomous(true));
-    RamseteFollowPath ramseteFollowPath = new RamseteFollowPath(RamsetePath.RAMP_TO_ROCKET);
+    RamseteFollowPath ramseteFollowPath = new RamseteFollowPath(RamsetePath.BACK_FROM_ROCKET);
     ramseteFollowPath.enableTuning();
     SmartDashboard.putData("test Ramsete", ramseteFollowPath);
     SmartDashboard.putData("move lift", new MoveLiftWithJoystick(()->oi.driverXbox.getY(Hand.kLeft)));
