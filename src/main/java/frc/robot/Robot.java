@@ -95,7 +95,7 @@ public class Robot extends TimedRobot {
     dbc.addNumber("Target Ts", limelight::getTs);
     dbc.addNumber("Odometry x", ()->drivetrain.getPose().getTranslation().getX());
     dbc.addNumber("Odometry y", ()->drivetrain.getPose().getTranslation().getY());
-    dbc.addNumber("Odometry omega", ()->drivetrain.getPose().getRotation().getDegrees());
+    dbc.addNumber("Odometry theta", ()->drivetrain.getPose().getRotation().getDegrees());
 
     limelight.setCamMode(CamMode.vision);
     limelight.setLedMode(LedMode.on);
