@@ -105,10 +105,11 @@ public class Enums {
         kLow, kMedium, kHigh, kMediumGrossman
     }
 
-    public enum RamsetePath{
-        THREE_METERS(new Pose2d(0,0, Rotation2d.fromDegrees(0)),new Pose2d(3,0, Rotation2d.fromDegrees(0)));
+    public enum RamsetePath {
+        THREE_METERS(new Pose2d(0, 0, Rotation2d.fromDegrees(0)), new Pose2d(3, 0, Rotation2d.fromDegrees(0)));
         private final wpilibj.trajectory.Trajectory trajectory;
-        RamsetePath( Pose2d... waypoints){
+
+        RamsetePath(Pose2d... waypoints) {
             var creator = new PathCreator();
             trajectory = creator.generatePath(waypoints);
         }
