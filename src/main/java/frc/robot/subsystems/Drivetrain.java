@@ -63,7 +63,7 @@ public class Drivetrain extends Subsystem {
     drivetrain.setDeadband(0.0);
     angleOffset = ConstantHandler.addConstantDouble("angle offset", 0);
     kinematics = new DifferentialDriveKinematics(MotionProfiling.WHEEL_BASE_WIDTH);
-    odometry = new DifferentialDriveOdometry(new Rotation2d(Math.toRadians(getAngle())));
+    odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getAngle()));
   }
 
   public void arcadeDrive(double x, double y) {
@@ -79,7 +79,7 @@ public class Drivetrain extends Subsystem {
   }
 
   public double getAngle() {
-    return gyro.getAngle() + angleOffset.get();
+    return Math.IEEEremainder(gyro.getAngle() + angleOffset.get(), 360);
   }
 
   public void resetGyro() {
