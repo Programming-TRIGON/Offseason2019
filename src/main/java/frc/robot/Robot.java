@@ -78,6 +78,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("move lift", new MoveLiftWithJoystick(()->oi.driverXbox.getY(Hand.kLeft)));
     SmartDashboard.putData("reset height", Commands.resetHeight());
     SmartDashboard.putData("reset odometry", Commands.setRunWhenDisabled(drivetrain::resetOdometry));
+    SmartDashboard.putNumber("paths total time", RamsetePath.getTotalTime());
 
     // dbc SmartDashboard values to display
     dbc.addNumber("Limelight distance", limelight::getDistance);

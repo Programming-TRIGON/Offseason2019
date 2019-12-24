@@ -175,7 +175,6 @@ public class RamseteFollowPath extends Command {
 
   @Override
   public void end() {
-    m_output.accept(0.0, 0.0);
     m_timer.stop();
   }
 
