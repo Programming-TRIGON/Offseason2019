@@ -7,6 +7,8 @@ import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.Waypoint;
 import wpilibj.geometry.Pose2d;
 import wpilibj.geometry.Rotation2d;
+import wpilibj.geometry.Transform2d;
+import wpilibj.geometry.Translation2d;
 
 import java.io.File;
 import java.io.IOException;
@@ -107,24 +109,32 @@ public class Enums {
   }
 
   public enum RamsetePath {
-    THREE_METERS(new Pose2d(0, 0, Rotation2d.fromDegrees(0)), new Pose2d(3, 0, Rotation2d.fromDegrees(0))),
-    ARC(new Pose2d(0, 0, Rotation2d.fromDegrees(0)), new Pose2d(2.5, -1, Rotation2d.fromDegrees(-90))),
-    RAMP_TO_ROCKET(new Pose2d(0, 0, Rotation2d.fromDegrees(0)), new Pose2d(2.623396042364249, 2.0651822621668573, Rotation2d.fromDegrees(28.652343749999996))),
-    BACK_FROM_ROCKET(true, new Pose2d(3.282379856385174, 2.5289245057633853, Rotation2d.fromDegrees(28.300781249999996)), new Pose2d(3.512906827312169, 1.1332474791507943, Rotation2d.fromDegrees(137.28515625))),
-    ROCKET_TO_FEEDER(new Pose2d(3.512906827312169, 1.1332474791507943, Rotation2d.fromDegrees(137.28515625)), new Pose2d(0.3634335981791645, 2.8373304156691284, Rotation2d.fromDegrees(174.11132812500003))),
-    FEEDER_TO_ROCKET(true, new Pose2d(-1.044983937074417, 2.6828109756503835, Rotation2d.fromDegrees(177.36328125)), new Pose2d(4.029053231536901, 1.7525754603834531, Rotation2d.fromDegrees(166.37695312500003)), new Pose2d(5.8037309773561665, 2.3106970679689245, Rotation2d.fromDegrees(148.2275390625))),
-    BACK_FROM_FAR_SIDE(true, new Pose2d(4.97321554891652, 2.790741747396888, Rotation2d.fromDegrees(146.689453125)), new Pose2d(5.379935531237157, 2.4028534888525934, Rotation2d.fromDegrees(90.62402343750003)), new Pose2d(3.974053846730245, 1.6916910223164185, Rotation2d.fromDegrees(-1.4062500000000002)));
+    THREE_METERS(waypoint(0, 0, 0), waypoint(3, 0, 0)),
+    ARC(waypoint(0, 0, 0), waypoint(2.5, -1, -90)),
+    RAMP_TO_ROCKET(waypoint(0, 0, 0), waypoint(2.623396042364249, 2.0051822621668573, 30)),
+    BACK_FROM_ROCKET(true, waypoint(3.282379856385174, 2.5289245057633853, 28.300781249999996), waypoint(3.512906827312169, 1.1332474791507943, 137.28515625)),
+    ROCKET_TO_FEEDER(waypoint(3.512906827312169, 1.1332474791507943, 137.28515625), waypoint(0.3634335981791645, 2.8373304156691284, 174.11132812500003)),
+    FEEDER_TO_ROCKET(true, waypoint(-1.044983937074417, 2.6828109756503835, 177.36328125), waypoint(4.029053231536901, 1.7525754603834531, 166.37695312500003), waypoint(5.8037309773561665, 2.3106970679689245, 148.2275390625)),
+    BACK_FROM_FAR_SIDE(true, waypoint(4.97321554891652, 2.790741747396888, 146.689453125), waypoint(5.379935531237157, 2.4028534888525934, 90.62402343750003), waypoint(3.974053846730245, 1.6916910223164185, -1.4062500000000002));
+
+    private static Pose2d waypoint(double x, double y, double theta) {
+      return new Pose2d(x, y, Rotation2d.fromDegrees(theta));
+    }
 
     private final wpilibj.trajectory.Trajectory trajectory;
 
     RamsetePath(Pose2d... waypoints) {
-      var creator = new PathCreator(false);
-      trajectory = creator.generatePath(waypoints);
+      this(false, waypoints);
     }
 
     RamsetePath(boolean isReversed, Pose2d... waypoints) {
       var creator = new PathCreator(isReversed);
-      trajectory = creator.generatePath(waypoints);
+      System.out.println(this.name());
+      trajectory = creator.generatePath(waypoints).transformBy(new Transform2d(new Translation2d(1.58,0.70),Rotation2d.fromDegrees(0)));
+      for (Pose2d waypoint: waypoints) {
+        Pose2d transformed = waypoint.transformBy(new Transform2d(new Translation2d(1.58, 0.70), Rotation2d.fromDegrees(0)));
+        System.out.println(transformed.getTranslation().getX()+", " +transformed.getTranslation().getY());
+      }
     }
 
     public wpilibj.trajectory.Trajectory getTrajectory() {
