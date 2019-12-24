@@ -7,7 +7,7 @@ import frc.robot.Robot;
  * this class calculates the position of the robot from a target using vision and gyro
  */
 public class VisionLocator {
-  private final Target target;
+  private Target target;
 
   public VisionLocator(Target target) {
     this.target = target;
@@ -16,8 +16,16 @@ public class VisionLocator {
   public double calculateXDisplacement() {
     //calculations are from CAV conference.
     if (Robot.limelight.getTv()) {
-      double betaAngle = Robot.drivetrain.getAngle() - target.getAbsoluteAngle() - 180 + Robot.limelight.getTx();
+      double betaAngle = getBeta();
       return Robot.limelight.getDistance() * Math.sin(betaAngle);
+    }
+    return 0;
+  }
+
+  public double getBeta() {
+    //calculations are from CAV conference.
+    if (Robot.limelight.getTv()) {
+      return Robot.drivetrain.getAngle() - target.getAbsoluteAngle() + Robot.limelight.getTx();
     }
     return 0;
   }

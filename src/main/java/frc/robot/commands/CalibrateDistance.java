@@ -15,7 +15,7 @@ public class CalibrateDistance extends Command {
     private Logger logger;
 
     public CalibrateDistance(Supplier<Boolean> wantToLog) {
-        this(wantToLog, 15);
+        this(wantToLog, 30);
     }
 
     public CalibrateDistance(Supplier<Boolean> wantToLog, double deltaDistance) {

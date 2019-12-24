@@ -82,10 +82,10 @@ public class FollowTarget extends Command {
 
     @Override
     protected void execute() {
-        if (isChasing || !DriverStation.getInstance().isAutonomous())
+//        if (isChasing || !DriverStation.getInstance().isAutonomous())
             executeChase();
-        else
-            executeMinimizeX();
+//        else
+            //executeMinimizeX();
     }
 
     private void executeMinimizeX() {

@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Enums.Target;
 import frc.robot.autonomous.SideAutonomous;
 import frc.robot.command_group.CollectHatchFromFeeder;
 import frc.robot.command_group.PutHatch;
@@ -23,6 +24,7 @@ import frc.robot.testpids.TestPIDMotionProfiling;
 import frc.robot.utils.Limelight;
 import frc.robot.utils.Limelight.CamMode;
 import frc.robot.utils.Limelight.LedMode;
+import frc.robot.utils.VisionLocator;
 
 public class Robot extends TimedRobot {
   public static OI oi;
@@ -89,6 +91,9 @@ public class Robot extends TimedRobot {
     dbc.addNumber("Left distance", drivetrain::getLeftDistance);
     dbc.addBoolean("Is Cargo collected ", cargoHolder::isCargoCollected);
     dbc.addNumber("Target Ts", limelight::getTs);
+    var visionLocator = new VisionLocator(Target.CLOSE_LEFT_ROCKET);
+    dbc.addNumber("Vision xDisplacement", visionLocator::calculateXDisplacement);
+    dbc.addNumber("Vision beta", visionLocator::getBeta);
 
     limelight.setCamMode(CamMode.vision);
     limelight.setLedMode(LedMode.on);

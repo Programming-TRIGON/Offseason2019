@@ -16,6 +16,8 @@ public class RobotConstants {
      */
     public static final double CARGO_LIFT_OFFSET = 0;
     public static final double HATCH_LIFT_OFFSET = 48;
+    public static final double LIMELIGHT_OFFSET_X = 0.1;
+    public static final double LIMELIGHT_OFFSET_Y = 0.1;
   }
 
   // TODO: set configure pid settings

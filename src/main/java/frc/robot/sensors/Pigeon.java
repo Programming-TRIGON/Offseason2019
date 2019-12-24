@@ -32,7 +32,7 @@ public class Pigeon extends PigeonIMU implements Gyro, PIDSource {
 
   public double getYaw() {
     getYawPitchRoll(yawPitchRoll);
-    return -yawPitchRoll[0];
+    return yawPitchRoll[0];
   }
 
   /**
