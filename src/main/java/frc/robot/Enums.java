@@ -7,8 +7,6 @@ import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.Waypoint;
 import wpilibj.geometry.Pose2d;
 import wpilibj.geometry.Rotation2d;
-import wpilibj.geometry.Transform2d;
-import wpilibj.geometry.Translation2d;
 
 import java.io.File;
 import java.io.IOException;
@@ -109,11 +107,11 @@ public class Enums {
   }
 
   public enum RamsetePath {
-//    THREE_METERS(waypoint(0, 0, 0), waypoint(3, 0, 0)),
+    //    THREE_METERS(waypoint(0, 0, 0), waypoint(3, 0, 0)),
 //    ARC(waypoint(0, 0, 0), waypoint(2.5, -1, -90)),
-    RAMP_TO_ROCKET(waypoint(0, 0, 0), waypoint(2.623396042364249, 2.0051822621668573, 28.6523437499)),
+    RAMP_TO_ROCKET(false, 1, waypoint(0, 0, 0), waypoint(2.623396042364249, 2.0051822621668573, 28.6523437499)),
     BACK_FROM_ROCKET(true, waypoint(3.282379856385174, 2.5289245057633853, 28.300781249999996), waypoint(2.806802046228207, 1.9217120230181866, 92.548828125)),
-    ROCKET_TO_FEEDER(waypoint(2.806802046228207, 1.9217120230181866, 92.548828125), waypoint(0.3634335981791645, 2.8373304156691284, 174.11132812500003)),
+    ROCKET_TO_FEEDER(false, 1, waypoint(2.806802046228207, 1.9217120230181866, 92.548828125), waypoint(0.3634335981791645, 2.8373304156691284, 174.11132812500003)),
     FEEDER_TO_ROCKET(true, waypoint(-1.044983937074417, 2.6828109756503835, 177.36328125), waypoint(4.029053231536901, 1.7525754603834531, 166.37695312500003), waypoint(5.8037309773561665, 2.3106970679689245, 148.2275390625)),
     BACK_FROM_FAR_SIDE(true, waypoint(4.97321554891652, 2.790741747396888, 146.689453125), waypoint(5.379935531237157, 2.4028534888525934, 90.62402343750003), waypoint(3.974053846730245, 1.7916910223164185, -1.4062500000000002));
 
@@ -128,7 +126,12 @@ public class Enums {
     }
 
     RamsetePath(boolean isReversed, Pose2d... waypoints) {
+      this(isReversed, 0, waypoints);
+    }
+
+    RamsetePath(boolean isReversed, double endVelocity, Pose2d... waypoints) {
       var creator = new PathCreator(isReversed);
+      creator.setEndVelocity(endVelocity);
       trajectory = creator.generatePath(waypoints);
       System.out.println(this.name() + " time: " + trajectory.getTotalTimeSeconds());
     }

@@ -46,4 +46,7 @@ public class PathCreator {
     return TrajectoryGenerator.generateTrajectory(Arrays.asList(waypoints), config);
   }
 
+  public void setEndVelocity(double endVelocity) {
+    config.setEndVelocity(endVelocity);
+  }
 }
