@@ -9,7 +9,7 @@ public class DriveArcade extends Command {
   private Supplier<Double> x, y;
   private static final double SENSITIVITY = 1;
   private static final double THRESHOLD = 0.5;
-  private static final double DEADBAND = 0.095;
+  private static final double DEADBAND = 0.2;
 
   public DriveArcade(Supplier<Double> x, Supplier<Double> y) {
     requires(Robot.drivetrain);
@@ -19,8 +19,8 @@ public class DriveArcade extends Command {
 
   public DriveArcade(Supplier<Double> x, Supplier<Double> forward, Supplier<Double> reverse) {
     requires(Robot.drivetrain);
-    this.x = () -> xRootFunction(x.get());
-    this.y = () -> rootFunction(forward.get() - reverse.get());
+    this.x = () -> calculateDeadband(xRootFunction(x.get()));
+    this.y = () -> calculateDeadband(rootFunction(forward.get() - reverse.get()));
   }
 
 

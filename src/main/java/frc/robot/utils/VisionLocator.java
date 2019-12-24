@@ -17,7 +17,7 @@ public class VisionLocator {
     //calculations are from CAV conference.
     if (Robot.limelight.getTv()) {
       double betaAngle = getBeta();
-      return Robot.limelight.getDistance() * Math.sin(betaAngle);
+      return Robot.limelight.getDistance() * Math.sin(Math.toRadians(betaAngle));
     }
     return 0;
   }

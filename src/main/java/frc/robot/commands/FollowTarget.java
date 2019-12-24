@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import com.spikes2212.dashboard.ConstantHandler;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSource;
@@ -16,10 +17,12 @@ import frc.robot.utils.Limelight.CamMode;
 import frc.robot.utils.Limelight.LedMode;
 import frc.robot.utils.VisionLocator;
 
+import java.util.function.Supplier;
+
 public class FollowTarget extends Command {
     //TODO: change MIN_X_DISPLACEMENT_TO_CHASE and DEFAULT_Y_POWER.
     private static final double MIN_X_DISPLACEMENT_TO_CHASE = 5.0;
-    private static final double DEFAULT_Y_POWER = 0.2;
+    private static final double DEFAULT_Y_POWER = -0.2;
     private double lastTimeOnTarget;
     private Target target;
     private PIDController pidControllerY, pidControllerX;
@@ -28,6 +31,8 @@ public class FollowTarget extends Command {
     private double xOutput, yOutput;
     private boolean closeToTarget;
     private boolean isChasing;
+    private double xDisplacamentP;
+    private Supplier<Double> pSupplier = ConstantHandler.addConstantDouble("vision x kp", 0);
 
     /**
      * @param target       The target to follow.
@@ -51,6 +56,7 @@ public class FollowTarget extends Command {
 
     @Override
     protected void initialize() {
+        xDisplacamentP = pSupplier.get();
         // setting PID X values
         PIDSource visionPIDSourceX = new VisionPIDSourceX();
         PIDSource visionPIDSourceY = new VisionPIDSourceY();
@@ -82,19 +88,23 @@ public class FollowTarget extends Command {
 
     @Override
     protected void execute() {
-//        if (isChasing || !DriverStation.getInstance().isAutonomous())
+        if (isChasing /*|| !DriverStation.getInstance().isAutonomous()*/)
             executeChase();
-//        else
-            //executeMinimizeX();
+        else
+            executeMinimizeX();
     }
 
     private void executeMinimizeX() {
-        if (!Robot.limelight.getTv()) {
+        if (Robot.limelight.getTv()) {
             double xDisplacement = visionLocator.calculateXDisplacement();
-            double rotationPower = RobotPIDSettings.KP_X_DISPLACEMENT * xDisplacement;
-            Robot.drivetrain.arcadeDrive(rotationPower, DEFAULT_Y_POWER);
+            double rotationPower = xDisplacamentP * xDisplacement;
+            lastTimeOnTarget = Timer.getFPGATimestamp();
             if (Math.abs(xDisplacement) < MIN_X_DISPLACEMENT_TO_CHASE) {
                 isChasing = true;
+            }
+            else {
+                System.out.println("x: " +rotationPower);
+                Robot.drivetrain.arcadeDrive(rotationPower, DEFAULT_Y_POWER);
             }
         }
         else
@@ -121,6 +131,7 @@ public class FollowTarget extends Command {
 
     @Override
     protected void end() {
+        System.out.println("finished");
         pidControllerX.disable();
         pidControllerY.disable();
         pidControllerX.close();
