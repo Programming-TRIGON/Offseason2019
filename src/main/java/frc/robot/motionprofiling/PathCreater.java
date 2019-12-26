@@ -2,7 +2,6 @@ package frc.robot.motionprofiling;
 
 import java.io.File;
 import frc.robot.RobotConstants;
-import frc.robot.Enums.Path;
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
 

@@ -3,11 +3,11 @@ package frc.robot.motionprofiling;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Enums.Path;
 import frc.robot.PidSettings;
 import frc.robot.Robot;
 import frc.robot.RobotConstants;
 import frc.robot.RobotConstants.MotionProfiling;
+import frc.robot.enums.Path;
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.followers.EncoderFollower;
 

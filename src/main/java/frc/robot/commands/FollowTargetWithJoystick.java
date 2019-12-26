@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.*;
-import frc.robot.Enums.Target;
+import frc.robot.enums.Target;
 import frc.robot.pidsources.VisionPIDSourceX;
 import frc.robot.utils.Limelight.CamMode;
 

@@ -1,7 +1,7 @@
 package frc.robot.motionprofiling;
 
 import frc.robot.RobotConstants;
-import frc.robot.Enums.Path;
+import frc.robot.enums.Path;
 import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.modifiers.TankModifier;
 

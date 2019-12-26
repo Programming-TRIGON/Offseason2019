@@ -4,7 +4,7 @@ import java.util.function.Supplier;
 import com.spikes2212.dashboard.ConstantHandler;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.PidSettings;
-import frc.robot.Enums.Path;
+import frc.robot.enums.Path;
 import frc.robot.motionprofiling.FollowPath;
 
 public class TestPIDMotionProfiling extends Command {

@@ -5,8 +5,8 @@ import com.spikes2212.dashboard.ConstantHandler;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.PidSettings;
-import frc.robot.Enums.Target;
 import frc.robot.commands.FollowTarget;
+import frc.robot.enums.Target;
 
 public class TestPIDVision extends Command {
   private Supplier<Double> KP = ConstantHandler.addConstantDouble("KP", 0.0);

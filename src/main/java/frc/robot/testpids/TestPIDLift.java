@@ -5,8 +5,8 @@ import com.spikes2212.dashboard.ConstantHandler;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.PidSettings;
-import frc.robot.Enums.LiftHeights;
 import frc.robot.commands.SetLiftHeight;
+import frc.robot.enums.LiftHeights;
 
 public class TestPIDLift extends Command {
   private Supplier<Double> KP = ConstantHandler.addConstantDouble("KP_lift", 0.0);
