@@ -1,6 +1,8 @@
 package frc.robot.commands;
 
 import com.spikes2212.dashboard.ConstantHandler;
+
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSource;
@@ -24,6 +26,7 @@ public class FollowTarget extends Command {
     private static final double MIN_X_DISPLACEMENT_TO_CHASE = 5.0;
     private static final double DEFAULT_Y_POWER = -0.2;
     private double lastTimeOnTarget;
+    private double ledsWaitTime;
     private Target target;
     private PIDController pidControllerY, pidControllerX;
     private PidSettings pidSettingsY, pidSettingsX;
@@ -83,7 +86,9 @@ public class FollowTarget extends Command {
 
         pidControllerX.enable();
         pidControllerY.enable();
+        ledsWaitTime = 0;
         isChasing = false;
+        NetworkTableInstance.getDefault().flush();
     }
 
     @Override
@@ -95,7 +100,7 @@ public class FollowTarget extends Command {
     }
 
     private void executeMinimizeX() {
-        if (Robot.limelight.getTv()) {
+        if (Robot.limelight.getTv() && timeSinceInitialized() > ledsWaitTime) {
             double xDisplacement = visionLocator.calculateXDisplacement();
             double rotationPower = xDisplacamentP * xDisplacement;
             lastTimeOnTarget = Timer.getFPGATimestamp();
@@ -114,7 +119,7 @@ public class FollowTarget extends Command {
 
     private void executeChase() {
         // if it sees a target it will do PID on the x axis else it won't move
-        if (Robot.limelight.getTv()) {
+        if (Robot.limelight.getTv() && timeSinceInitialized() > ledsWaitTime) {
             Robot.drivetrain.arcadeDrive(xOutput, yOutput - 0.025);
             lastTimeOnTarget = Timer.getFPGATimestamp();
         } else {
@@ -137,6 +142,8 @@ public class FollowTarget extends Command {
         pidControllerX.close();
         pidControllerY.close();
         Robot.drivetrain.arcadeDrive(0, 0);
+        Robot.limelight.setCamMode(CamMode.driver);
+        Robot.limelight.setLedMode(LedMode.off);
     }
 
     @Override

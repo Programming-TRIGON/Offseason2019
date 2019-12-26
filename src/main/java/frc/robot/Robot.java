@@ -95,8 +95,8 @@ public class Robot extends TimedRobot {
     dbc.addNumber("Vision xDisplacement", visionLocator::calculateXDisplacement);
     dbc.addNumber("Vision beta", visionLocator::getBeta);
 
-    limelight.setCamMode(CamMode.vision);
-    limelight.setLedMode(LedMode.on);
+    limelight.setCamMode(CamMode.driver);
+    limelight.setLedMode(LedMode.off);
   }
   
   @Override

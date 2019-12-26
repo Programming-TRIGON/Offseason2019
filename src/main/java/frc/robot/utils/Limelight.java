@@ -154,7 +154,7 @@ public class Limelight {
      * @param ledMode the mode to be changed to.
      */
     public void setLedMode(LedMode ledMode) {
-        this.ledMode.setNumber(ledMode.getValue());
+        System.out.println(this.ledMode.setNumber(ledMode.getValue()));
     }
 
     /**
