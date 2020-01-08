@@ -1,6 +1,5 @@
 package frc.robot;
 
-import com.spikes2212.dashboard.DashBoardController;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
@@ -17,9 +16,6 @@ import frc.robot.subsystems.CargoHolder;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.HatchHolder;
 import frc.robot.subsystems.Lift;
-import frc.robot.testpids.TestPIDVision;
-import frc.robot.testpids.TestPIDGyro;
-import frc.robot.testpids.TestPIDMotionProfiling;
 import frc.robot.utils.Limelight;
 import frc.robot.utils.Limelight.CamMode;
 import frc.robot.utils.Limelight.LedMode;
@@ -34,7 +30,6 @@ public class Robot extends TimedRobot {
   public static Limelight limelight;
   private Command autonomousCommand;
   private SendableChooser<Command> autonomousChooser;
-  private DashBoardController dbc;
 
   @Override
   public void robotInit() {
@@ -49,7 +44,6 @@ public class Robot extends TimedRobot {
     oi = new OI(true);
     pathCreater = new PathCreater();
     limelight = new Limelight();
-    dbc = new DashBoardController();
 
     autonomousChooser = new SendableChooser<Command>();
     
@@ -59,9 +53,6 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putData("Auto mode", autonomousChooser);
     SmartDashboard.putData("Calibrate Vision Distance", new CalibrateDistance(oi.driverXbox::getAButton));
-    SmartDashboard.putData("Test PID vision", new TestPIDVision());
-    SmartDashboard.putData("test PID Turn", new TestPIDGyro());
-    SmartDashboard.putData("test PID motion profiling", new TestPIDMotionProfiling());
     SmartDashboard.putData("clearPreferences", Commands.setRunWhenDisabled(Preferences.getInstance()::removeAll));
     SmartDashboard.putData("limelight toggle", Commands.setRunWhenDisabled(limelight::toggleLedMode));
     SmartDashboard.putData("Auto hatch feeder collection", new CollectHatchFromFeeder());
@@ -76,19 +67,6 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("reset height", Commands.resetHeight());
 
     // dbc SmartDashboard values to display
-    dbc.addNumber("Limelight distance", limelight::getDistance);
-    dbc.addNumber("Robot angle", drivetrain::getAngle);
-    dbc.addNumber("Lift height", lift::getHeight);
-    dbc.addNumber("Right encoder ticks", drivetrain::getRightTicks);
-    dbc.addNumber("Left encoder ticks", drivetrain::getLeftTicks);
-    dbc.addNumber("Right velocity", drivetrain::getRightVelocity);
-    dbc.addNumber("Left velocity", drivetrain::getLeftVelocity);
-    dbc.addNumber("Right acceleration", drivetrain::getRightAcceleration);
-    dbc.addNumber("Left acceleration", drivetrain::getLeftAcceleration);
-    dbc.addNumber("Right distance", drivetrain::getRightDistance);
-    dbc.addNumber("Left distance", drivetrain::getLeftDistance);
-    dbc.addBoolean("Is Cargo collected ", cargoHolder::isCargoCollected);
-    dbc.addNumber("Target Ts", limelight::getTs);
 
     limelight.setCamMode(CamMode.vision);
     limelight.setLedMode(LedMode.on);
@@ -96,7 +74,6 @@ public class Robot extends TimedRobot {
   
   @Override
   public void robotPeriodic() {
-    dbc.update();
   }
 
   @Override

@@ -4,13 +4,11 @@ import java.util.function.Supplier;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
-import com.spikes2212.dashboard.ConstantHandler;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotComponents;
 import frc.robot.RobotConstants;
@@ -52,7 +50,6 @@ public class Drivetrain extends Subsystem {
     this.rightEncoder = RobotComponents.Drivetrain.ENCODER_RIGHT;
     this.leftEncoder = RobotComponents.CargoCollector.HOLDER_MOTOR;
     drivetrain.setDeadband(0.0);
-    angleOffset = ConstantHandler.addConstantDouble("angle offset", 0);
   }
 
   public void arcadeDrive(double x, double y) {
