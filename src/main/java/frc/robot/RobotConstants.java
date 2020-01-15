@@ -16,6 +16,8 @@ public class RobotConstants {
      */
     public static final double CARGO_LIFT_OFFSET = 0;
     public static final double HATCH_LIFT_OFFSET = 48;
+    public static final double RIGHT_TICKS_PER_METER = 13484.0;
+    public static final double LEFT_TICKS_PER_METER = 13318.0;
   }
 
   // TODO: set configure pid settings
@@ -48,8 +50,8 @@ public class RobotConstants {
     public static final double WHEEL_BASE_WIDTH = 0.623;
     public static final double TIMEFRAME = 0.02;
 
-    public static final double MAX_VELOCITY = 2.5;
-    public static final double MAX_ACCELERATION = 1.5;
+    public static final double MAX_VELOCITY = 2.7;
+    public static final double MAX_ACCELERATION = 1.7;
     public static final double MAX_JERK = 80;
 
     public static final PidSettings MOTION_PROFILING_PID_SETTINGS_LEFT = new PidSettings(0.15, 0.1, 2.4, 0.166);
@@ -69,6 +71,15 @@ public class RobotConstants {
     public static final double KS_RIGHT = 0.221;
     public static final double KS_LEFT_REVERSE = 0.167;
     public static final double KS_RIGHT_REVERSE = 0.189;
+    public static final double KS = 0.151;
+    public static final double KV = 2.36;
+    public static final double KA = 0.307;
+    public static final double KP = 2.2;
+    public static final double KS_REVERSE = 0.143;
+    public static final double KV_REVERSE = 2.37;
+    public static final double KA_REVERSE = 0.33;
+    public static final double KP_REVERSE = 2.2;
+
   }
 
   public static class Vision {

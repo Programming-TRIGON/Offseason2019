@@ -8,11 +8,12 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Enums.RamsetePath;
 import frc.robot.autonomous.SideAutonomous;
 import frc.robot.command_group.CollectHatchFromFeeder;
 import frc.robot.command_group.PutHatch;
 import frc.robot.commands.*;
-import frc.robot.motionprofiling.PathCreater;
+import frc.robot.motionprofiling.RamseteFollowPath;
 import frc.robot.subsystems.CargoHolder;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.HatchHolder;
@@ -26,7 +27,6 @@ import frc.robot.utils.Limelight.LedMode;
 
 public class Robot extends TimedRobot {
   public static OI oi;
-  public static PathCreater pathCreater;
   public static CargoHolder cargoHolder;
   public static Drivetrain drivetrain;
   public static Lift lift;
@@ -47,7 +47,6 @@ public class Robot extends TimedRobot {
     hatchHolder = new HatchHolder();
     // Utils:
     oi = new OI(true);
-    pathCreater = new PathCreater();
     limelight = new Limelight();
     dbc = new DashBoardController();
 
@@ -56,6 +55,7 @@ public class Robot extends TimedRobot {
     autonomousChooser.setDefaultOption("Default Auto", null);
     autonomousChooser.addOption("Right side auto", new SideAutonomous(false));
     autonomousChooser.addOption("Left side auto", new SideAutonomous(true));
+    autonomousChooser.addOption("Calibrate Feedforward", new CalibrateFeedForward());
 
     SmartDashboard.putData("Auto mode", autonomousChooser);
     SmartDashboard.putData("Calibrate Vision Distance", new CalibrateDistance(oi.driverXbox::getAButton));
@@ -72,8 +72,13 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Calibrate gyro", Commands.calibrateGyro());
     SmartDashboard.putData("reset gyro", Commands.resetGyro());
     SmartDashboard.putData("Side Auto", new SideAutonomous(true));
+    RamseteFollowPath ramseteFollowPath = new RamseteFollowPath(RamsetePath.RAMP_TO_ROCKET);
+    ramseteFollowPath.enableTuning();
+    SmartDashboard.putData("test Ramsete", ramseteFollowPath);
     SmartDashboard.putData("move lift", new MoveLiftWithJoystick(()->oi.driverXbox.getY(Hand.kLeft)));
     SmartDashboard.putData("reset height", Commands.resetHeight());
+    SmartDashboard.putData("reset odometry", Commands.setRunWhenDisabled(drivetrain::resetOdometry));
+    SmartDashboard.putNumber("paths total time", RamsetePath.getTotalTime());
 
     // dbc SmartDashboard values to display
     dbc.addNumber("Limelight distance", limelight::getDistance);
@@ -89,6 +94,9 @@ public class Robot extends TimedRobot {
     dbc.addNumber("Left distance", drivetrain::getLeftDistance);
     dbc.addBoolean("Is Cargo collected ", cargoHolder::isCargoCollected);
     dbc.addNumber("Target Ts", limelight::getTs);
+    dbc.addNumber("Odometry x", ()->drivetrain.getPose().getTranslation().getX());
+    dbc.addNumber("Odometry y", ()->drivetrain.getPose().getTranslation().getY());
+    dbc.addNumber("Odometry theta", ()->drivetrain.getPose().getRotation().getDegrees());
 
     limelight.setCamMode(CamMode.vision);
     limelight.setLedMode(LedMode.on);
